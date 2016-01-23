@@ -2,6 +2,7 @@ package yousei;
 
 import java.io.FileReader;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.eclipse.cdt.core.dom.ast.IASTTranslationUnit;
 import org.eclipse.cdt.core.dom.ast.gnu.c.GCCLanguage;
@@ -14,6 +15,9 @@ import org.eclipse.cdt.core.parser.IScannerInfo;
 import org.eclipse.cdt.core.parser.IncludeFileContentProvider;
 import org.eclipse.cdt.core.parser.ScannerInfo;
 //import org.eclipse.*;
+/**
+ * @author s-sumi
+ */
 public class CppSourceAnalyzer {
 	public String filePath;
 	public String classPath;
@@ -51,6 +55,10 @@ public class CppSourceAnalyzer {
 		IASTTranslationUnit translationUnit = language.getASTTranslationUnit(reader, scanInfo, fileCreator, index, options, log);
 		CppSourceVisitor cppSourceVisitor=new CppSourceVisitor();
 		translationUnit.accept(cppSourceVisitor);
+		for(Entry<String, Integer> o:cppSourceVisitor.counter.entrySet()){
+			System.out.println(o.getKey()+" , "+o.getValue());
+		}
+		
 		return new int[2];
 	}
 	public void setFilePath(String filePath) {
