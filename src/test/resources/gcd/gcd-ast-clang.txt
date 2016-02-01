@@ -1,0 +1,956 @@
+TranslationUnitDecl 0xca72c0 <<invalid sloc>> <invalid sloc>
+|-TypedefDecl 0xca77c0 <<invalid sloc>> <invalid sloc> implicit __int128_t '__int128'
+|-TypedefDecl 0xca7828 <<invalid sloc>> <invalid sloc> implicit __uint128_t 'unsigned __int128'
+|-TypedefDecl 0xca78b8 <<invalid sloc>> <invalid sloc> implicit referenced __builtin_va_list 'char *'
+|-TypedefDecl 0xca7920 <C:\Program Files\LLVM\bin\..\lib\clang\3.7.1\include\stddef.h:62:1, col:23> col:23 referenced size_t 'unsigned long long'
+|-TypedefDecl 0xca7988 <line:90:1, col:24> col:24 referenced wchar_t 'unsigned short'
+|-TypedefDecl 0xca79f0 <line:132:1, col:23> col:23 referenced wint_t 'int'
+|-TypedefDecl 0xca7a70 <C:\Program Files\LLVM\bin\..\lib\clang\3.7.1\include\stdarg.h:30:1, col:27> col:27 va_list '__builtin_va_list':'char *'
+|-TypedefDecl 0xca7ad0 <line:50:1, col:27> col:27 referenced __gnuc_va_list '__builtin_va_list':'char *'
+|-RecordDecl 0xca7b20 <C:\MinGW\include\stdio.h:130:9, line:140:1> line:130:16 struct _iobuf definition
+| |-FieldDecl 0xca7be0 <line:132:2, col:8> col:8 referenced _ptr 'char *'
+| |-FieldDecl 0xca7c48 <line:133:2, col:6> col:6 referenced _cnt 'int'
+| |-FieldDecl 0xca7ca8 <line:134:2, col:8> col:8 _base 'char *'
+| |-FieldDecl 0xca7d10 <line:135:2, col:6> col:6 _flag 'int'
+| |-FieldDecl 0xca7d78 <line:136:2, col:6> col:6 _file 'int'
+| |-FieldDecl 0xca7de0 <line:137:2, col:6> col:6 _charbuf 'int'
+| |-FieldDecl 0xca7e48 <line:138:2, col:6> col:6 _bufsiz 'int'
+| `-FieldDecl 0xca7ea8 <line:139:2, col:8> col:8 _tmpfname 'char *'
+|-TypedefDecl 0xca7f50 <line:130:1, line:140:3> col:3 referenced FILE 'struct _iobuf':'struct _iobuf'
+|-VarDecl 0x2ec3158 <C:\MinGW\include\_mingw.h:192:28, C:\MinGW\include\stdio.h:155:26> col:21 used _iob 'FILE []' extern
+| `-DLLImportAttr 0x2ec31b8 <C:\MinGW\include\_mingw.h:192:51>
+|-FunctionDecl 0x2ec3498 <C:\MinGW\include\stdio.h:168:9, col:70> col:39 used fopen 'FILE *(const char *, const char *) __attribute__((cdecl))':'FILE *(const char *, const char *)'
+| |-ParmVarDecl 0x2ec3268 <col:46, col:56> col:57 'const char *'
+| |-ParmVarDecl 0x2ec32d8 <col:59, col:69> col:70 'const char *'
+| `-NoThrowAttr 0x2ec3558 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2ec3800 <C:\MinGW\include\stdio.h:169:9, col:79> col:39 freopen 'FILE *(const char *, const char *, FILE *) __attribute__((cdecl))':'FILE *(const char *, const char *, FILE *)'
+| |-ParmVarDecl 0x2ec35a0 <col:48, col:58> col:59 'const char *'
+| |-ParmVarDecl 0x2ec3610 <col:61, col:71> col:72 'const char *'
+| |-ParmVarDecl 0x2ec3680 <col:74, col:78> col:79 'FILE *'
+| `-NoThrowAttr 0x2ec38c8 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2ec3a68 <C:\MinGW\include\stdio.h:170:9, col:50> col:37 fflush 'int (FILE *) __attribute__((cdecl))':'int (FILE *)'
+| |-ParmVarDecl 0x2ec3910 <col:45, col:49> col:50 'FILE *'
+| `-NoThrowAttr 0x2ec3b20 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2ec3c10 <C:\MinGW\include\stdio.h:171:9, col:50> col:37 fclose 'int (FILE *) __attribute__((cdecl))':'int (FILE *)'
+| |-ParmVarDecl 0x2ec3b68 <col:45, col:49> col:50 'FILE *'
+| `-NoThrowAttr 0x2ec3cc8 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2ec3e28 <C:\MinGW\include\stdio.h:173:9, col:56> col:37 remove 'int (const char *) __attribute__((cdecl))':'int (const char *)'
+| |-ParmVarDecl 0x2ec3d10 <col:45, col:55> col:56 'const char *'
+| `-NoThrowAttr 0x2ec3ee0 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2ec40f0 <C:\MinGW\include\stdio.h:174:9, col:69> col:37 rename 'int (const char *, const char *) __attribute__((cdecl))':'int (const char *, const char *)'
+| |-ParmVarDecl 0x2ec3f28 <col:45, col:55> col:56 'const char *'
+| |-ParmVarDecl 0x2ec3f98 <col:58, col:68> col:69 'const char *'
+| `-NoThrowAttr 0x2ec41b0 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2ec4328 <C:\MinGW\include\stdio.h:175:9, col:52> col:39 tmpfile 'FILE *(void) __attribute__((cdecl))':'FILE *(void)'
+| `-NoThrowAttr 0x2ec43d8 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2ec4530 <C:\MinGW\include\stdio.h:176:9, col:52> col:39 tmpnam 'char *(char *) __attribute__((cdecl))':'char *(char *)'
+| |-ParmVarDecl 0x2ec4420 <col:47, col:51> col:52 'char *'
+| `-NoThrowAttr 0x2ec45e8 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2ec47b8 <C:\MinGW\include\stdio.h:179:9, col:73> col:39 _tempnam 'char *(const char *, const char *) __attribute__((cdecl))':'char *(const char *, const char *)'
+| |-ParmVarDecl 0x2ec4630 <col:49, col:59> col:60 'const char *'
+| |-ParmVarDecl 0x2ec46a0 <col:62, col:72> col:73 'const char *'
+| `-NoThrowAttr 0x2ec4878 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2ec49c0 <C:\MinGW\include\stdio.h:180:9, col:48> col:37 _rmtmp 'int (void) __attribute__((cdecl))':'int (void)'
+| `-NoThrowAttr 0x2ec4a70 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2ec4b60 <C:\MinGW\include\stdio.h:181:9, col:57> col:37 _unlink 'int (const char *) __attribute__((cdecl))':'int (const char *)'
+| |-ParmVarDecl 0x2ec4ab8 <col:46, col:56> col:57 'const char *'
+| `-NoThrowAttr 0x2ec4c18 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2ec4d78 <C:\MinGW\include\stdio.h:184:9, col:72> col:39 tempnam 'char *(const char *, const char *) __attribute__((cdecl))':'char *(const char *, const char *)'
+| |-ParmVarDecl 0x2ec4c60 <col:48, col:58> col:59 'const char *'
+| |-ParmVarDecl 0x2ec4cd0 <col:61, col:71> col:72 'const char *'
+| `-NoThrowAttr 0x2ec4e38 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2ec4f20 <C:\MinGW\include\stdio.h:185:9, col:47> col:37 rmtmp 'int (void) __attribute__((cdecl))':'int (void)'
+| `-NoThrowAttr 0x2ec4fd0 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2ec5100 <C:\MinGW\include\stdio.h:186:9, col:56> col:37 unlink 'int (const char *) __attribute__((cdecl))':'int (const char *)'
+| |-ParmVarDecl 0x2ec5018 <col:45, col:55> col:56 'const char *'
+| `-NoThrowAttr 0x2ec51b8 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2ec5510 <C:\MinGW\include\stdio.h:190:9, col:71> col:37 setvbuf 'int (FILE *, char *, int, size_t) __attribute__((cdecl))':'int (FILE *, char *, int, size_t)'
+| |-ParmVarDecl 0x2ec5200 <col:46, col:50> col:51 'FILE *'
+| |-ParmVarDecl 0x2ec5270 <col:53, col:57> col:58 'char *'
+| |-ParmVarDecl 0x2ec52e8 <col:60> col:63 'int'
+| |-ParmVarDecl 0x2ec5380 <col:65> col:71 'size_t':'unsigned long long'
+| `-NoThrowAttr 0x2ec55e0 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2ec57f8 <C:\MinGW\include\stdio.h:192:9, col:58> col:38 setbuf 'void (FILE *, char *) __attribute__((cdecl))':'void (FILE *, char *)'
+| |-ParmVarDecl 0x2ec5628 <col:46, col:50> col:51 'FILE *'
+| |-ParmVarDecl 0x2ec5698 <col:53, col:57> col:58 'char *'
+| `-NoThrowAttr 0x2ec58b8 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2ec5ad0 <C:\MinGW\include\stdio.h:203:1, col:69> <scratch space>:8:1 __mingw_fprintf 'int (FILE *, const char *, ...) __attribute__((cdecl))':'int (FILE *, const char *, ...)' extern
+| |-ParmVarDecl 0x2ec5900 <C:\MinGW\include\stdio.h:203:46, col:50> col:51 'FILE *'
+| |-ParmVarDecl 0x2ec5970 <col:53, col:63> col:64 'const char *'
+| `-NoThrowAttr 0x2ec5b90 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2ec5cf8 <C:\MinGW\include\stdio.h:204:1, col:61> <scratch space>:9:1 __mingw_printf 'int (const char *, ...) __attribute__((cdecl))':'int (const char *, ...)' extern
+| |-ParmVarDecl 0x2ec5bd8 <C:\MinGW\include\stdio.h:204:45, col:55> col:56 'const char *'
+| `-NoThrowAttr 0x2ec5db0 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2ec5f90 <C:\MinGW\include\stdio.h:205:1, col:69> <scratch space>:10:1 __mingw_sprintf 'int (char *, const char *, ...) __attribute__((cdecl))':'int (char *, const char *, ...)' extern
+| |-ParmVarDecl 0x2ec5df8 <C:\MinGW\include\stdio.h:205:46, col:50> col:51 'char *'
+| |-ParmVarDecl 0x2ec5e68 <col:53, col:63> col:64 'const char *'
+| `-NoThrowAttr 0x2ec6050 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2ec6318 <C:\MinGW\include\stdio.h:206:1, col:78> <scratch space>:11:1 __mingw_snprintf 'int (char *, size_t, const char *, ...) __attribute__((cdecl))':'int (char *, size_t, const char *, ...)' extern
+| |-ParmVarDecl 0x2ec6098 <C:\MinGW\include\stdio.h:206:47, col:51> col:52 'char *'
+| |-ParmVarDecl 0x2ec6120 <col:54> col:60 'size_t':'unsigned long long'
+| |-ParmVarDecl 0x2ec6190 <col:62, col:72> col:73 'const char *'
+| `-NoThrowAttr 0x2ec63e0 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2ec66b8 <C:\MinGW\include\stdio.h:207:1, col:75> <scratch space>:12:1 __mingw_vfprintf 'int (FILE *, const char *, __gnuc_va_list) __attribute__((cdecl))':'int (FILE *, const char *, __gnuc_va_list)' extern
+| |-ParmVarDecl 0x2ec6428 <C:\MinGW\include\stdio.h:207:47, col:51> col:52 'FILE *'
+| |-ParmVarDecl 0x2ec6498 <col:54, col:64> col:65 'const char *'
+| |-ParmVarDecl 0x2ec6530 <line:115:18> line:207:75 '__gnuc_va_list':'char *'
+| `-NoThrowAttr 0x2ec6780 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2ec69a0 <C:\MinGW\include\stdio.h:208:1, col:67> <scratch space>:13:1 __mingw_vprintf 'int (const char *, __gnuc_va_list) __attribute__((cdecl))':'int (const char *, __gnuc_va_list)' extern
+| |-ParmVarDecl 0x2ec67c8 <C:\MinGW\include\stdio.h:208:46, col:56> col:57 'const char *'
+| |-ParmVarDecl 0x2ec6838 <line:115:18> line:208:67 '__gnuc_va_list':'char *'
+| `-NoThrowAttr 0x2ec6a60 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2ec6d18 <C:\MinGW\include\stdio.h:209:1, col:75> <scratch space>:14:1 __mingw_vsprintf 'int (char *, const char *, __gnuc_va_list) __attribute__((cdecl))':'int (char *, const char *, __gnuc_va_list)' extern
+| |-ParmVarDecl 0x2ec6aa8 <C:\MinGW\include\stdio.h:209:47, col:51> col:52 'char *'
+| |-ParmVarDecl 0x2ec6b18 <col:54, col:64> col:65 'const char *'
+| |-ParmVarDecl 0x2ec6b88 <line:115:18> line:209:75 '__gnuc_va_list':'char *'
+| `-NoThrowAttr 0x2ec6de0 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2ec7120 <C:\MinGW\include\stdio.h:210:1, col:84> <scratch space>:15:1 __mingw_vsnprintf 'int (char *, size_t, const char *, __gnuc_va_list) __attribute__((cdecl))':'int (char *, size_t, const char *, __gnuc_va_list)' extern
+| |-ParmVarDecl 0x2ec6e28 <C:\MinGW\include\stdio.h:210:48, col:52> col:53 'char *'
+| |-ParmVarDecl 0x2ec6e98 <col:55> col:61 'size_t':'unsigned long long'
+| |-ParmVarDecl 0x2ec6f08 <col:63, col:73> col:74 'const char *'
+| |-ParmVarDecl 0x2ec6f78 <line:115:18> line:210:84 '__gnuc_va_list':'char *'
+| `-NoThrowAttr 0x2ec71f0 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2ec7358 <C:\MinGW\include\stdio.h:292:37> col:37 implicit fprintf 'int (FILE *, const char *, ...)' extern
+| |-ParmVarDecl 0x2ec7408 <<invalid sloc>> <invalid sloc> 'FILE *'
+| |-ParmVarDecl 0x2ec7468 <<invalid sloc>> <invalid sloc> 'const char *'
+| `-FormatAttr 0x2ec74d8 <col:37> Implicit printf 2 3
+|-FunctionDecl 0x2ec7520 prev 0x2ec7358 <col:9, col:69> col:37 fprintf 'int (FILE *, const char *, ...)'
+| |-ParmVarDecl 0x2ec7238 <col:46, col:50> col:51 'FILE *'
+| |-ParmVarDecl 0x2ec72a8 <col:53, col:63> col:64 'const char *'
+| |-NoThrowAttr 0x2ec75e0 <C:\MinGW\include\_mingw.h:342:41>
+| `-FormatAttr 0x2ec7618 <C:\MinGW\include\stdio.h:292:37> Inherited printf 2 3
+|-FunctionDecl 0x2ec76f0 <line:293:37> col:37 implicit printf 'int (const char *, ...)' extern
+| |-ParmVarDecl 0x2ec77a0 <<invalid sloc>> <invalid sloc> 'const char *'
+| `-FormatAttr 0x2ec7808 <col:37> Implicit printf 1 2
+|-FunctionDecl 0x2ec7850 prev 0x2ec76f0 <col:9, col:61> col:37 used printf 'int (const char *, ...)'
+| |-ParmVarDecl 0x2ec7648 <col:45, col:55> col:56 'const char *'
+| |-NoThrowAttr 0x2ec7908 <C:\MinGW\include\_mingw.h:342:41>
+| `-FormatAttr 0x2ec7940 <C:\MinGW\include\stdio.h:293:37> Inherited printf 1 2
+|-FunctionDecl 0x2ec7a90 <line:294:37> col:37 implicit sprintf 'int (char *, const char *, ...)' extern
+| |-ParmVarDecl 0x2ec7b40 <<invalid sloc>> <invalid sloc> 'char *'
+| |-ParmVarDecl 0x2ec7ba0 <<invalid sloc>> <invalid sloc> 'const char *'
+| `-FormatAttr 0x2ec7c10 <col:37> Implicit printf 2 3
+|-FunctionDecl 0x2ec7c58 prev 0x2ec7a90 <col:9, col:69> col:37 sprintf 'int (char *, const char *, ...)'
+| |-ParmVarDecl 0x2ec7970 <col:46, col:50> col:51 'char *'
+| |-ParmVarDecl 0x2ec79e0 <col:53, col:63> col:64 'const char *'
+| |-NoThrowAttr 0x2ec7d18 <C:\MinGW\include\_mingw.h:342:41>
+| `-FormatAttr 0x2ec7d50 <C:\MinGW\include\stdio.h:294:37> Inherited printf 2 3
+|-FunctionDecl 0x2ec7f48 <line:295:37> col:37 implicit vfprintf 'int ()' extern
+| `-FormatAttr 0x2ec7ff8 <col:37> Implicit printf 2 0
+|-FunctionDecl 0x2ec8040 prev 0x2ec7f48 <col:9, col:75> col:37 vfprintf 'int (FILE *, const char *, __gnuc_va_list) __attribute__((cdecl))':'int (FILE *, const char *, __gnuc_va_list)'
+| |-ParmVarDecl 0x2ec7d80 <col:47, col:51> col:52 'FILE *'
+| |-ParmVarDecl 0x2ec7df0 <col:54, col:64> col:65 'const char *'
+| |-ParmVarDecl 0x2ec7e60 <line:115:18> line:295:75 '__gnuc_va_list':'char *'
+| |-NoThrowAttr 0x2ec8108 <C:\MinGW\include\_mingw.h:342:41>
+| `-FormatAttr 0x2ec8158 <C:\MinGW\include\stdio.h:295:37> Inherited printf 2 0
+|-FunctionDecl 0x2ec82f0 <line:296:37> col:37 implicit vprintf 'int (const char *, __builtin_va_list)' extern
+| |-ParmVarDecl 0x2ec83a0 <<invalid sloc>> <invalid sloc> 'const char *'
+| |-ParmVarDecl 0x2ec8400 <<invalid sloc>> <invalid sloc> '__builtin_va_list':'char *'
+| `-FormatAttr 0x2ec8470 <col:37> Implicit printf 1 0
+|-FunctionDecl 0x2ec84b8 prev 0x2ec82f0 <col:9, col:67> col:37 vprintf 'int (const char *, __builtin_va_list)'
+| |-ParmVarDecl 0x2ec8188 <col:46, col:56> col:57 'const char *'
+| |-ParmVarDecl 0x2ec81f8 <line:115:18> line:296:67 '__gnuc_va_list':'char *'
+| |-NoThrowAttr 0x2ec8578 <C:\MinGW\include\_mingw.h:342:41>
+| `-FormatAttr 0x2ec85b0 <C:\MinGW\include\stdio.h:296:37> Inherited printf 1 0
+|-FunctionDecl 0x2ec87c8 <line:297:37> col:37 implicit vsprintf 'int (char *, const char *, __builtin_va_list)' extern
+| |-ParmVarDecl 0x2ec8878 <<invalid sloc>> <invalid sloc> 'char *'
+| |-ParmVarDecl 0x2ec88d8 <<invalid sloc>> <invalid sloc> 'const char *'
+| |-ParmVarDecl 0x2ec8938 <<invalid sloc>> <invalid sloc> '__builtin_va_list':'char *'
+| `-FormatAttr 0x2ec89b0 <col:37> Implicit printf 2 0
+|-FunctionDecl 0x2ec89f8 prev 0x2ec87c8 <col:9, col:75> col:37 vsprintf 'int (char *, const char *, __builtin_va_list)'
+| |-ParmVarDecl 0x2ec85e0 <col:47, col:51> col:52 'char *'
+| |-ParmVarDecl 0x2ec8650 <col:54, col:64> col:65 'const char *'
+| |-ParmVarDecl 0x2ec86c0 <line:115:18> line:297:75 '__gnuc_va_list':'char *'
+| |-NoThrowAttr 0x2ec8ac0 <C:\MinGW\include\_mingw.h:342:41>
+| `-FormatAttr 0x2ec8af8 <C:\MinGW\include\stdio.h:297:37> Inherited printf 2 0
+|-FunctionDecl 0x2ec8c48 <line:307:9, col:70> <scratch space>:16:1 __msvcrt_fprintf 'int (FILE *, const char *, ...) __attribute__((cdecl))':'int (FILE *, const char *, ...)'
+| |-ParmVarDecl 0x2ec8b28 <C:\MinGW\include\stdio.h:307:47, col:51> col:52 'FILE *'
+| |-ParmVarDecl 0x2ec8b98 <col:54, col:64> col:65 'const char *'
+| `-NoThrowAttr 0x2ec8d08 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2ec8df8 <C:\MinGW\include\stdio.h:308:9, col:62> <scratch space>:17:1 __msvcrt_printf 'int (const char *, ...) __attribute__((cdecl))':'int (const char *, ...)'
+| |-ParmVarDecl 0x2ec8d50 <C:\MinGW\include\stdio.h:308:46, col:56> col:57 'const char *'
+| `-NoThrowAttr 0x2ec8eb0 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2ec9018 <C:\MinGW\include\stdio.h:309:9, col:70> <scratch space>:18:1 __msvcrt_sprintf 'int (char *, const char *, ...) __attribute__((cdecl))':'int (char *, const char *, ...)'
+| |-ParmVarDecl 0x2ec8ef8 <C:\MinGW\include\stdio.h:309:47, col:51> col:52 'char *'
+| |-ParmVarDecl 0x2ec8f68 <col:54, col:64> col:65 'const char *'
+| `-NoThrowAttr 0x2ec90d8 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2ec92d8 <C:\MinGW\include\stdio.h:310:9, col:76> <scratch space>:19:1 __msvcrt_vfprintf 'int (FILE *, const char *, __gnuc_va_list) __attribute__((cdecl))':'int (FILE *, const char *, __gnuc_va_list)'
+| |-ParmVarDecl 0x2ec9140 <C:\MinGW\include\stdio.h:310:48, col:52> col:53 'FILE *'
+| |-ParmVarDecl 0x2ec91b0 <col:55, col:65> col:66 'const char *'
+| |-ParmVarDecl 0x2ec9220 <line:115:18> line:310:76 '__gnuc_va_list':'char *'
+| `-NoThrowAttr 0x2ec93a0 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2ec9508 <C:\MinGW\include\stdio.h:311:9, col:68> <scratch space>:20:1 __msvcrt_vprintf 'int (const char *, __gnuc_va_list) __attribute__((cdecl))':'int (const char *, __gnuc_va_list)'
+| |-ParmVarDecl 0x2ec93e8 <C:\MinGW\include\stdio.h:311:47, col:57> col:58 'const char *'
+| |-ParmVarDecl 0x2ec9458 <line:115:18> line:311:68 '__gnuc_va_list':'char *'
+| `-NoThrowAttr 0x2ec95c8 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2ec97a8 <C:\MinGW\include\stdio.h:312:9, col:76> <scratch space>:21:1 __msvcrt_vsprintf 'int (char *, const char *, __gnuc_va_list) __attribute__((cdecl))':'int (char *, const char *, __gnuc_va_list)'
+| |-ParmVarDecl 0x2ec9610 <C:\MinGW\include\stdio.h:312:48, col:52> col:53 'char *'
+| |-ParmVarDecl 0x2ec9680 <col:55, col:65> col:66 'const char *'
+| |-ParmVarDecl 0x2ec96f0 <line:115:18> line:312:76 '__gnuc_va_list':'char *'
+| `-NoThrowAttr 0x2ec9870 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2ec9a50 <C:\MinGW\include\stdio.h:318:9, col:79> col:37 _snprintf 'int (char *, size_t, const char *, ...) __attribute__((cdecl))':'int (char *, size_t, const char *, ...)'
+| |-ParmVarDecl 0x2ec98b8 <col:48, col:52> col:53 'char *'
+| |-ParmVarDecl 0x2ec9928 <col:55> col:61 'size_t':'unsigned long long'
+| |-ParmVarDecl 0x2ec9998 <col:63, col:73> col:74 'const char *'
+| `-NoThrowAttr 0x2ec9b18 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2ec9d70 <C:\MinGW\include\stdio.h:319:9, col:85> col:37 _vsnprintf 'int (char *, size_t, const char *, __gnuc_va_list) __attribute__((cdecl))':'int (char *, size_t, const char *, __gnuc_va_list)'
+| |-ParmVarDecl 0x2ec9b60 <col:49, col:53> col:54 'char *'
+| |-ParmVarDecl 0x2ec9bd0 <col:56> col:62 'size_t':'unsigned long long'
+| |-ParmVarDecl 0x2ec9c40 <col:64, col:74> col:75 'const char *'
+| |-ParmVarDecl 0x2ec9cb0 <line:115:18> line:319:85 '__gnuc_va_list':'char *'
+| `-NoThrowAttr 0x2ec9e40 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2ec9fa8 <C:\MinGW\include\stdio.h:320:9, col:70> col:37 _vscprintf 'int (const char *, __gnuc_va_list) __attribute__((cdecl))':'int (const char *, __gnuc_va_list)'
+| |-ParmVarDecl 0x2ec9e88 <col:49, col:59> col:60 'const char *'
+| |-ParmVarDecl 0x2ec9ef8 <line:115:18> line:320:70 '__gnuc_va_list':'char *'
+| `-NoThrowAttr 0x2eca068 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2eca278 <C:\MinGW\include\stdio.h:330:29> col:29 implicit snprintf 'int (char *, unsigned long long, const char *, ...)' extern
+| |-ParmVarDecl 0x2eca328 <<invalid sloc>> <invalid sloc> 'char *'
+| |-ParmVarDecl 0x2eca388 <<invalid sloc>> <invalid sloc> 'unsigned long long'
+| |-ParmVarDecl 0x2eca3e8 <<invalid sloc>> <invalid sloc> 'const char *'
+| `-FormatAttr 0x2eca460 <col:29> Implicit printf 3 4
+|-FunctionDecl 0x2eca4a8 prev 0x2eca278 <col:1, col:72> col:29 snprintf 'int (char *, unsigned long long, const char *, ...)'
+| |-ParmVarDecl 0x2eca0b0 <col:39, col:44> col:45 'char *'
+| |-ParmVarDecl 0x2eca150 <col:47> col:53 'size_t':'unsigned long long'
+| |-ParmVarDecl 0x2eca1c0 <col:55, col:66> col:67 'const char *'
+| |-NoThrowAttr 0x2eca570 <C:\MinGW\include\_mingw.h:342:41>
+| `-FormatAttr 0x2eca5a8 <C:\MinGW\include\stdio.h:330:29> Inherited printf 3 4
+|-FunctionDecl 0x2eca840 <line:331:29> col:29 implicit vsnprintf 'int (char *, unsigned long long, const char *, __builtin_va_list)' extern
+| |-ParmVarDecl 0x2eca8f0 <<invalid sloc>> <invalid sloc> 'char *'
+| |-ParmVarDecl 0x2eca950 <<invalid sloc>> <invalid sloc> 'unsigned long long'
+| |-ParmVarDecl 0x2eca9b0 <<invalid sloc>> <invalid sloc> 'const char *'
+| |-ParmVarDecl 0x2ecaa10 <<invalid sloc>> <invalid sloc> '__builtin_va_list':'char *'
+| `-FormatAttr 0x2ecaa90 <col:29> Implicit printf 3 0
+|-FunctionDecl 0x2ecaad8 prev 0x2eca840 <col:1, col:78> col:29 vsnprintf 'int (char *, unsigned long long, const char *, __builtin_va_list)'
+| |-ParmVarDecl 0x2eca5d8 <col:40, col:45> col:46 'char *'
+| |-ParmVarDecl 0x2eca648 <col:48> col:54 'size_t':'unsigned long long'
+| |-ParmVarDecl 0x2eca6b8 <col:56, col:67> col:68 'const char *'
+| |-ParmVarDecl 0x2eca728 <line:115:18> line:331:78 '__gnuc_va_list':'char *'
+| |-NoThrowAttr 0x2ecaba8 <C:\MinGW\include\_mingw.h:342:41>
+| `-FormatAttr 0x2ecabe0 <C:\MinGW\include\stdio.h:331:29> Inherited printf 3 0
+|-FunctionDecl 0x2ecade0 <line:333:29> col:29 implicit vscanf 'int (const char *__restrict, __builtin_va_list)' extern
+| |-ParmVarDecl 0x2ecae90 <<invalid sloc>> <invalid sloc> 'const char *__restrict'
+| |-ParmVarDecl 0x2ecaef0 <<invalid sloc>> <invalid sloc> '__builtin_va_list':'char *'
+| `-FormatAttr 0x2ecaf60 <col:29> Implicit scanf 1 0
+|-FunctionDecl 0x2ecafa8 prev 0x2ecade0 <col:1, col:72> col:29 vscanf 'int (const char *__restrict, __builtin_va_list)'
+| |-ParmVarDecl 0x2ecac10 <col:37, col:48> col:62 'const char *__restrict'
+| |-ParmVarDecl 0x2ecac80 <line:115:18> line:333:72 '__gnuc_va_list':'char *'
+| |-NoThrowAttr 0x2ecb068 <C:\MinGW\include\_mingw.h:342:41>
+| `-FormatAttr 0x2ecb0a0 <C:\MinGW\include\stdio.h:333:29> Inherited scanf 1 0
+|-FunctionDecl 0x2ecb358 <line:334:29> col:29 implicit vfscanf 'int (FILE *__restrict, const char *__restrict, __builtin_va_list)' extern
+| |-ParmVarDecl 0x2ecb408 <<invalid sloc>> <invalid sloc> 'FILE *__restrict'
+| |-ParmVarDecl 0x2ecb468 <<invalid sloc>> <invalid sloc> 'const char *__restrict'
+| |-ParmVarDecl 0x2ecb4c8 <<invalid sloc>> <invalid sloc> '__builtin_va_list':'char *'
+| `-FormatAttr 0x2ecb540 <col:29> Implicit scanf 2 0
+|-FunctionDecl 0x2ecb588 prev 0x2ecb358 <col:1, line:335:16> line:334:29 vfscanf 'int (FILE *__restrict, const char *__restrict, __builtin_va_list)'
+| |-ParmVarDecl 0x2ecb0d0 <col:38, col:43> col:57 'FILE *__restrict'
+| |-ParmVarDecl 0x2ecb160 <col:59, col:70> col:84 'const char *__restrict'
+| |-ParmVarDecl 0x2ecb1d0 <line:115:18> line:335:16 '__gnuc_va_list':'char *'
+| |-NoThrowAttr 0x2ecb650 <C:\MinGW\include\_mingw.h:342:41>
+| `-FormatAttr 0x2ecb688 <C:\MinGW\include\stdio.h:334:29> Inherited scanf 2 0
+|-FunctionDecl 0x2ecb978 <line:336:29> col:29 implicit vsscanf 'int (const char *__restrict, const char *__restrict, __builtin_va_list)' extern
+| |-ParmVarDecl 0x2ecba28 <<invalid sloc>> <invalid sloc> 'const char *__restrict'
+| |-ParmVarDecl 0x2ecba88 <<invalid sloc>> <invalid sloc> 'const char *__restrict'
+| |-ParmVarDecl 0x2ecbae8 <<invalid sloc>> <invalid sloc> '__builtin_va_list':'char *'
+| `-FormatAttr 0x2ecbb60 <col:29> Implicit scanf 2 0
+|-FunctionDecl 0x2ecbba8 prev 0x2ecb978 <col:1, line:337:43> line:336:29 vsscanf 'int (const char *__restrict, const char *__restrict, __builtin_va_list)'
+| |-ParmVarDecl 0x2ecb6b8 <col:38, col:49> col:63 'const char *__restrict'
+| |-ParmVarDecl 0x2ecb728 <line:337:8, col:19> col:33 'const char *__restrict'
+| |-ParmVarDecl 0x2ecb798 <line:115:18> line:337:43 '__gnuc_va_list':'char *'
+| |-NoThrowAttr 0x2ecbc70 <C:\MinGW\include\_mingw.h:342:41>
+| `-FormatAttr 0x2ecbca8 <C:\MinGW\include\stdio.h:336:29> Inherited scanf 2 0
+|-FunctionDecl 0x2ecbe40 <line:345:37> col:37 implicit fscanf 'int (FILE *__restrict, const char *__restrict, ...)' extern
+| |-ParmVarDecl 0x2ecbef0 <<invalid sloc>> <invalid sloc> 'FILE *__restrict'
+| |-ParmVarDecl 0x2ecbf50 <<invalid sloc>> <invalid sloc> 'const char *__restrict'
+| `-FormatAttr 0x2ecbfc0 <col:37> Implicit scanf 2 3
+|-FunctionDecl 0x2ecc008 prev 0x2ecbe40 <col:9, col:68> col:37 fscanf 'int (FILE *__restrict, const char *__restrict, ...)'
+| |-ParmVarDecl 0x2ecbcd8 <col:45, col:49> col:50 'FILE *'
+| |-ParmVarDecl 0x2ecbd48 <col:52, col:62> col:63 'const char *'
+| |-NoThrowAttr 0x2ecc0c8 <C:\MinGW\include\_mingw.h:342:41>
+| `-FormatAttr 0x2ecc100 <C:\MinGW\include\stdio.h:345:37> Inherited scanf 2 3
+|-FunctionDecl 0x2ecc258 <line:346:37> col:37 implicit scanf 'int (const char *__restrict, ...)' extern
+| |-ParmVarDecl 0x2ecc308 <<invalid sloc>> <invalid sloc> 'const char *__restrict'
+| `-FormatAttr 0x2ecc370 <col:37> Implicit scanf 1 2
+|-FunctionDecl 0x2ecc3b8 prev 0x2ecc258 <col:9, col:60> col:37 scanf 'int (const char *__restrict, ...)'
+| |-ParmVarDecl 0x2ecc170 <col:44, col:54> col:55 'const char *'
+| |-NoThrowAttr 0x2ecc470 <C:\MinGW\include\_mingw.h:342:41>
+| `-FormatAttr 0x2ecc4a8 <C:\MinGW\include\stdio.h:346:37> Inherited scanf 1 2
+|-FunctionDecl 0x2ecc6b0 <line:347:37> col:37 implicit sscanf 'int (const char *__restrict, const char *__restrict, ...)' extern
+| |-ParmVarDecl 0x2ecc760 <<invalid sloc>> <invalid sloc> 'const char *__restrict'
+| |-ParmVarDecl 0x2ecc7c0 <<invalid sloc>> <invalid sloc> 'const char *__restrict'
+| `-FormatAttr 0x2ecc830 <col:37> Implicit scanf 2 3
+|-FunctionDecl 0x2ecc878 prev 0x2ecc6b0 <col:9, col:74> col:37 sscanf 'int (const char *__restrict, const char *__restrict, ...)'
+| |-ParmVarDecl 0x2ecc4d8 <col:45, col:55> col:56 'const char *'
+| |-ParmVarDecl 0x2ecc548 <col:58, col:68> col:69 'const char *'
+| |-NoThrowAttr 0x2ecc938 <C:\MinGW\include\_mingw.h:342:41>
+| `-FormatAttr 0x2ecc970 <C:\MinGW\include\stdio.h:347:37> Inherited scanf 2 3
+|-FunctionDecl 0x2ecca48 <line:352:9, col:49> col:37 fgetc 'int (FILE *) __attribute__((cdecl))':'int (FILE *)'
+| |-ParmVarDecl 0x2ecc9a0 <col:44, col:48> col:49 'FILE *'
+| `-NoThrowAttr 0x2eccb00 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2eccdb0 <C:\MinGW\include\stdio.h:353:9, col:63> col:39 fgets 'char *(char *, int, FILE *) __attribute__((cdecl))':'char *(char *, int, FILE *)'
+| |-ParmVarDecl 0x2eccb48 <col:46, col:50> col:51 'char *'
+| |-ParmVarDecl 0x2eccbc0 <col:53> col:56 'int'
+| |-ParmVarDecl 0x2eccc30 <col:58, col:62> col:63 'FILE *'
+| `-NoThrowAttr 0x2ecce78 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2ecd0a0 <C:\MinGW\include\stdio.h:354:9, col:54> col:37 fputc 'int (int, FILE *) __attribute__((cdecl))':'int (int, FILE *)'
+| |-ParmVarDecl 0x2eccec8 <col:44> col:47 'int'
+| |-ParmVarDecl 0x2eccf38 <col:49, col:53> col:54 'FILE *'
+| `-NoThrowAttr 0x2ecd160 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2ecd390 <C:\MinGW\include\stdio.h:355:9, col:62> col:37 fputs 'int (const char *, FILE *) __attribute__((cdecl))':'int (const char *, FILE *)'
+| |-ParmVarDecl 0x2ecd1b8 <col:44, col:54> col:55 'const char *'
+| |-ParmVarDecl 0x2ecd228 <col:57, col:61> col:62 'FILE *'
+| `-NoThrowAttr 0x2ecd450 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2ecd538 <C:\MinGW\include\stdio.h:356:9, col:50> col:39 gets 'char *(char *) __attribute__((cdecl))':'char *(char *)'
+| |-ParmVarDecl 0x2ecd498 <col:45, col:49> col:50 'char *'
+| `-NoThrowAttr 0x2ecd5f0 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2ecd6e0 <C:\MinGW\include\stdio.h:357:9, col:54> col:37 puts 'int (const char *) __attribute__((cdecl))':'int (const char *)'
+| |-ParmVarDecl 0x2ecd638 <col:43, col:53> col:54 'const char *'
+| `-NoThrowAttr 0x2ecd798 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2ecd908 <C:\MinGW\include\stdio.h:358:9, col:55> col:37 ungetc 'int (int, FILE *) __attribute__((cdecl))':'int (int, FILE *)'
+| |-ParmVarDecl 0x2ecd7e8 <col:45> col:48 'int'
+| |-ParmVarDecl 0x2ecd858 <col:50, col:54> col:55 'FILE *'
+| `-NoThrowAttr 0x2ecd9c8 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2ecdab8 <C:\MinGW\include\stdio.h:366:9, col:51> col:37 used _filbuf 'int (FILE *) __attribute__((cdecl))':'int (FILE *)'
+| |-ParmVarDecl 0x2ecda10 <col:46, col:50> col:51 'FILE *'
+| `-NoThrowAttr 0x2ecdb70 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2ecdce0 <C:\MinGW\include\stdio.h:367:9, col:56> col:37 used _flsbuf 'int (int, FILE *) __attribute__((cdecl))':'int (int, FILE *)'
+| |-ParmVarDecl 0x2ecdbc0 <col:46> col:49 'int'
+| |-ParmVarDecl 0x2ecdc30 <col:51, col:55> col:56 'FILE *'
+| `-NoThrowAttr 0x2ecdda0 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2ecde90 <line:270:26, C:\MinGW\include\stdio.h:376:1> line:371:42 getc 'int (FILE *) __attribute__((cdecl))':'int (FILE *)' extern inline
+| |-ParmVarDecl 0x2ecdde8 <col:48, col:54> col:54 used __F 'FILE *'
+| |-CompoundStmt 0x2ed0380 <line:372:1, line:376:1>
+| | `-ReturnStmt 0x2ed0368 <line:373:3, line:375:19>
+| |   `-ConditionalOperator 0x2ed0338 <line:373:10, line:375:19> 'int'
+| |     |-ParenExpr 0x2ece088 <line:373:10, col:27> 'int'
+| |     | `-BinaryOperator 0x2ece060 <col:11, col:26> 'int' '>='
+| |     |   |-UnaryOperator 0x2ece018 <col:11, col:18> 'int' prefix '--'
+| |     |   | `-MemberExpr 0x2ecdfe0 <col:13, col:18> 'int' lvalue ->_cnt 0xca7c48
+| |     |   |   `-ImplicitCastExpr 0x2ecdfc8 <col:13> 'FILE *' <LValueToRValue>
+| |     |   |     `-DeclRefExpr 0x2ecdfa0 <col:13> 'FILE *' lvalue ParmVar 0x2ecdde8 '__F' 'FILE *'
+| |     |   `-IntegerLiteral 0x2ece038 <col:26> 'int' 0
+| |     |-CStyleCastExpr 0x2ed0208 <line:374:8, col:40> 'int' <IntegralCast>
+| |     | `-CStyleCastExpr 0x2ed01c8 <col:14, col:40> 'unsigned char' <IntegralCast>
+| |     |   `-ImplicitCastExpr 0x2ed01b0 <col:30, col:40> 'char' <LValueToRValue>
+| |     |     `-UnaryOperator 0x2ece140 <col:30, col:40> 'char' lvalue prefix '*'
+| |     |       `-UnaryOperator 0x2ece120 <col:31, col:40> 'char *' postfix '++'
+| |     |         `-MemberExpr 0x2ece0e8 <col:31, col:36> 'char *' lvalue ->_ptr 0xca7be0
+| |     |           `-ImplicitCastExpr 0x2ece0d0 <col:31> 'FILE *' <LValueToRValue>
+| |     |             `-DeclRefExpr 0x2ece0a8 <col:31> 'FILE *' lvalue ParmVar 0x2ecdde8 '__F' 'FILE *'
+| |     `-CallExpr 0x2ed02f0 <line:375:7, col:19> 'int'
+| |       |-ImplicitCastExpr 0x2ed02d8 <col:7> 'int (*)(FILE *) __attribute__((cdecl))' <FunctionToPointerDecay>
+| |       | `-DeclRefExpr 0x2ed0230 <col:7> 'int (FILE *) __attribute__((cdecl))':'int (FILE *)' Function 0x2ecdab8 '_filbuf' 'int (FILE *) __attribute__((cdecl))':'int (FILE *)'
+| |       `-ImplicitCastExpr 0x2ed0320 <col:16> 'FILE *' <LValueToRValue>
+| |         `-DeclRefExpr 0x2ed0258 <col:16> 'FILE *' lvalue ParmVar 0x2ecdde8 '__F' 'FILE *'
+| |-NoThrowAttr 0x2ecdf48 <C:\MinGW\include\_mingw.h:342:41>
+| |-GNUInlineAttr 0x2ecdf80 <line:270:55>
+| `-GNUInlineAttr 0x2ecdf90 <col:55>
+|-FunctionDecl 0x2ed04d8 <col:26, C:\MinGW\include\stdio.h:383:1> line:378:42 putc 'int (int, FILE *) __attribute__((cdecl))':'int (int, FILE *)' extern inline
+| |-ParmVarDecl 0x2ed03b8 <col:48, col:52> col:52 used __c 'int'
+| |-ParmVarDecl 0x2ed0428 <col:57, col:63> col:63 used __F 'FILE *'
+| |-CompoundStmt 0x2ed0ac0 <line:379:1, line:383:1>
+| | `-ReturnStmt 0x2ed0aa8 <line:380:3, line:382:25>
+| |   `-ConditionalOperator 0x2ed0a78 <line:380:10, line:382:25> 'int'
+| |     |-ParenExpr 0x2ed06d8 <line:380:10, col:27> 'int'
+| |     | `-BinaryOperator 0x2ed06b0 <col:11, col:26> 'int' '>='
+| |     |   |-UnaryOperator 0x2ed0668 <col:11, col:18> 'int' prefix '--'
+| |     |   | `-MemberExpr 0x2ed0630 <col:13, col:18> 'int' lvalue ->_cnt 0xca7c48
+| |     |   |   `-ImplicitCastExpr 0x2ed0618 <col:13> 'FILE *' <LValueToRValue>
+| |     |   |     `-DeclRefExpr 0x2ed05f0 <col:13> 'FILE *' lvalue ParmVar 0x2ed0428 '__F' 'FILE *'
+| |     |   `-IntegerLiteral 0x2ed0688 <col:26> 'int' 0
+| |     |-CStyleCastExpr 0x2ed08f8 <line:381:8, col:55> 'int' <IntegralCast>
+| |     | `-CStyleCastExpr 0x2ed08b8 <col:14, col:55> 'unsigned char' <IntegralCast>
+| |     |   `-ParenExpr 0x2ed0898 <col:30, col:55> 'char'
+| |     |     `-BinaryOperator 0x2ed0828 <col:31, col:52> 'char' '='
+| |     |       |-UnaryOperator 0x2ed0790 <col:31, col:41> 'char' lvalue prefix '*'
+| |     |       | `-UnaryOperator 0x2ed0770 <col:32, col:41> 'char *' postfix '++'
+| |     |       |   `-MemberExpr 0x2ed0738 <col:32, col:37> 'char *' lvalue ->_ptr 0xca7be0
+| |     |       |     `-ImplicitCastExpr 0x2ed0720 <col:32> 'FILE *' <LValueToRValue>
+| |     |       |       `-DeclRefExpr 0x2ed06f8 <col:32> 'FILE *' lvalue ParmVar 0x2ed0428 '__F' 'FILE *'
+| |     |       `-CStyleCastExpr 0x2ed0800 <col:46, col:52> 'char' <IntegralCast>
+| |     |         `-ImplicitCastExpr 0x2ed07e8 <col:52> 'int' <LValueToRValue>
+| |     |           `-DeclRefExpr 0x2ed07b0 <col:52> 'int' lvalue ParmVar 0x2ed03b8 '__c' 'int'
+| |     `-CallExpr 0x2ed0a10 <line:382:8, col:25> 'int'
+| |       |-ImplicitCastExpr 0x2ed09f8 <col:8> 'int (*)(int, FILE *) __attribute__((cdecl))' <FunctionToPointerDecay>
+| |       | `-DeclRefExpr 0x2ed0920 <col:8> 'int (int, FILE *) __attribute__((cdecl))':'int (int, FILE *)' Function 0x2ecdce0 '_flsbuf' 'int (int, FILE *) __attribute__((cdecl))':'int (int, FILE *)'
+| |       |-ImplicitCastExpr 0x2ed0a48 <col:17> 'int' <LValueToRValue>
+| |       | `-DeclRefExpr 0x2ed0948 <col:17> 'int' lvalue ParmVar 0x2ed03b8 '__c' 'int'
+| |       `-ImplicitCastExpr 0x2ed0a60 <col:22> 'FILE *' <LValueToRValue>
+| |         `-DeclRefExpr 0x2ed0970 <col:22> 'FILE *' lvalue ParmVar 0x2ed0428 '__F' 'FILE *'
+| |-NoThrowAttr 0x2ed0598 <C:\MinGW\include\_mingw.h:342:41>
+| |-GNUInlineAttr 0x2ed05d0 <line:270:55>
+| `-GNUInlineAttr 0x2ed05e0 <col:55>
+|-FunctionDecl 0x2ed0b90 <col:26, C:\MinGW\include\stdio.h:390:1> line:385:42 getchar 'int (void) __attribute__((cdecl))':'int (void)' extern inline
+| |-CompoundStmt 0x2ed1198 <line:386:1, line:390:1>
+| | `-ReturnStmt 0x2ed1180 <line:387:3, line:389:21>
+| |   `-ConditionalOperator 0x2ed1150 <line:387:10, line:389:21> 'int'
+| |     |-ParenExpr 0x2ed0e10 <line:387:10, col:29> 'int'
+| |     | `-BinaryOperator 0x2ed0de8 <col:11, col:28> 'int' '>='
+| |     |   |-UnaryOperator 0x2ed0da0 <col:11, col:20> 'int' prefix '--'
+| |     |   | `-MemberExpr 0x2ed0d68 <line:159:15, line:387:20> 'int' lvalue ->_cnt 0xca7c48
+| |     |   |   `-ParenExpr 0x2ed0d48 <line:159:15, col:35> 'FILE *'
+| |     |   |     `-UnaryOperator 0x2ed0d28 <col:16, col:34> 'FILE *' prefix '&'
+| |     |   |       `-ArraySubscriptExpr 0x2ed0d00 <col:17, col:34> 'FILE':'struct _iobuf' lvalue
+| |     |   |         |-ImplicitCastExpr 0x2ed0ce8 <col:17> 'FILE *' <ArrayToPointerDecay>
+| |     |   |         | `-DeclRefExpr 0x2ed0c98 <col:17> 'FILE []' lvalue Var 0x2ec3158 '_iob' 'FILE []'
+| |     |   |         `-IntegerLiteral 0x2ed0cc0 <line:42:22> 'int' 0
+| |     |   `-IntegerLiteral 0x2ed0dc0 <line:387:28> 'int' 0
+| |     |-CStyleCastExpr 0x2ed0fe8 <line:388:8, col:42> 'int' <IntegralCast>
+| |     | `-CStyleCastExpr 0x2ed0fa8 <col:14, col:42> 'unsigned char' <IntegralCast>
+| |     |   `-ImplicitCastExpr 0x2ed0f90 <col:30, col:42> 'char' <LValueToRValue>
+| |     |     `-UnaryOperator 0x2ed0f58 <col:30, col:42> 'char' lvalue prefix '*'
+| |     |       `-UnaryOperator 0x2ed0f38 <line:159:15, line:388:42> 'char *' postfix '++'
+| |     |         `-MemberExpr 0x2ed0f00 <line:159:15, line:388:38> 'char *' lvalue ->_ptr 0xca7be0
+| |     |           `-ParenExpr 0x2ed0ee0 <line:159:15, col:35> 'FILE *'
+| |     |             `-UnaryOperator 0x2ed0ec0 <col:16, col:34> 'FILE *' prefix '&'
+| |     |               `-ArraySubscriptExpr 0x2ed0e98 <col:17, col:34> 'FILE':'struct _iobuf' lvalue
+| |     |                 |-ImplicitCastExpr 0x2ed0e80 <col:17> 'FILE *' <ArrayToPointerDecay>
+| |     |                 | `-DeclRefExpr 0x2ed0e30 <col:17> 'FILE []' lvalue Var 0x2ec3158 '_iob' 'FILE []'
+| |     |                 `-IntegerLiteral 0x2ed0e58 <line:42:22> 'int' 0
+| |     `-CallExpr 0x2ed1120 <line:389:7, col:21> 'int'
+| |       |-ImplicitCastExpr 0x2ed1108 <col:7> 'int (*)(FILE *) __attribute__((cdecl))' <FunctionToPointerDecay>
+| |       | `-DeclRefExpr 0x2ed1010 <col:7> 'int (FILE *) __attribute__((cdecl))':'int (FILE *)' Function 0x2ecdab8 '_filbuf' 'int (FILE *) __attribute__((cdecl))':'int (FILE *)'
+| |       `-ParenExpr 0x2ed10e8 <line:159:15, col:35> 'FILE *'
+| |         `-UnaryOperator 0x2ed10c8 <col:16, col:34> 'FILE *' prefix '&'
+| |           `-ArraySubscriptExpr 0x2ed10a0 <col:17, col:34> 'FILE':'struct _iobuf' lvalue
+| |             |-ImplicitCastExpr 0x2ed1088 <col:17> 'FILE *' <ArrayToPointerDecay>
+| |             | `-DeclRefExpr 0x2ed1038 <col:17> 'FILE []' lvalue Var 0x2ec3158 '_iob' 'FILE []'
+| |             `-IntegerLiteral 0x2ed1060 <line:42:22> 'int' 0
+| |-NoThrowAttr 0x2ed0c40 <C:\MinGW\include\_mingw.h:342:41>
+| |-GNUInlineAttr 0x2ed0c78 <line:270:55>
+| `-GNUInlineAttr 0x2ed0c88 <col:55>
+|-FunctionDecl 0x2ed12f8 <col:26, C:\MinGW\include\stdio.h:396:30> line:392:42 putchar 'int (int) __attribute__((cdecl))':'int (int)' extern inline
+| |-ParmVarDecl 0x2ed11e0 <col:50, col:54> col:54 used __c 'int'
+| |-CompoundStmt 0x2ed1a28 <line:393:1, line:396:30>
+| | `-ReturnStmt 0x2ed1a10 <line:394:3, line:396:28>
+| |   `-ConditionalOperator 0x2ed19e0 <line:394:10, line:396:28> 'int'
+| |     |-ParenExpr 0x2ed1580 <line:394:10, col:30> 'int'
+| |     | `-BinaryOperator 0x2ed1558 <col:11, col:29> 'int' '>='
+| |     |   |-UnaryOperator 0x2ed1510 <col:11, col:21> 'int' prefix '--'
+| |     |   | `-MemberExpr 0x2ed14d8 <line:160:16, line:394:21> 'int' lvalue ->_cnt 0xca7c48
+| |     |   |   `-ParenExpr 0x2ed14b8 <line:160:16, col:37> 'FILE *'
+| |     |   |     `-UnaryOperator 0x2ed1498 <col:17, col:36> 'FILE *' prefix '&'
+| |     |   |       `-ArraySubscriptExpr 0x2ed1470 <col:18, col:36> 'FILE':'struct _iobuf' lvalue
+| |     |   |         |-ImplicitCastExpr 0x2ed1458 <col:18> 'FILE *' <ArrayToPointerDecay>
+| |     |   |         | `-DeclRefExpr 0x2ed1408 <col:18> 'FILE []' lvalue Var 0x2ec3158 '_iob' 'FILE []'
+| |     |   |         `-IntegerLiteral 0x2ed1430 <line:43:23> 'int' 1
+| |     |   `-IntegerLiteral 0x2ed1530 <line:394:29> 'int' 0
+| |     |-CStyleCastExpr 0x2ed1830 <line:395:8, col:58> 'int' <IntegralCast>
+| |     | `-CStyleCastExpr 0x2ed17f0 <col:14, col:58> 'unsigned char' <IntegralCast>
+| |     |   `-ParenExpr 0x2ed17d0 <col:30, col:58> 'char'
+| |     |     `-BinaryOperator 0x2ed1760 <col:31, col:55> 'char' '='
+| |     |       |-UnaryOperator 0x2ed16c8 <col:31, col:44> 'char' lvalue prefix '*'
+| |     |       | `-UnaryOperator 0x2ed16a8 <line:160:16, line:395:44> 'char *' postfix '++'
+| |     |       |   `-MemberExpr 0x2ed1670 <line:160:16, line:395:40> 'char *' lvalue ->_ptr 0xca7be0
+| |     |       |     `-ParenExpr 0x2ed1650 <line:160:16, col:37> 'FILE *'
+| |     |       |       `-UnaryOperator 0x2ed1630 <col:17, col:36> 'FILE *' prefix '&'
+| |     |       |         `-ArraySubscriptExpr 0x2ed1608 <col:18, col:36> 'FILE':'struct _iobuf' lvalue
+| |     |       |           |-ImplicitCastExpr 0x2ed15f0 <col:18> 'FILE *' <ArrayToPointerDecay>
+| |     |       |           | `-DeclRefExpr 0x2ed15a0 <col:18> 'FILE []' lvalue Var 0x2ec3158 '_iob' 'FILE []'
+| |     |       |           `-IntegerLiteral 0x2ed15c8 <line:43:23> 'int' 1
+| |     |       `-CStyleCastExpr 0x2ed1738 <line:395:49, col:55> 'char' <IntegralCast>
+| |     |         `-ImplicitCastExpr 0x2ed1720 <col:55> 'int' <LValueToRValue>
+| |     |           `-DeclRefExpr 0x2ed16e8 <col:55> 'int' lvalue ParmVar 0x2ed11e0 '__c' 'int'
+| |     `-CallExpr 0x2ed1990 <line:396:8, col:28> 'int'
+| |       |-ImplicitCastExpr 0x2ed1978 <col:8> 'int (*)(int, FILE *) __attribute__((cdecl))' <FunctionToPointerDecay>
+| |       | `-DeclRefExpr 0x2ed1858 <col:8> 'int (int, FILE *) __attribute__((cdecl))':'int (int, FILE *)' Function 0x2ecdce0 '_flsbuf' 'int (int, FILE *) __attribute__((cdecl))':'int (int, FILE *)'
+| |       |-ImplicitCastExpr 0x2ed19c8 <col:17> 'int' <LValueToRValue>
+| |       | `-DeclRefExpr 0x2ed1880 <col:17> 'int' lvalue ParmVar 0x2ed11e0 '__c' 'int'
+| |       `-ParenExpr 0x2ed1958 <line:160:16, col:37> 'FILE *'
+| |         `-UnaryOperator 0x2ed1938 <col:17, col:36> 'FILE *' prefix '&'
+| |           `-ArraySubscriptExpr 0x2ed1910 <col:18, col:36> 'FILE':'struct _iobuf' lvalue
+| |             |-ImplicitCastExpr 0x2ed18f8 <col:18> 'FILE *' <ArrayToPointerDecay>
+| |             | `-DeclRefExpr 0x2ed18a8 <col:18> 'FILE []' lvalue Var 0x2ec3158 '_iob' 'FILE []'
+| |             `-IntegerLiteral 0x2ed18d0 <line:43:23> 'int' 1
+| |-NoThrowAttr 0x2ed13b0 <C:\MinGW\include\_mingw.h:342:41>
+| |-GNUInlineAttr 0x2ed13e8 <line:270:55>
+| `-GNUInlineAttr 0x2ed13f8 <col:55>
+|-FunctionDecl 0x2ed1d38 <C:\MinGW\include\stdio.h:411:9, col:75> col:40 fread 'size_t (void *, size_t, size_t, FILE *) __attribute__((cdecl))':'size_t (void *, size_t, size_t, FILE *)'
+| |-ParmVarDecl 0x2ed1a58 <col:47, col:51> col:52 'void *'
+| |-ParmVarDecl 0x2ed1ac8 <col:54> col:60 'size_t':'unsigned long long'
+| |-ParmVarDecl 0x2ed1b38 <col:62> col:68 'size_t':'unsigned long long'
+| |-ParmVarDecl 0x2ed1ba8 <col:70, col:74> col:75 'FILE *'
+| `-NoThrowAttr 0x2ed1e08 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2ed21d0 <C:\MinGW\include\stdio.h:412:9, col:82> col:40 fwrite 'size_t (const void *, size_t, size_t, FILE *) __attribute__((cdecl))':'size_t (const void *, size_t, size_t, FILE *)'
+| |-ParmVarDecl 0x2ed1e78 <col:48, col:58> col:59 'const void *'
+| |-ParmVarDecl 0x2ed1ee8 <col:61> col:67 'size_t':'unsigned long long'
+| |-ParmVarDecl 0x2ed1f58 <col:69> col:75 'size_t':'unsigned long long'
+| |-ParmVarDecl 0x2ed1fc8 <col:77, col:81> col:82 'FILE *'
+| `-NoThrowAttr 0x2ed22a0 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2ed2568 <C:\MinGW\include\stdio.h:418:9, col:60> col:37 fseek 'int (FILE *, long, int) __attribute__((cdecl))':'int (FILE *, long, int)'
+| |-ParmVarDecl 0x2ed22e8 <col:44, col:48> col:49 'FILE *'
+| |-ParmVarDecl 0x2ed2360 <col:51> col:55 'long'
+| |-ParmVarDecl 0x2ed23d8 <col:57> col:60 'int'
+| `-NoThrowAttr 0x2ed2630 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2ed27d8 <C:\MinGW\include\stdio.h:419:9, col:50> col:38 ftell 'long (FILE *) __attribute__((cdecl))':'long (FILE *)'
+| |-ParmVarDecl 0x2ed2678 <col:45, col:49> col:50 'FILE *'
+| `-NoThrowAttr 0x2ed2890 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2ed2a30 <C:\MinGW\include\stdio.h:420:9, col:51> col:38 rewind 'void (FILE *) __attribute__((cdecl))':'void (FILE *)'
+| |-ParmVarDecl 0x2ed28d8 <col:46, col:50> col:51 'FILE *'
+| `-NoThrowAttr 0x2ed2ae8 <C:\MinGW\include\_mingw.h:342:41>
+|-TypedefDecl 0x2ed2b38 <C:\MinGW\include\stdio.h:454:1, col:19> col:19 referenced fpos_t 'long long'
+|-FunctionDecl 0x2ed2df0 <line:459:9, col:60> col:37 used fgetpos 'int (FILE *, fpos_t *) __attribute__((cdecl))':'int (FILE *, fpos_t *)'
+| |-ParmVarDecl 0x2ed2b98 <col:46, col:50> col:51 'FILE *'
+| |-ParmVarDecl 0x2ed2c88 <col:53, col:59> col:60 'fpos_t *'
+| `-NoThrowAttr 0x2ed2eb0 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2ed31e0 <C:\MinGW\include\stdio.h:460:9, col:66> col:37 fsetpos 'int (FILE *, const fpos_t *) __attribute__((cdecl))':'int (FILE *, const fpos_t *)'
+| |-ParmVarDecl 0x2ed2ef8 <col:46, col:50> col:51 'FILE *'
+| |-ParmVarDecl 0x2ed2fc8 <col:53, col:65> col:66 'const fpos_t *'
+| `-NoThrowAttr 0x2ed32a0 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2ed3390 <C:\MinGW\include\stdio.h:466:9, col:48> col:37 feof 'int (FILE *) __attribute__((cdecl))':'int (FILE *)'
+| |-ParmVarDecl 0x2ed32e8 <col:43, col:47> col:48 'FILE *'
+| `-NoThrowAttr 0x2ed3448 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2ed3538 <C:\MinGW\include\stdio.h:467:9, col:50> col:37 ferror 'int (FILE *) __attribute__((cdecl))':'int (FILE *)'
+| |-ParmVarDecl 0x2ed3490 <col:45, col:49> col:50 'FILE *'
+| `-NoThrowAttr 0x2ed35f0 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2ed36d8 <C:\MinGW\include\stdio.h:479:9, col:53> col:38 clearerr 'void (FILE *) __attribute__((cdecl))':'void (FILE *)'
+| |-ParmVarDecl 0x2ed3638 <col:48, col:52> col:53 'FILE *'
+| `-NoThrowAttr 0x2ed3790 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2ed38f0 <C:\MinGW\include\stdio.h:480:9, col:57> col:38 perror 'void (const char *) __attribute__((cdecl))':'void (const char *)'
+| |-ParmVarDecl 0x2ed37d8 <col:46, col:56> col:57 'const char *'
+| `-NoThrowAttr 0x2ed39a8 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2ed3b08 <C:\MinGW\include\stdio.h:487:9, col:71> col:39 _popen 'FILE *(const char *, const char *) __attribute__((cdecl))':'FILE *(const char *, const char *)'
+| |-ParmVarDecl 0x2ed39f0 <col:47, col:57> col:58 'const char *'
+| |-ParmVarDecl 0x2ed3a60 <col:60, col:70> col:71 'const char *'
+| `-NoThrowAttr 0x2ed3bc8 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2ed3cb8 <C:\MinGW\include\stdio.h:488:9, col:51> col:37 _pclose 'int (FILE *) __attribute__((cdecl))':'int (FILE *)'
+| |-ParmVarDecl 0x2ed3c10 <col:46, col:50> col:51 'FILE *'
+| `-NoThrowAttr 0x2ed3d70 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2ed3ed0 <C:\MinGW\include\stdio.h:491:9, col:70> col:39 popen 'FILE *(const char *, const char *) __attribute__((cdecl))':'FILE *(const char *, const char *)'
+| |-ParmVarDecl 0x2ed3db8 <col:46, col:56> col:57 'const char *'
+| |-ParmVarDecl 0x2ed3e28 <col:59, col:69> col:70 'const char *'
+| `-NoThrowAttr 0x2ed3f90 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2ed4080 <C:\MinGW\include\stdio.h:492:9, col:50> col:37 pclose 'int (FILE *) __attribute__((cdecl))':'int (FILE *)'
+| |-ParmVarDecl 0x2ed3fd8 <col:45, col:49> col:50 'FILE *'
+| `-NoThrowAttr 0x2ed4138 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2ed4230 <C:\MinGW\include\stdio.h:498:9, col:52> col:37 _flushall 'int (void) __attribute__((cdecl))':'int (void)'
+| `-NoThrowAttr 0x2ed42e0 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2ed43c8 <C:\MinGW\include\stdio.h:499:9, col:52> col:37 _fgetchar 'int (void) __attribute__((cdecl))':'int (void)'
+| `-NoThrowAttr 0x2ed4478 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2ed4570 <C:\MinGW\include\stdio.h:500:9, col:51> col:37 _fputchar 'int (int) __attribute__((cdecl))':'int (int)'
+| |-ParmVarDecl 0x2ed44c8 <col:48> col:51 'int'
+| `-NoThrowAttr 0x2ed4628 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2ed4848 <C:\MinGW\include\stdio.h:501:9, col:64> col:39 _fdopen 'FILE *(int, const char *) __attribute__((cdecl))':'FILE *(int, const char *)'
+| |-ParmVarDecl 0x2ed4678 <col:48> col:51 'int'
+| |-ParmVarDecl 0x2ed46e8 <col:53, col:63> col:64 'const char *'
+| `-NoThrowAttr 0x2ed4908 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2ed49f8 <C:\MinGW\include\stdio.h:502:9, col:51> col:37 _fileno 'int (FILE *) __attribute__((cdecl))':'int (FILE *)'
+| |-ParmVarDecl 0x2ed4950 <col:46, col:50> col:51 'FILE *'
+| `-NoThrowAttr 0x2ed4ab0 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2ed4b98 <C:\MinGW\include\stdio.h:503:9, col:53> col:37 _fcloseall 'int (void) __attribute__((cdecl))':'int (void)'
+| `-NoThrowAttr 0x2ed4c48 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2ed4f00 <C:\MinGW\include\stdio.h:504:9, col:77> col:39 _fsopen 'FILE *(const char *, const char *, int) __attribute__((cdecl))':'FILE *(const char *, const char *, int)'
+| |-ParmVarDecl 0x2ed4c90 <col:48, col:58> col:59 'const char *'
+| |-ParmVarDecl 0x2ed4d00 <col:61, col:71> col:72 'const char *'
+| |-ParmVarDecl 0x2ed4d78 <col:74> col:77 'int'
+| `-NoThrowAttr 0x2ed4fc8 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2ed50b0 <C:\MinGW\include\stdio.h:506:9, col:55> col:37 _getmaxstdio 'int (void) __attribute__((cdecl))':'int (void)'
+| `-NoThrowAttr 0x2ed5160 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2ed62b8 <C:\MinGW\include\stdio.h:507:9, col:54> col:37 _setmaxstdio 'int (int) __attribute__((cdecl))':'int (int)'
+| |-ParmVarDecl 0x2ed6210 <col:51> col:54 'int'
+| `-NoThrowAttr 0x2ed6370 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2ed64c0 <C:\MinGW\include\stdio.h:526:1, col:53> col:22 used __mingw_get_output_format 'unsigned int (void) __attribute__((cdecl))':'unsigned int (void)'
+|-FunctionDecl 0x2ed66a8 <line:527:1, col:61> col:22 used __mingw_set_output_format 'unsigned int (unsigned int) __attribute__((cdecl))':'unsigned int (unsigned int)'
+| `-ParmVarDecl 0x2ed6588 <col:49> col:61 'unsigned int'
+|-FunctionDecl 0x2ed6810 <line:535:1, col:50> col:13 used __mingw_get_printf_count_output 'int (void) __attribute__((cdecl))':'int (void)'
+|-FunctionDecl 0x2ed6980 <line:536:1, col:49> col:13 used __mingw_set_printf_count_output 'int (int) __attribute__((cdecl))':'int (int)'
+| `-ParmVarDecl 0x2ed68d8 <col:46> col:49 'int'
+|-FunctionDecl 0x2ed6ae8 <C:\MinGW\include\_mingw.h:270:26, C:\MinGW\include\stdio.h:554:40> line:553:34 _get_output_format 'unsigned int (void) __attribute__((cdecl))':'unsigned int (void)' extern inline
+| |-CompoundStmt 0x2ed6cd0 <line:554:1, col:40>
+| | `-ReturnStmt 0x2ed6cb8 <col:3, col:37>
+| |   `-CallExpr 0x2ed6c90 <col:10, col:37> 'unsigned int'
+| |     `-ImplicitCastExpr 0x2ed6c78 <col:10> 'unsigned int (*)(void) __attribute__((cdecl))' <FunctionToPointerDecay>
+| |       `-DeclRefExpr 0x2ed6bf0 <col:10> 'unsigned int (void) __attribute__((cdecl))':'unsigned int (void)' Function 0x2ed64c0 '__mingw_get_output_format' 'unsigned int (void) __attribute__((cdecl))':'unsigned int (void)'
+| |-AlwaysInlineAttr 0x2ed6b98 <C:\MinGW\include\_mingw.h:283:52> always_inline
+| |-GNUInlineAttr 0x2ed6bd0 <line:270:55>
+| `-GNUInlineAttr 0x2ed6be0 <col:55>
+|-FunctionDecl 0x2ed6db0 <col:26, C:\MinGW\include\stdio.h:557:47> line:556:34 _set_output_format 'unsigned int (unsigned int) __attribute__((cdecl))':'unsigned int (unsigned int)' extern inline
+| |-ParmVarDecl 0x2ed6d08 <col:54, col:67> col:67 used __style 'unsigned int'
+| |-CompoundStmt 0x2ed6fe0 <line:557:1, col:47>
+| | `-ReturnStmt 0x2ed6fc8 <col:3, col:44>
+| |   `-CallExpr 0x2ed6f80 <col:10, col:44> 'unsigned int'
+| |     |-ImplicitCastExpr 0x2ed6f68 <col:10> 'unsigned int (*)(unsigned int) __attribute__((cdecl))' <FunctionToPointerDecay>
+| |     | `-DeclRefExpr 0x2ed6ec0 <col:10> 'unsigned int (unsigned int) __attribute__((cdecl))':'unsigned int (unsigned int)' Function 0x2ed66a8 '__mingw_set_output_format' 'unsigned int (unsigned int) __attribute__((cdecl))':'unsigned int (unsigned int)'
+| |     `-ImplicitCastExpr 0x2ed6fb0 <col:37> 'unsigned int' <LValueToRValue>
+| |       `-DeclRefExpr 0x2ed6ee8 <col:37> 'unsigned int' lvalue ParmVar 0x2ed6d08 '__style' 'unsigned int'
+| |-AlwaysInlineAttr 0x2ed6e68 <C:\MinGW\include\_mingw.h:283:52> always_inline
+| |-GNUInlineAttr 0x2ed6ea0 <line:270:55>
+| `-GNUInlineAttr 0x2ed6eb0 <col:55>
+|-FunctionDecl 0x2ed70b0 <col:26, C:\MinGW\include\stdio.h:580:71> line:579:25 _get_printf_count_output 'int (void) __attribute__((cdecl))':'int (void)' extern inline
+| |-CompoundStmt 0x2ed8340 <line:580:1, col:71>
+| | `-ReturnStmt 0x2ed8328 <col:3, col:68>
+| |   `-ConditionalOperator 0x2ed82f8 <line:576:30, line:580:68> 'int'
+| |     |-IntegerLiteral 0x2ed71b8 <line:576:30> 'int' 0
+| |     |-IntegerLiteral 0x2ed71e0 <line:580:31> 'int' 1
+| |     `-CallExpr 0x2ed82d0 <col:35, col:68> 'int'
+| |       `-ImplicitCastExpr 0x2ed82b8 <col:35> 'int (*)(void) __attribute__((cdecl))' <FunctionToPointerDecay>
+| |         `-DeclRefExpr 0x2ed8230 <col:35> 'int (void) __attribute__((cdecl))':'int (void)' Function 0x2ed6810 '__mingw_get_printf_count_output' 'int (void) __attribute__((cdecl))':'int (void)'
+| |-AlwaysInlineAttr 0x2ed7160 <C:\MinGW\include\_mingw.h:283:52> always_inline
+| |-GNUInlineAttr 0x2ed7198 <line:270:55>
+| `-GNUInlineAttr 0x2ed71a8 <col:55>
+|-FunctionDecl 0x2ed8420 <col:26, C:\MinGW\include\stdio.h:583:77> line:582:25 _set_printf_count_output 'int (int) __attribute__((cdecl))':'int (int)' extern inline
+| |-ParmVarDecl 0x2ed8378 <col:51, col:55> col:55 used __mode 'int'
+| |-CompoundStmt 0x2ed86d0 <line:583:1, col:77>
+| | `-ReturnStmt 0x2ed86b8 <col:3, col:74>
+| |   `-ConditionalOperator 0x2ed8688 <line:576:30, line:583:74> 'int'
+| |     |-IntegerLiteral 0x2ed8530 <line:576:30> 'int' 0
+| |     |-IntegerLiteral 0x2ed8558 <line:583:31> 'int' 1
+| |     `-CallExpr 0x2ed8640 <col:35, col:74> 'int'
+| |       |-ImplicitCastExpr 0x2ed8628 <col:35> 'int (*)(int) __attribute__((cdecl))' <FunctionToPointerDecay>
+| |       | `-DeclRefExpr 0x2ed8580 <col:35> 'int (int) __attribute__((cdecl))':'int (int)' Function 0x2ed6980 '__mingw_set_printf_count_output' 'int (int) __attribute__((cdecl))':'int (int)'
+| |       `-ImplicitCastExpr 0x2ed8670 <col:68> 'int' <LValueToRValue>
+| |         `-DeclRefExpr 0x2ed85a8 <col:68> 'int' lvalue ParmVar 0x2ed8378 '__mode' 'int'
+| |-AlwaysInlineAttr 0x2ed84d8 <C:\MinGW\include\_mingw.h:283:52> always_inline
+| |-GNUInlineAttr 0x2ed8510 <line:270:55>
+| `-GNUInlineAttr 0x2ed8520 <col:55>
+|-FunctionDecl 0x2ed87a0 <C:\MinGW\include\stdio.h:587:9, col:51> col:37 fgetchar 'int (void) __attribute__((cdecl))':'int (void)'
+| `-NoThrowAttr 0x2ed8850 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2ed8948 <C:\MinGW\include\stdio.h:588:9, col:50> col:37 fputchar 'int (int) __attribute__((cdecl))':'int (int)'
+| |-ParmVarDecl 0x2ed88a0 <col:47> col:50 'int'
+| `-NoThrowAttr 0x2ed8a00 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2ed8b68 <C:\MinGW\include\stdio.h:589:9, col:63> col:39 fdopen 'FILE *(int, const char *) __attribute__((cdecl))':'FILE *(int, const char *)'
+| |-ParmVarDecl 0x2ed8a50 <col:47> col:50 'int'
+| |-ParmVarDecl 0x2ed8ac0 <col:52, col:62> col:63 'const char *'
+| `-NoThrowAttr 0x2ed8c28 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2ed8d18 <C:\MinGW\include\stdio.h:590:9, col:50> col:37 fileno 'int (FILE *) __attribute__((cdecl))':'int (FILE *)'
+| |-ParmVarDecl 0x2ed8c70 <col:45, col:49> col:50 'FILE *'
+| `-NoThrowAttr 0x2ed8dd0 <C:\MinGW\include\_mingw.h:342:41>
+|-TypedefDecl 0x2ed8e20 <C:\Program Files\LLVM\bin\..\lib\clang\3.7.1\include\stddef.h:51:1, col:26> col:26 ptrdiff_t 'long long'
+|-TypedefDecl 0x2ed8e88 <C:\MinGW\include\sys/types.h:27:1, col:17> col:17 referenced __time32_t 'long'
+|-TypedefDecl 0x2ed8ef0 <line:32:1, col:17> col:17 __time64_t 'long long'
+|-TypedefDecl 0x2ed8f70 <line:45:1, col:20> col:20 time_t '__time32_t':'long'
+|-TypedefDecl 0x2ed8fd8 <line:52:1, col:14> col:14 referenced _off_t 'long'
+|-TypedefDecl 0x2ed9060 <line:55:1, col:16> col:16 off_t '_off_t':'long'
+|-TypedefDecl 0x2ed90c8 <line:63:1, col:22> col:22 referenced _dev_t 'unsigned int'
+|-TypedefDecl 0x2ed9150 <line:69:1, col:16> col:16 dev_t '_dev_t':'unsigned int'
+|-TypedefDecl 0x2ed91b8 <line:76:1, col:15> col:15 referenced _ino_t 'short'
+|-TypedefDecl 0x2eda260 <line:79:1, col:16> col:16 ino_t '_ino_t':'short'
+|-TypedefDecl 0x2eda2c8 <line:86:1, col:13> col:13 referenced _pid_t 'int'
+|-TypedefDecl 0x2eda350 <line:89:1, col:16> col:16 pid_t '_pid_t':'int'
+|-TypedefDecl 0x2eda3b8 <line:96:1, col:24> col:24 referenced _mode_t 'unsigned short'
+|-TypedefDecl 0x2eda440 <line:99:1, col:17> col:17 mode_t '_mode_t':'unsigned short'
+|-TypedefDecl 0x2eda4a8 <line:106:1, col:13> col:13 referenced _sigset_t 'int'
+|-TypedefDecl 0x2eda530 <line:109:1, col:19> col:19 sigset_t '_sigset_t':'int'
+|-TypedefDecl 0x2eda598 <line:115:1, col:13> col:13 referenced _ssize_t 'int'
+|-TypedefDecl 0x2eda620 <line:118:1, col:18> col:18 ssize_t '_ssize_t':'int'
+|-TypedefDecl 0x2eda688 <line:124:1, col:19> col:19 fpos64_t 'long long'
+|-TypedefDecl 0x2eda6f0 <line:129:1, col:19> col:19 referenced off64_t 'long long'
+|-TypedefDecl 0x2eda758 <line:133:1, col:23> col:23 useconds_t 'unsigned long'
+| `-DeprecatedAttr 0x2eda7a8 <C:\MinGW\include\_mingw.h:336:51> ""
+|-FunctionDecl 0x2eda918 <line:270:26, C:\MinGW\include\stdio.h:602:34> line:601:31 fopen64 'FILE *(const char *, const char *) __attribute__((cdecl))':'FILE *(const char *, const char *)' extern inline
+| |-ParmVarDecl 0x2eda800 <col:40, col:52> col:52 used filename 'const char *'
+| |-ParmVarDecl 0x2eda870 <col:62, col:74> col:74 used mode 'const char *'
+| |-CompoundStmt 0x2edab90 <line:602:1, col:34>
+| | `-ReturnStmt 0x2edab78 <col:3, col:31>
+| |   `-CallExpr 0x2edab10 <col:10, col:31> 'FILE *'
+| |     |-ImplicitCastExpr 0x2edaaf8 <col:10> 'FILE *(*)(const char *, const char *) __attribute__((cdecl))' <FunctionToPointerDecay>
+| |     | `-DeclRefExpr 0x2edaa20 <col:10> 'FILE *(const char *, const char *) __attribute__((cdecl))':'FILE *(const char *, const char *)' Function 0x2ec3498 'fopen' 'FILE *(const char *, const char *) __attribute__((cdecl))':'FILE *(const char *, const char *)'
+| |     |-ImplicitCastExpr 0x2edab48 <col:17> 'const char *' <LValueToRValue>
+| |     | `-DeclRefExpr 0x2edaa48 <col:17> 'const char *' lvalue ParmVar 0x2eda800 'filename' 'const char *'
+| |     `-ImplicitCastExpr 0x2edab60 <col:27> 'const char *' <LValueToRValue>
+| |       `-DeclRefExpr 0x2edaa70 <col:27> 'const char *' lvalue ParmVar 0x2eda870 'mode' 'const char *'
+| |-GNUInlineAttr 0x2eda9d8 <C:\MinGW\include\_mingw.h:270:55>
+| `-NoThrowAttr 0x2edaa10 <line:342:41>
+|-FunctionDecl 0x2edae58 <C:\MinGW\include\stdio.h:604:1, col:58> col:29 fseeko64 'int (FILE *, off64_t, int) __attribute__((cdecl))':'int (FILE *, off64_t, int)'
+| |-ParmVarDecl 0x2edabc0 <col:39, col:43> col:44 'FILE *'
+| |-ParmVarDecl 0x2edac50 <col:46> col:53 'off64_t':'long long'
+| |-ParmVarDecl 0x2edacc8 <col:55> col:58 'int'
+| `-NoThrowAttr 0x2edaf20 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2edb0c0 <line:270:26, C:\MinGW\include\stdio.h:619:1> line:612:33 ftello64 'off64_t (FILE *) __attribute__((cdecl))':'off64_t (FILE *)' extern inline
+| |-ParmVarDecl 0x2edaf68 <col:43, col:50> col:50 used stream 'FILE *'
+| |-CompoundStmt 0x2edc520 <line:613:1, line:619:1>
+| | |-DeclStmt 0x2edc270 <line:614:3, col:13>
+| | | `-VarDecl 0x2edb1e0 <col:3, col:10> col:10 used pos 'fpos_t':'long long'
+| | `-IfStmt 0x2edc4f0 <line:615:3, line:618:25>
+| |   |-<<<NULL>>>
+| |   |-CallExpr 0x2edc390 <line:615:7, col:27> 'int'
+| |   | |-ImplicitCastExpr 0x2edc378 <col:7> 'int (*)(FILE *, fpos_t *) __attribute__((cdecl))' <FunctionToPointerDecay>
+| |   | | `-DeclRefExpr 0x2edc288 <col:7> 'int (FILE *, fpos_t *) __attribute__((cdecl))':'int (FILE *, fpos_t *)' Function 0x2ed2df0 'fgetpos' 'int (FILE *, fpos_t *) __attribute__((cdecl))':'int (FILE *, fpos_t *)'
+| |   | |-ImplicitCastExpr 0x2edc3c8 <col:15> 'FILE *' <LValueToRValue>
+| |   | | `-DeclRefExpr 0x2edc2b0 <col:15> 'FILE *' lvalue ParmVar 0x2edaf68 'stream' 'FILE *'
+| |   | `-UnaryOperator 0x2edc300 <col:23, col:24> 'fpos_t *' prefix '&'
+| |   |   `-DeclRefExpr 0x2edc2d8 <col:24> 'fpos_t':'long long' lvalue Var 0x2edb1e0 'pos' 'fpos_t':'long long'
+| |   |-ReturnStmt 0x2edc428 <line:616:5, col:14>
+| |   | `-UnaryOperator 0x2edc408 <col:13, col:14> 'long long' prefix '-'
+| |   |   `-IntegerLiteral 0x2edc3e0 <col:14> 'long long' 1
+| |   `-ReturnStmt 0x2edc4d8 <line:618:4, col:25>
+| |     `-ParenExpr 0x2edc4b8 <col:11, col:25> 'off64_t':'long long'
+| |       `-CStyleCastExpr 0x2edc490 <col:12, col:22> 'off64_t':'long long' <NoOp>
+| |         `-ImplicitCastExpr 0x2edc478 <col:22> 'fpos_t':'long long' <LValueToRValue>
+| |           `-DeclRefExpr 0x2edc440 <col:22> 'fpos_t':'long long' lvalue Var 0x2edb1e0 'pos' 'fpos_t':'long long'
+| |-NoThrowAttr 0x2edb178 <C:\MinGW\include\_mingw.h:342:41>
+| |-GNUInlineAttr 0x2edb1b0 <line:270:55>
+| `-GNUInlineAttr 0x2edb1c0 <col:55>
+|-FunctionDecl 0x2edc7b0 <C:\MinGW\include\stdio.h:628:9, col:73> col:37 fwprintf 'int (FILE *, const wchar_t *, ...) __attribute__((cdecl))':'int (FILE *, const wchar_t *, ...)'
+| |-ParmVarDecl 0x2edc558 <col:47, col:51> col:52 'FILE *'
+| |-ParmVarDecl 0x2edc648 <col:54, col:67> col:68 'const wchar_t *'
+| `-NoThrowAttr 0x2edc870 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2edca18 <C:\MinGW\include\stdio.h:629:9, col:65> col:37 wprintf 'int (const wchar_t *, ...) __attribute__((cdecl))':'int (const wchar_t *, ...)'
+| |-ParmVarDecl 0x2edc8b8 <col:46, col:59> col:60 'const wchar_t *'
+| `-NoThrowAttr 0x2edcad0 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2edcde8 <C:\MinGW\include\stdio.h:630:9, col:86> col:37 _snwprintf 'int (wchar_t *, size_t, const wchar_t *, ...) __attribute__((cdecl))':'int (wchar_t *, size_t, const wchar_t *, ...)'
+| |-ParmVarDecl 0x2edcb78 <col:49, col:56> col:57 'wchar_t *'
+| |-ParmVarDecl 0x2edcbe8 <col:59> col:65 'size_t':'unsigned long long'
+| |-ParmVarDecl 0x2edcc58 <col:67, col:80> col:81 'const wchar_t *'
+| `-NoThrowAttr 0x2edceb0 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2edd168 <C:\MinGW\include\stdio.h:631:9, col:79> col:37 vfwprintf 'int (FILE *, const wchar_t *, __gnuc_va_list) __attribute__((cdecl))':'int (FILE *, const wchar_t *, __gnuc_va_list)'
+| |-ParmVarDecl 0x2edcef8 <col:48, col:52> col:53 'FILE *'
+| |-ParmVarDecl 0x2edcf68 <col:55, col:68> col:69 'const wchar_t *'
+| |-ParmVarDecl 0x2edcfd8 <line:115:18> line:631:79 '__gnuc_va_list':'char *'
+| `-NoThrowAttr 0x2edd230 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2edd460 <C:\MinGW\include\stdio.h:632:9, col:71> col:37 vwprintf 'int (const wchar_t *, __gnuc_va_list) __attribute__((cdecl))':'int (const wchar_t *, __gnuc_va_list)'
+| |-ParmVarDecl 0x2edd290 <col:47, col:60> col:61 'const wchar_t *'
+| |-ParmVarDecl 0x2edd300 <line:115:18> line:632:71 '__gnuc_va_list':'char *'
+| `-NoThrowAttr 0x2edd520 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2edd850 <C:\MinGW\include\stdio.h:633:9, col:92> col:37 _vsnwprintf 'int (wchar_t *, size_t, const wchar_t *, __gnuc_va_list) __attribute__((cdecl))':'int (wchar_t *, size_t, const wchar_t *, __gnuc_va_list)'
+| |-ParmVarDecl 0x2edd568 <col:50, col:57> col:58 'wchar_t *'
+| |-ParmVarDecl 0x2edd5d8 <col:60> col:66 'size_t':'unsigned long long'
+| |-ParmVarDecl 0x2edd648 <col:68, col:81> col:82 'const wchar_t *'
+| |-ParmVarDecl 0x2edd6b8 <line:115:18> line:633:92 '__gnuc_va_list':'char *'
+| `-NoThrowAttr 0x2edd920 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2edda88 <C:\MinGW\include\stdio.h:634:9, col:74> col:37 _vscwprintf 'int (const wchar_t *, __gnuc_va_list) __attribute__((cdecl))':'int (const wchar_t *, __gnuc_va_list)'
+| |-ParmVarDecl 0x2edd968 <col:50, col:63> col:64 'const wchar_t *'
+| |-ParmVarDecl 0x2edd9d8 <line:115:18> line:634:74 '__gnuc_va_list':'char *'
+| `-NoThrowAttr 0x2eddb48 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2eddcb0 <C:\MinGW\include\stdio.h:635:9, col:72> col:37 fwscanf 'int (FILE *, const wchar_t *, ...) __attribute__((cdecl))':'int (FILE *, const wchar_t *, ...)'
+| |-ParmVarDecl 0x2eddb90 <col:46, col:50> col:51 'FILE *'
+| |-ParmVarDecl 0x2eddc00 <col:53, col:66> col:67 'const wchar_t *'
+| `-NoThrowAttr 0x2eddd70 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2edde60 <C:\MinGW\include\stdio.h:636:9, col:64> col:37 wscanf 'int (const wchar_t *, ...) __attribute__((cdecl))':'int (const wchar_t *, ...)'
+| |-ParmVarDecl 0x2edddb8 <col:45, col:58> col:59 'const wchar_t *'
+| `-NoThrowAttr 0x2eddf18 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2ede130 <C:\MinGW\include\stdio.h:637:9, col:81> col:37 swscanf 'int (const wchar_t *, const wchar_t *, ...) __attribute__((cdecl))':'int (const wchar_t *, const wchar_t *, ...)'
+| |-ParmVarDecl 0x2eddf60 <col:46, col:59> col:60 'const wchar_t *'
+| |-ParmVarDecl 0x2eddfd0 <col:62, col:75> col:76 'const wchar_t *'
+| `-NoThrowAttr 0x2ede1f0 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2ede3a0 <C:\MinGW\include\stdio.h:638:9, col:53> col:40 fgetwc 'wint_t (FILE *) __attribute__((cdecl))':'wint_t (FILE *)'
+| |-ParmVarDecl 0x2ede290 <col:48, col:52> col:53 'FILE *'
+| `-NoThrowAttr 0x2ede458 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2ede668 <C:\MinGW\include\stdio.h:639:9, col:62> col:40 fputwc 'wint_t (wchar_t, FILE *) __attribute__((cdecl))':'wint_t (wchar_t, FILE *)'
+| |-ParmVarDecl 0x2ede4a0 <col:48> col:55 'wchar_t':'unsigned short'
+| |-ParmVarDecl 0x2ede510 <col:57, col:61> col:62 'FILE *'
+| `-NoThrowAttr 0x2ede728 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2ede888 <C:\MinGW\include\stdio.h:640:9, col:63> col:40 ungetwc 'wint_t (wchar_t, FILE *) __attribute__((cdecl))':'wint_t (wchar_t, FILE *)'
+| |-ParmVarDecl 0x2ede770 <col:49> col:56 'wchar_t':'unsigned short'
+| |-ParmVarDecl 0x2ede7e0 <col:58, col:62> col:63 'FILE *'
+| `-NoThrowAttr 0x2ede948 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2edeb60 <C:\MinGW\include\stdio.h:644:9, col:76> col:37 swprintf 'int (wchar_t *, const wchar_t *, ...) __attribute__((cdecl))':'int (wchar_t *, const wchar_t *, ...)'
+| |-ParmVarDecl 0x2ede990 <col:47, col:54> col:55 'wchar_t *'
+| |-ParmVarDecl 0x2edea00 <col:57, col:70> col:71 'const wchar_t *'
+| `-NoThrowAttr 0x2edec20 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2edeed8 <C:\MinGW\include\stdio.h:645:9, col:82> col:37 vswprintf 'int (wchar_t *, const wchar_t *, __gnuc_va_list) __attribute__((cdecl))':'int (wchar_t *, const wchar_t *, __gnuc_va_list)'
+| |-ParmVarDecl 0x2edec68 <col:48, col:55> col:56 'wchar_t *'
+| |-ParmVarDecl 0x2edecd8 <col:58, col:71> col:72 'const wchar_t *'
+| |-ParmVarDecl 0x2eded48 <line:115:18> line:645:82 '__gnuc_va_list':'char *'
+| `-NoThrowAttr 0x2edefa0 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2ee0fb0 <C:\MinGW\include\stdio.h:649:9, col:70> col:42 fgetws 'wchar_t *(wchar_t *, int, FILE *) __attribute__((cdecl))':'wchar_t *(wchar_t *, int, FILE *)'
+| |-ParmVarDecl 0x2edefe8 <col:50, col:57> col:58 'wchar_t *'
+| |-ParmVarDecl 0x2edf060 <col:60> col:63 'int'
+| |-ParmVarDecl 0x2edf0d0 <col:65, col:69> col:70 'FILE *'
+| `-NoThrowAttr 0x2ee1078 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2ee1290 <C:\MinGW\include\stdio.h:650:9, col:66> col:37 fputws 'int (const wchar_t *, FILE *) __attribute__((cdecl))':'int (const wchar_t *, FILE *)'
+| |-ParmVarDecl 0x2ee10c0 <col:45, col:58> col:59 'const wchar_t *'
+| |-ParmVarDecl 0x2ee1130 <col:61, col:65> col:66 'FILE *'
+| `-NoThrowAttr 0x2ee1350 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2ee1438 <C:\MinGW\include\stdio.h:651:9, col:52> col:40 getwc 'wint_t (FILE *) __attribute__((cdecl))':'wint_t (FILE *)'
+| |-ParmVarDecl 0x2ee1398 <col:47, col:51> col:52 'FILE *'
+| `-NoThrowAttr 0x2ee14f0 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2ee1638 <C:\MinGW\include\stdio.h:652:9, col:54> col:40 getwchar 'wint_t (void) __attribute__((cdecl))':'wint_t (void)'
+| `-NoThrowAttr 0x2ee16e8 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2ee1880 <C:\MinGW\include\stdio.h:653:9, col:58> col:42 _getws 'wchar_t *(wchar_t *) __attribute__((cdecl))':'wchar_t *(wchar_t *)'
+| |-ParmVarDecl 0x2ee1730 <col:50, col:57> col:58 'wchar_t *'
+| `-NoThrowAttr 0x2ee1938 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2ee1b08 <C:\MinGW\include\stdio.h:654:9, col:60> col:40 putwc 'wint_t (wint_t, FILE *) __attribute__((cdecl))':'wint_t (wint_t, FILE *)'
+| |-ParmVarDecl 0x2ee1980 <col:47> col:53 'wint_t':'int'
+| |-ParmVarDecl 0x2ee19f0 <col:55, col:59> col:60 'FILE *'
+| `-NoThrowAttr 0x2ee1bc8 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2ee1d68 <C:\MinGW\include\stdio.h:655:9, col:59> col:37 _putws 'int (const wchar_t *) __attribute__((cdecl))':'int (const wchar_t *)'
+| |-ParmVarDecl 0x2ee1c10 <col:45, col:58> col:59 'const wchar_t *'
+| `-NoThrowAttr 0x2ee1e20 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2ee1fc0 <C:\MinGW\include\stdio.h:656:9, col:56> col:40 putwchar 'wint_t (wint_t) __attribute__((cdecl))':'wint_t (wint_t)'
+| |-ParmVarDecl 0x2ee1e68 <col:50> col:56 'wint_t':'int'
+| `-NoThrowAttr 0x2ee2078 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2ee2298 <C:\MinGW\include\stdio.h:657:9, col:68> col:39 _wfdopen 'FILE *(int, const wchar_t *) __attribute__((cdecl))':'FILE *(int, const wchar_t *)'
+| |-ParmVarDecl 0x2ee20c8 <col:48> col:51 'int'
+| |-ParmVarDecl 0x2ee2138 <col:53, col:67> col:68 'const wchar_t *'
+| `-NoThrowAttr 0x2ee2358 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2ee2568 <C:\MinGW\include\stdio.h:658:9, col:78> col:39 _wfopen 'FILE *(const wchar_t *, const wchar_t *) __attribute__((cdecl))':'FILE *(const wchar_t *, const wchar_t *)'
+| |-ParmVarDecl 0x2ee23a0 <col:48, col:61> col:62 'const wchar_t *'
+| |-ParmVarDecl 0x2ee2410 <col:64, col:77> col:78 'const wchar_t *'
+| `-NoThrowAttr 0x2ee2628 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2ee28d0 <C:\MinGW\include\stdio.h:659:9, col:87> col:39 _wfreopen 'FILE *(const wchar_t *, const wchar_t *, FILE *) __attribute__((cdecl))':'FILE *(const wchar_t *, const wchar_t *, FILE *)'
+| |-ParmVarDecl 0x2ee2670 <col:50, col:63> col:64 'const wchar_t *'
+| |-ParmVarDecl 0x2ee26e0 <col:66, col:79> col:80 'const wchar_t *'
+| |-ParmVarDecl 0x2ee2750 <col:82, col:86> col:87 'FILE *'
+| `-NoThrowAttr 0x2ee2998 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2ee2c50 <C:\MinGW\include\stdio.h:660:9, col:84> col:39 _wfsopen 'FILE *(const wchar_t *, const wchar_t *, int) __attribute__((cdecl))':'FILE *(const wchar_t *, const wchar_t *, int)'
+| |-ParmVarDecl 0x2ee29e0 <col:49, col:62> col:63 'const wchar_t *'
+| |-ParmVarDecl 0x2ee2a50 <col:65, col:78> col:79 'const wchar_t *'
+| |-ParmVarDecl 0x2ee2ac8 <col:81> col:84 'int'
+| `-NoThrowAttr 0x2ee2d18 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2ee2e00 <C:\MinGW\include\stdio.h:661:9, col:60> col:42 _wtmpnam 'wchar_t *(wchar_t *) __attribute__((cdecl))':'wchar_t *(wchar_t *)'
+| |-ParmVarDecl 0x2ee2d60 <col:52, col:59> col:60 'wchar_t *'
+| `-NoThrowAttr 0x2ee2eb8 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2ee3128 <C:\MinGW\include\stdio.h:662:9, col:83> col:42 _wtempnam 'wchar_t *(const wchar_t *, const wchar_t *) __attribute__((cdecl))':'wchar_t *(const wchar_t *, const wchar_t *)'
+| |-ParmVarDecl 0x2ee2f00 <col:53, col:66> col:67 'const wchar_t *'
+| |-ParmVarDecl 0x2ee2fd0 <col:69, col:82> col:83 'const wchar_t *'
+| `-NoThrowAttr 0x2ee31e8 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2ee3400 <C:\MinGW\include\stdio.h:663:9, col:77> col:37 _wrename 'int (const wchar_t *, const wchar_t *) __attribute__((cdecl))':'int (const wchar_t *, const wchar_t *)'
+| |-ParmVarDecl 0x2ee3230 <col:47, col:60> col:61 'const wchar_t *'
+| |-ParmVarDecl 0x2ee32a0 <col:63, col:76> col:77 'const wchar_t *'
+| `-NoThrowAttr 0x2ee34c0 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2ee35b0 <C:\MinGW\include\stdio.h:664:9, col:61> col:37 _wremove 'int (const wchar_t *) __attribute__((cdecl))':'int (const wchar_t *)'
+| |-ParmVarDecl 0x2ee3508 <col:47, col:60> col:61 'const wchar_t *'
+| `-NoThrowAttr 0x2ee3668 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2ee3800 <C:\MinGW\include\stdio.h:665:9, col:62> col:38 _wperror 'void (const wchar_t *) __attribute__((cdecl))':'void (const wchar_t *)'
+| |-ParmVarDecl 0x2ee36b0 <col:48, col:61> col:62 'const wchar_t *'
+| `-NoThrowAttr 0x2ee38b8 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2ee3a18 <C:\MinGW\include\stdio.h:666:9, col:78> col:39 _wpopen 'FILE *(const wchar_t *, const wchar_t *) __attribute__((cdecl))':'FILE *(const wchar_t *, const wchar_t *)'
+| |-ParmVarDecl 0x2ee3900 <col:48, col:61> col:62 'const wchar_t *'
+| |-ParmVarDecl 0x2ee3970 <col:64, col:77> col:78 'const wchar_t *'
+| `-NoThrowAttr 0x2ee3ad8 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2ee3cb8 <C:\MinGW\include\stdio.h:670:1, col:89> col:29 snwprintf 'int (wchar_t *, size_t, const wchar_t *, ...) __attribute__((cdecl))':'int (wchar_t *, size_t, const wchar_t *, ...)'
+| |-ParmVarDecl 0x2ee3b20 <col:40, col:49> col:49 s 'wchar_t *'
+| |-ParmVarDecl 0x2ee3b90 <col:52, col:59> col:59 n 'size_t':'unsigned long long'
+| |-ParmVarDecl 0x2ee3c00 <col:62, col:78> col:78 format 'const wchar_t *'
+| `-NoThrowAttr 0x2ee3d80 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2ee4040 <C:\MinGW\include\stdio.h:671:1, col:98> col:29 vsnwprintf 'int (wchar_t *, size_t, const wchar_t *, __gnuc_va_list) __attribute__((cdecl))':'int (wchar_t *, size_t, const wchar_t *, __gnuc_va_list)'
+| |-ParmVarDecl 0x2ee3dc8 <col:41, col:50> col:50 s 'wchar_t *'
+| |-ParmVarDecl 0x2ee3e38 <col:53, col:60> col:60 n 'size_t':'unsigned long long'
+| |-ParmVarDecl 0x2ee3ea8 <col:63, col:78> col:78 format 'const wchar_t *'
+| |-ParmVarDecl 0x2ee3f18 <line:115:18, line:671:95> col:95 arg '__gnuc_va_list':'char *'
+| `-NoThrowAttr 0x2ee4110 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2ee42f0 <C:\MinGW\include\stdio.h:677:1, col:76> col:29 vwscanf 'int (const wchar_t *__restrict, __gnuc_va_list) __attribute__((cdecl))':'int (const wchar_t *__restrict, __gnuc_va_list)'
+| |-ParmVarDecl 0x2ee4158 <col:38, col:52> col:66 'const wchar_t *__restrict'
+| |-ParmVarDecl 0x2ee41c8 <line:115:18> line:677:76 '__gnuc_va_list':'char *'
+| `-NoThrowAttr 0x2ee43b0 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2ee4618 <C:\MinGW\include\stdio.h:678:1, line:679:48> line:678:29 vfwscanf 'int (FILE *__restrict, const wchar_t *__restrict, __gnuc_va_list) __attribute__((cdecl))':'int (FILE *__restrict, const wchar_t *__restrict, __gnuc_va_list)'
+| |-ParmVarDecl 0x2ee43f8 <col:39, col:44> col:58 'FILE *__restrict'
+| |-ParmVarDecl 0x2ee4468 <line:679:10, col:24> col:38 'const wchar_t *__restrict'
+| |-ParmVarDecl 0x2ee44d8 <line:115:18> line:679:48 '__gnuc_va_list':'char *'
+| `-NoThrowAttr 0x2ee46e0 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2ee4998 <C:\MinGW\include\stdio.h:680:1, line:681:48> line:680:29 vswscanf 'int (const wchar_t *__restrict, const wchar_t *__restrict, __gnuc_va_list) __attribute__((cdecl))':'int (const wchar_t *__restrict, const wchar_t *__restrict, __gnuc_va_list)'
+| |-ParmVarDecl 0x2ee4728 <col:39, col:53> col:67 'const wchar_t *__restrict'
+| |-ParmVarDecl 0x2ee4798 <line:681:10, col:24> col:38 'const wchar_t *__restrict'
+| |-ParmVarDecl 0x2ee4808 <line:115:18> line:681:48 '__gnuc_va_list':'char *'
+| `-NoThrowAttr 0x2ee4a60 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2ee4bc0 <C:\MinGW\include\stdio.h:690:9, col:77> col:39 wpopen 'FILE *(const wchar_t *, const wchar_t *) __attribute__((cdecl))':'FILE *(const wchar_t *, const wchar_t *)'
+| |-ParmVarDecl 0x2ee4aa8 <col:47, col:60> col:61 'const wchar_t *'
+| |-ParmVarDecl 0x2ee4b18 <col:63, col:76> col:77 'const wchar_t *'
+| `-NoThrowAttr 0x2ee4c80 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2ee4d60 <C:\MinGW\include\stdio.h:697:9, col:56> col:40 _fgetwchar 'wint_t (void) __attribute__((cdecl))':'wint_t (void)'
+| `-NoThrowAttr 0x2ee4e10 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2ee4ef8 <C:\MinGW\include\stdio.h:698:9, col:58> col:40 _fputwchar 'wint_t (wint_t) __attribute__((cdecl))':'wint_t (wint_t)'
+| |-ParmVarDecl 0x2ee4e58 <col:52> col:58 'wint_t':'int'
+| `-NoThrowAttr 0x2ee4fb0 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2ee50d0 <C:\MinGW\include\stdio.h:699:9, col:49> col:37 _getw 'int (FILE *) __attribute__((cdecl))':'int (FILE *)'
+| |-ParmVarDecl 0x2ee5028 <col:44, col:48> col:49 'FILE *'
+| `-NoThrowAttr 0x2ee5188 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2ee52f8 <C:\MinGW\include\stdio.h:700:9, col:54> col:37 _putw 'int (int, FILE *) __attribute__((cdecl))':'int (int, FILE *)'
+| |-ParmVarDecl 0x2ee51d8 <col:44> col:47 'int'
+| |-ParmVarDecl 0x2ee5248 <col:49, col:53> col:54 'FILE *'
+| `-NoThrowAttr 0x2ee53b8 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2ee5498 <C:\MinGW\include\stdio.h:703:9, col:55> col:40 fgetwchar 'wint_t (void) __attribute__((cdecl))':'wint_t (void)'
+| `-NoThrowAttr 0x2ee5548 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2ee5630 <C:\MinGW\include\stdio.h:704:9, col:57> col:40 fputwchar 'wint_t (wint_t) __attribute__((cdecl))':'wint_t (wint_t)'
+| |-ParmVarDecl 0x2ee5590 <col:51> col:57 'wint_t':'int'
+| `-NoThrowAttr 0x2ee56e8 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2ee57d8 <C:\MinGW\include\stdio.h:705:9, col:48> col:37 getw 'int (FILE *) __attribute__((cdecl))':'int (FILE *)'
+| |-ParmVarDecl 0x2ee5730 <col:43, col:47> col:48 'FILE *'
+| `-NoThrowAttr 0x2ee5890 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2ee5a00 <C:\MinGW\include\stdio.h:706:9, col:53> col:37 putw 'int (int, FILE *) __attribute__((cdecl))':'int (int, FILE *)'
+| |-ParmVarDecl 0x2ee58e0 <col:43> col:46 'int'
+| |-ParmVarDecl 0x2ee5950 <col:48, col:52> col:53 'FILE *'
+| `-NoThrowAttr 0x2ee5ac0 <C:\MinGW\include\_mingw.h:342:41>
+|-FunctionDecl 0x2ee5d38 <gcd.c:3:1, line:24:1> line:3:5 main 'int (int, char **)'
+| |-ParmVarDecl 0x2ee5b10 <col:10, col:14> col:14 argc 'int'
+| |-ParmVarDecl 0x2ee5c20 <col:20, col:31> col:26 used argv 'char **':'char **'
+| `-CompoundStmt 0x2ee6cf0 <col:34, line:24:1>
+|   |-DeclStmt 0x2ee5f80 <line:4:3, col:15>
+|   | |-VarDecl 0x2ee5e10 <col:3, col:10> col:10 used a 'double'
+|   | |-VarDecl 0x2ee5e88 <col:3, col:12> col:12 used b 'double'
+|   | `-VarDecl 0x2ee5f00 <col:3, col:14> col:14 c 'double'
+|   |-DeclStmt 0x2ee60f0 <line:5:3, col:16>
+|   | |-VarDecl 0x2ee6000 <col:3, col:10> col:10 r1 'double'
+|   | `-VarDecl 0x2ee6078 <col:3, col:14> col:14 r2 'double'
+|   |-BinaryOperator 0x2ee6360 <line:6:3, col:19> 'double' '='
+|   | |-DeclRefExpr 0x2ee6108 <col:3> 'double' lvalue Var 0x2ee5e10 'a' 'double'
+|   | `-ImplicitCastExpr 0x2ee6348 <col:7, col:19> 'double' <IntegralToFloating>
+|   |   `-CallExpr 0x2ee6300 <col:7, col:19> 'int'
+|   |     |-ImplicitCastExpr 0x2ee62e8 <col:7> 'int (*)()' <FunctionToPointerDecay>
+|   |     | `-DeclRefExpr 0x2ee6208 <col:7> 'int ()' Function 0x2ee6158 'atoi' 'int ()'
+|   |     `-ImplicitCastExpr 0x2ee6330 <col:12, col:18> 'char *' <LValueToRValue>
+|   |       `-ArraySubscriptExpr 0x2ee6298 <col:12, col:18> 'char *' lvalue
+|   |         |-ImplicitCastExpr 0x2ee6280 <col:12> 'char **':'char **' <LValueToRValue>
+|   |         | `-DeclRefExpr 0x2ee6230 <col:12> 'char **':'char **' lvalue ParmVar 0x2ee5c20 'argv' 'char **':'char **'
+|   |         `-IntegerLiteral 0x2ee6258 <col:17> 'int' 1
+|   |-BinaryOperator 0x2ee64e0 <line:7:3, col:19> 'double' '='
+|   | |-DeclRefExpr 0x2ee6388 <col:3> 'double' lvalue Var 0x2ee5e88 'b' 'double'
+|   | `-ImplicitCastExpr 0x2ee64c8 <col:7, col:19> 'double' <IntegralToFloating>
+|   |   `-CallExpr 0x2ee6480 <col:7, col:19> 'int'
+|   |     |-ImplicitCastExpr 0x2ee6468 <col:7> 'int (*)()' <FunctionToPointerDecay>
+|   |     | `-DeclRefExpr 0x2ee63b0 <col:7> 'int ()' Function 0x2ee6158 'atoi' 'int ()'
+|   |     `-ImplicitCastExpr 0x2ee64b0 <col:12, col:18> 'char *' <LValueToRValue>
+|   |       `-ArraySubscriptExpr 0x2ee6440 <col:12, col:18> 'char *' lvalue
+|   |         |-ImplicitCastExpr 0x2ee6428 <col:12> 'char **':'char **' <LValueToRValue>
+|   |         | `-DeclRefExpr 0x2ee63d8 <col:12> 'char **':'char **' lvalue ParmVar 0x2ee5c20 'argv' 'char **':'char **'
+|   |         `-IntegerLiteral 0x2ee6400 <col:17> 'int' 2
+|   |-IfStmt 0x2ee6750 <line:9:3, line:11:3>
+|   | |-<<<NULL>>>
+|   | |-BinaryOperator 0x2ee6588 <line:9:7, col:12> 'int' '=='
+|   | | |-ImplicitCastExpr 0x2ee6558 <col:7> 'double' <LValueToRValue>
+|   | | | `-DeclRefExpr 0x2ee6508 <col:7> 'double' lvalue Var 0x2ee5e10 'a' 'double'
+|   | | `-ImplicitCastExpr 0x2ee6570 <col:12> 'double' <IntegralToFloating>
+|   | |   `-IntegerLiteral 0x2ee6530 <col:12> 'int' 0
+|   | |-CompoundStmt 0x2ee6730 <col:15, line:11:3>
+|   | | `-CallExpr 0x2ee66b0 <line:10:5, col:21> 'int'
+|   | |   |-ImplicitCastExpr 0x2ee6698 <col:5> 'int (*)(const char *, ...)' <FunctionToPointerDecay>
+|   | |   | `-DeclRefExpr 0x2ee65b0 <col:5> 'int (const char *, ...)' Function 0x2ec7850 'printf' 'int (const char *, ...)'
+|   | |   |-ImplicitCastExpr 0x2ee6700 <col:12> 'const char *' <BitCast>
+|   | |   | `-ImplicitCastExpr 0x2ee66e8 <col:12> 'char *' <ArrayToPointerDecay>
+|   | |   |   `-StringLiteral 0x2ee6618 <col:12> 'char [4]' lvalue "%g\n"
+|   | |   `-ImplicitCastExpr 0x2ee6718 <col:20> 'double' <LValueToRValue>
+|   | |     `-DeclRefExpr 0x2ee6648 <col:20> 'double' lvalue Var 0x2ee5e88 'b' 'double'
+|   | `-<<<NULL>>>
+|   |-CompoundStmt 0x2ee6c88 <line:12:3, line:21:3>
+|   | |-WhileStmt 0x2ee6b50 <line:13:5, line:19:5>
+|   | | |-<<<NULL>>>
+|   | | |-BinaryOperator 0x2ee6800 <line:13:12, col:17> 'int' '!='
+|   | | | |-ImplicitCastExpr 0x2ee67d0 <col:12> 'double' <LValueToRValue>
+|   | | | | `-DeclRefExpr 0x2ee6780 <col:12> 'double' lvalue Var 0x2ee5e88 'b' 'double'
+|   | | | `-ImplicitCastExpr 0x2ee67e8 <col:17> 'double' <IntegralToFloating>
+|   | | |   `-IntegerLiteral 0x2ee67a8 <col:17> 'int' 0
+|   | | `-CompoundStmt 0x2ee6b30 <col:20, line:19:5>
+|   | |   `-IfStmt 0x2ee6b00 <line:14:7, line:18:7>
+|   | |     |-<<<NULL>>>
+|   | |     |-BinaryOperator 0x2ee68a8 <line:14:11, col:15> 'int' '>'
+|   | |     | |-ImplicitCastExpr 0x2ee6878 <col:11> 'double' <LValueToRValue>
+|   | |     | | `-DeclRefExpr 0x2ee6828 <col:11> 'double' lvalue Var 0x2ee5e10 'a' 'double'
+|   | |     | `-ImplicitCastExpr 0x2ee6890 <col:15> 'double' <LValueToRValue>
+|   | |     |   `-DeclRefExpr 0x2ee6850 <col:15> 'double' lvalue Var 0x2ee5e88 'b' 'double'
+|   | |     |-CompoundStmt 0x2ee69c8 <col:18, line:16:7>
+|   | |     | `-BinaryOperator 0x2ee69a0 <line:15:9, col:17> 'double' '='
+|   | |     |   |-DeclRefExpr 0x2ee68d0 <col:9> 'double' lvalue Var 0x2ee5e10 'a' 'double'
+|   | |     |   `-BinaryOperator 0x2ee6978 <col:13, col:17> 'double' '-'
+|   | |     |     |-ImplicitCastExpr 0x2ee6948 <col:13> 'double' <LValueToRValue>
+|   | |     |     | `-DeclRefExpr 0x2ee68f8 <col:13> 'double' lvalue Var 0x2ee5e10 'a' 'double'
+|   | |     |     `-ImplicitCastExpr 0x2ee6960 <col:17> 'double' <LValueToRValue>
+|   | |     |       `-DeclRefExpr 0x2ee6920 <col:17> 'double' lvalue Var 0x2ee5e88 'b' 'double'
+|   | |     `-CompoundStmt 0x2ee6ae0 <line:16:14, line:18:7>
+|   | |       `-BinaryOperator 0x2ee6ab8 <line:17:9, col:17> 'double' '='
+|   | |         |-DeclRefExpr 0x2ee69e8 <col:9> 'double' lvalue Var 0x2ee5e88 'b' 'double'
+|   | |         `-BinaryOperator 0x2ee6a90 <col:13, col:17> 'double' '-'
+|   | |           |-ImplicitCastExpr 0x2ee6a60 <col:13> 'double' <LValueToRValue>
+|   | |           | `-DeclRefExpr 0x2ee6a10 <col:13> 'double' lvalue Var 0x2ee5e88 'b' 'double'
+|   | |           `-ImplicitCastExpr 0x2ee6a78 <col:17> 'double' <LValueToRValue>
+|   | |             `-DeclRefExpr 0x2ee6a38 <col:17> 'double' lvalue Var 0x2ee5e10 'a' 'double'
+|   | `-CallExpr 0x2ee6c08 <line:20:5, col:21> 'int'
+|   |   |-ImplicitCastExpr 0x2ee6bf0 <col:5> 'int (*)(const char *, ...)' <FunctionToPointerDecay>
+|   |   | `-DeclRefExpr 0x2ee6b70 <col:5> 'int (const char *, ...)' Function 0x2ec7850 'printf' 'int (const char *, ...)'
+|   |   |-ImplicitCastExpr 0x2ee6c58 <col:12> 'const char *' <BitCast>
+|   |   | `-ImplicitCastExpr 0x2ee6c40 <col:12> 'char *' <ArrayToPointerDecay>
+|   |   |   `-StringLiteral 0x2ee6b98 <col:12> 'char [4]' lvalue "%g\n"
+|   |   `-ImplicitCastExpr 0x2ee6c70 <col:20> 'double' <LValueToRValue>
+|   |     `-DeclRefExpr 0x2ee6bc8 <col:20> 'double' lvalue Var 0x2ee5e10 'a' 'double'
+|   `-ReturnStmt 0x2ee6cd8 <line:23:3, col:10>
+|     `-IntegerLiteral 0x2ee6cb0 <col:10> 'int' 0
+`-FunctionDecl 0x2ee6158 <<invalid sloc>> line:6:7 implicit used atoi 'int ()'
