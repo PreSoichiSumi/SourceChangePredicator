@@ -55,10 +55,8 @@ public class CppSourceAnalyzer {
 		IASTTranslationUnit translationUnit = language.getASTTranslationUnit(reader, scanInfo, fileCreator, index, options, log);
 		CppSourceVisitor cppSourceVisitor=new CppSourceVisitor();
 		translationUnit.accept(cppSourceVisitor);
-		for(Entry<String, Integer> o:cppSourceVisitor.counter.entrySet()){
-			System.out.println(o.getKey()+" , "+o.getValue());
-		}
-		
+		cppSourceVisitor.counter.forEach((k,v)-> System.out.printf("%s , %d%n",k, v));
+
 		return new int[2];
 	}
 	public void setFilePath(String filePath) {
