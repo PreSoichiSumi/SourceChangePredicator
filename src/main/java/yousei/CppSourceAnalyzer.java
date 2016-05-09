@@ -1,6 +1,7 @@
 package yousei;
 
 import java.io.FileReader;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -30,7 +31,7 @@ public class CppSourceAnalyzer {
 		this.classPath = classPath;
 		this.outputPath = outputPath;
 	}
-	public int[] analyzeFile()throws Exception{
+	public Map<String, Integer> analyzeFile()throws Exception{
 		StringBuilder source = new StringBuilder();
 		try(FileReader fr = new FileReader(filePath)) {
 			int c;
@@ -55,9 +56,9 @@ public class CppSourceAnalyzer {
 		IASTTranslationUnit translationUnit = language.getASTTranslationUnit(reader, scanInfo, fileCreator, index, options, log);
 		CppSourceVisitor cppSourceVisitor=new CppSourceVisitor();
 		translationUnit.accept(cppSourceVisitor);
-		cppSourceVisitor.counter.forEach((k,v)-> System.out.printf("%s , %d%n",k, v));
+		//cppSourceVisitor.counter.forEach((k,v)-> System.out.printf("%s , %d%n",k, v));
 
-		return new int[2];
+		return new HashMap<String,Integer>(cppSourceVisitor.counter);
 	}
 	public void setFilePath(String filePath) {
 		this.filePath = filePath;
