@@ -1,6 +1,7 @@
 package yousei;
 
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -15,12 +16,13 @@ import org.eclipse.cdt.core.parser.IParserLogService;
 import org.eclipse.cdt.core.parser.IScannerInfo;
 import org.eclipse.cdt.core.parser.IncludeFileContentProvider;
 import org.eclipse.cdt.core.parser.ScannerInfo;
+import org.eclipse.core.runtime.CoreException;
 //import org.eclipse.*;
 /**
  * @author s-sumi
  */
 public class CppSourceAnalyzer {
-	public String filePath;
+	public String filePath;	//基本これのみ必要
 	public String classPath;
 	public String outputPath;
 
@@ -31,7 +33,7 @@ public class CppSourceAnalyzer {
 		this.classPath = classPath;
 		this.outputPath = outputPath;
 	}
-	public Map<String, Integer> analyzeFile()throws Exception{
+	public Map<String, Integer> analyzeFile()throws IOException,CoreException{
 		StringBuilder source = new StringBuilder();
 		try(FileReader fr = new FileReader(filePath)) {
 			int c;
