@@ -8,19 +8,20 @@ import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.ObjectLoader;
 import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.revwalk.RevCommit;
+import org.eclipse.jgit.revwalk.RevTree;
 import org.eclipse.jgit.treewalk.AbstractTreeIterator;
+import org.eclipse.jgit.treewalk.TreeWalk;
+import org.eclipse.jgit.treewalk.filter.PathFilter;
 import org.eclipse.jgit.treewalk.filter.PathSuffixFilter;
 
 import java.io.*;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * Created by s-sumi on 2016/05/23.
  */
 public class Util {
+    public static File workingDir=new File("WorkingDir");
     public static Map<String, Integer> addMap(Map<String,Integer> map1, Map<String, Integer> map2){
         Map<String, Integer> res= new HashMap<>(map1);
         /*for(Map.Entry<String,Integer> e:map2.entrySet()){
@@ -31,7 +32,31 @@ public class Util {
                 .forEach(e -> res.merge(e.getKey(), e.getValue(), (a,b) -> a+b));
         return res;
     }
-    public static Map<String, Integer> genealogyUtil(RevCommit newRev, Map<String, Integer> geneology, Repository repo )
+    public static Map<String, List<Map<String,Integer>>> initGenealogy(RevCommit firstCommit, Repository repo)
+                                                                                    throws IOException,GitAPIException,CoreException{
+        RevTree revTree=firstCommit.getTree();
+        TreeWalk treeWalk=new TreeWalk(repo);
+        treeWalk.addTree(revTree);
+        treeWalk.setRecursive(true);
+        treeWalk.setFilter(PathSuffixFilter.create(".cpp"));
+
+        Map<String,List<Map<String,Integer>>> genealogy=new HashMap<>();
+
+        while(treeWalk.next()){
+            ObjectId objectId=treeWalk.getObjectId(0);
+            ObjectLoader objectLoader=repo.open(objectId);
+            ByteArrayOutputStream baos=new ByteArrayOutputStream();
+            objectLoader.copyTo(baos);
+
+            List<Map<String,Integer>> fileGenealogy=new ArrayList<>();
+            fileGenealogy.add(getSourceVector(baos.toString()));
+
+            genealogy.put(treeWalk.getPathString(),fileGenealogy);  //mergeでもどっちでもいい
+        }
+        return genealogy;
+    }
+
+    public static Map<String, Integer> genealogyUtil(RevCommit newRev, Map<String, Integer> genealogy, Repository repo )
                                                                                 throws IOException,GitAPIException, CoreException{
         File workingDir=new File("WorkingDir");
         CppSourceAnalyzer csa=new CppSourceAnalyzer("","","");
@@ -119,8 +144,21 @@ public class Util {
             return 5;
         }
     }
+
     public static int compareDiffEntries(DiffEntry a, DiffEntry b){
         return convertTypeToInteger(a.getChangeType()) - convertTypeToInteger(b.getChangeType());
     }
+
+    public static Map<String, Integer> getSourceVector(String source)throws IOException,CoreException{
+        File tmpFile=File.createTempFile("tmp",".cpp",workingDir);
+        BufferedWriter bw=new BufferedWriter(new FileWriter(tmpFile));
+        bw.write(source);
+        bw.close();
+        CppSourceAnalyzer csa=new CppSourceAnalyzer("","","");
+        csa.setFilePath(tmpFile.getAbsolutePath());
+        return csa.analyzeFile();
+    }
+
+
 
 }
