@@ -33,7 +33,7 @@ public class CppSourceAnalyzer {
 		this.classPath = classPath;
 		this.outputPath = outputPath;
 	}
-	public Map<String, Integer> analyzeFile()throws IOException,CoreException{
+	public Map<String, Integer> analyzeFile() throws IOException,CoreException{
 		StringBuilder source = new StringBuilder();
 		try(FileReader fr = new FileReader(filePath)) {
 			int c;

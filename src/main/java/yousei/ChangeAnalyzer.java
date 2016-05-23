@@ -32,13 +32,12 @@ public class ChangeAnalyzer {
     private RevCommit oldRev;
     private RevCommit newRev;
     private Repository repo;
-    private File workingDir=new File("WorkingDir");
-    private CppSourceAnalyzer csa=new CppSourceAnalyzer("","","");
+    private File workingDir = new File("WorkingDir");
+    private CppSourceAnalyzer csa = new CppSourceAnalyzer("", "", "");
 
-    public ChangeAnalyzer(){
+    public ChangeAnalyzer() {
         super();
     }
-
 
 
     public ChangeAnalyzer(RevCommit newRev, Repository repo) {
@@ -47,7 +46,7 @@ public class ChangeAnalyzer {
         this.oldRev = this.newRev.getParent(0);
     }
 
-    public void analyzeChange() throws IOException, GitAPIException,CoreException {
+    public void analyzeChange() throws IOException, GitAPIException, CoreException {
         String oldsourceString;
         String newsourceString;
 
@@ -62,7 +61,7 @@ public class ChangeAnalyzer {
 
         //誠に遺憾ながらcdtはStringを元にASTを構築してくれないので，
         //一旦StringからFileを作成して解析する．終わったら削除
-        for(DiffEntry entry:diff){
+        for (DiffEntry entry : diff) {
             ObjectLoader olold;
             ObjectLoader olnew;
 
@@ -88,34 +87,32 @@ public class ChangeAnalyzer {
                     newsourceString = "";
                 }
 
-                if(Objects.equals(oldsourceString,"") || Objects.equals(newsourceString,""))
+                if (Objects.equals(oldsourceString, "") || Objects.equals(newsourceString, ""))
                     continue;
 
-                File tmpFileOld=File.createTempFile("old",".cpp",workingDir);
-                BufferedWriter bw =new BufferedWriter(new FileWriter(tmpFileOld));
+                File tmpFileOld = File.createTempFile("old", ".cpp", workingDir);
+                BufferedWriter bw = new BufferedWriter(new FileWriter(tmpFileOld));
                 bw.write(oldsourceString);
                 bw.close();
 
                 csa.setFilePath(tmpFileOld.getAbsolutePath());
-                Map<String,Integer> resOld=csa.analyzeFile();
+                Map<String, Integer> resOld = csa.analyzeFile();
 
-                File tmpFileNew=File.createTempFile("new",".cpp",workingDir);
-                bw=new BufferedWriter(new FileWriter(tmpFileNew));
+                File tmpFileNew = File.createTempFile("new", ".cpp", workingDir);
+                bw = new BufferedWriter(new FileWriter(tmpFileNew));
                 bw.write(newsourceString);
                 bw.close();
 
                 csa.setFilePath(tmpFileNew.getAbsolutePath());
-                Map<String,Integer> resNew=csa.analyzeFile();
-                System.out.println(resOld.toString());
-                System.out.println();
-                System.out.println(resNew.toString());
+                Map<String, Integer> resNew = csa.analyzeFile();
+
             }
 
         }
     }
 
 
-    private static AbstractTreeIterator prepareTreeParser(
+    public static AbstractTreeIterator prepareTreeParser(
             Repository repository, String objectId) throws IOException,
             MissingObjectException, IncorrectObjectTypeException {
         // from the commit we can build the tree which allows us to construct

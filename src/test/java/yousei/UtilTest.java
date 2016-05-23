@@ -1,5 +1,6 @@
 package yousei;
 
+import org.eclipse.jgit.diff.DiffEntry;
 import org.junit.Test;
 
 import java.util.HashMap;
