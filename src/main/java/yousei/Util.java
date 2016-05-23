@@ -55,13 +55,12 @@ public class Util {
         }
         return genealogy;
     }
-
-    public static Map<String, Integer> genealogyUtil(RevCommit newRev, Map<String, Integer> genealogy, Repository repo )
-                                                                                throws IOException,GitAPIException, CoreException{
+    //map返さなくてもいいかも
+    public static Map<String, List<Map<String,Integer>>> getGenealogy(RevCommit newRev, Map<String, List<Map<String,Integer>>> genealogy, Repository repo )
+                                                                                throws Exception{
         File workingDir=new File("WorkingDir");
         CppSourceAnalyzer csa=new CppSourceAnalyzer("","","");
-        String oldsourceString;
-        String newsourceString;
+        String source;
 
         RevCommit oldRev=newRev.getParent(0);
 
@@ -80,54 +79,84 @@ public class Util {
         //誠に遺憾ながらcdtはStringを元にASTを構築してくれないので，
         //一旦StringからFileを作成して解析する．終わったら削除
         for (DiffEntry entry : diff) {
-            ObjectLoader olold;
-            ObjectLoader olnew;
+            if(entry.getChangeType()==DiffEntry.ChangeType.DELETE){         //deleteまでの系譜を保存しておきたい
+                //TODO
+                //if(genealogy.remove(entry.getOldPath())==null)
+                //    throw new Exception();//add忘れがあるということ
+                genealogy.remove(entry.getOldPath());
 
-            ByteArrayOutputStream bosold = new ByteArrayOutputStream();
-            ByteArrayOutputStream bosnew = new ByteArrayOutputStream();
-
-            if (entry.getChangeType() == DiffEntry.ChangeType.MODIFY) { // ソースの変更の場合のみ
-
-                if (!(entry.getOldId().toObjectId().equals(ObjectId.zeroId()))) { // OLDが存在するか
-                    olold = repo.open(entry.getOldId().toObjectId()); // ソースを読み込んで，コメントなどを消去
-                    olold.copyTo(bosold);
-                    oldsourceString = bosold.toString();
-
-                } else {
-                    oldsourceString = "";
-                }
+            }else if(entry.getChangeType()==DiffEntry.ChangeType.RENAME){
+                List<Map<String,Integer>> tmp=genealogy.get(entry.getOldPath());
+                genealogy.remove(entry.getOldPath());
+                genealogy.put(entry.getNewPath(),tmp);
+            }else if(entry.getChangeType()==DiffEntry.ChangeType.MODIFY){
+                ObjectLoader olnew;
+                ByteArrayOutputStream bosnew = new ByteArrayOutputStream();
 
                 if (!entry.getNewId().toObjectId().equals(ObjectId.zeroId())) { // NEWが存在するか
                     olnew = repo.open(entry.getNewId().toObjectId()); // ソースを読み込んで，コメントなどを消去
                     olnew.copyTo(bosnew);
-                    newsourceString = bosnew.toString();
+                    source = bosnew.toString();
                 } else {
-                    newsourceString = "";
+                    continue;
                 }
 
-                if (Objects.equals(oldsourceString, "") || Objects.equals(newsourceString, ""))
+                if (Objects.equals(source, ""))
                     continue;
 
-                File tmpFileOld = File.createTempFile("old", ".cpp", workingDir);
-                BufferedWriter bw = new BufferedWriter(new FileWriter(tmpFileOld));
-                bw.write(oldsourceString);
+                File tmpFile = File.createTempFile("new", ".cpp", workingDir);
+                BufferedWriter bw = new BufferedWriter(new FileWriter(tmpFile));
+                bw.write(source);
                 bw.close();
 
-                csa.setFilePath(tmpFileOld.getAbsolutePath());
-                Map<String, Integer> resOld = csa.analyzeFile();
+                csa.setFilePath(tmpFile.getAbsolutePath());
+                Map<String, Integer> res = csa.analyzeFile();
 
-                File tmpFileNew = File.createTempFile("new", ".cpp", workingDir);
-                bw = new BufferedWriter(new FileWriter(tmpFileNew));
-                bw.write(newsourceString);
+                if(Objects.equals(entry.getOldPath(),entry.getNewPath())){
+                    List<Map<String,Integer>> tmp=genealogy.get(entry.getOldPath());
+                    tmp.add(res);
+                    genealogy.put(entry.getOldPath(),tmp);
+                }else{
+                    List<Map<String,Integer>> tmp=genealogy.get(entry.getOldPath());
+                    tmp.add(res);
+                    genealogy.remove(entry.getOldPath());
+                    genealogy.put(entry.getNewPath(),tmp);
+                }
+
+            }else if(entry.getChangeType()== DiffEntry.ChangeType.ADD){
+                ObjectLoader olnew;
+                ByteArrayOutputStream bosnew = new ByteArrayOutputStream();
+
+                if (!entry.getNewId().toObjectId().equals(ObjectId.zeroId())) { // NEWが存在するか
+                    olnew = repo.open(entry.getNewId().toObjectId()); // ソースを読み込んで，コメントなどを消去
+                    olnew.copyTo(bosnew);
+                    source = bosnew.toString();
+                } else {
+                    continue;
+                }
+
+                if (Objects.equals(source, ""))
+                    continue;
+
+                File tmpFile = File.createTempFile("new", ".cpp", workingDir);
+                BufferedWriter bw = new BufferedWriter(new FileWriter(tmpFile));
+                bw.write(source);
                 bw.close();
 
-                csa.setFilePath(tmpFileNew.getAbsolutePath());
-                Map<String, Integer> resNew = csa.analyzeFile();
+                csa.setFilePath(tmpFile.getAbsolutePath());
+                Map<String, Integer> res = csa.analyzeFile();
 
+                List<Map<String,Integer>> tmp=new ArrayList<>();
+
+                tmp.add(res);
+                genealogy.put(entry.getNewPath(),tmp);
+            }else{      //copy
+                List<Map<String,Integer>> tmp=new ArrayList<>(genealogy.get(entry.getOldPath()));
+                genealogy.put(entry.getNewPath(),tmp);
             }
 
         }
-        return null;
+        return genealogy;
     }
     public static int convertTypeToInteger(DiffEntry.ChangeType ct){
         if(ct== DiffEntry.ChangeType.DELETE){
@@ -136,12 +165,10 @@ public class Util {
             return 1;
         }else if(ct== DiffEntry.ChangeType.MODIFY){
             return 2;
-        }else if(ct== DiffEntry.ChangeType.RENAME){
-            return 3;
         }else if(ct== DiffEntry.ChangeType.ADD){
+            return 3;
+        }else{//copy
             return 4;
-        }else{  //copy
-            return 5;
         }
     }
 

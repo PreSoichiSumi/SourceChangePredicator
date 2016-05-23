@@ -8,6 +8,7 @@ public class Main {
 	public static void main(String[] args)throws Exception{
 		RepositoryAnalyzer ra=new RepositoryAnalyzer(reposPath);
 		ra.analyzeRepository();
+		System.out.println("fin");
 	}
 
 	/*

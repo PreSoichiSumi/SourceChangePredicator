@@ -13,6 +13,8 @@ import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by s-sumi on 2016/05/09.
@@ -35,10 +37,11 @@ public class RepositoryAnalyzer {
 
         RevWalk rw=getInitializedRevWalk(repository,RevSort.REVERSE);//最古
         RevCommit commit=rw.next();
+        Map<String,List<Map<String,Integer>>> genealogy=Util.initGenealogy(commit,repository);
+        commit=rw.next();
         while(commit!=null){
             if(commit.getParentCount()>=1) {
-                ca.setCommit(commit);
-                ca.analyzeChange();
+                genealogy=Util.getGenealogy(commit,genealogy,repository);
             }
             commit=rw.next();
         }
