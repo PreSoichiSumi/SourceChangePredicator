@@ -74,8 +74,6 @@ public class ChangeAnalyzer {
                 if (!(entry.getOldId().toObjectId().equals(ObjectId.zeroId()))) { // OLDが存在するか
                     olold = repo.open(entry.getOldId().toObjectId()); // ソースを読み込んで，コメントなどを消去
                     olold.copyTo(bosold);
-
-
                     oldsourceString = bosold.toString();
 
                 } else {
@@ -90,8 +88,7 @@ public class ChangeAnalyzer {
                     newsourceString = "";
                 }
 
-                if(Objects.equals(oldsourceString,"") ||
-                        Objects.equals(newsourceString,""))
+                if(Objects.equals(oldsourceString,"") || Objects.equals(newsourceString,""))
                     continue;
 
                 File tmpFileOld=File.createTempFile("old",".cpp",workingDir);
@@ -128,11 +125,8 @@ public class ChangeAnalyzer {
         RevTree tree = walk.parseTree(commit.getTree().getId());
 
         CanonicalTreeParser oldTreeParser = new CanonicalTreeParser();
-        ObjectReader oldReader = repository.newObjectReader();
-        try {
+        try (ObjectReader oldReader = repository.newObjectReader()) {
             oldTreeParser.reset(oldReader, tree.getId());
-        } finally {
-            oldReader.close();
         }
 
         walk.dispose();
