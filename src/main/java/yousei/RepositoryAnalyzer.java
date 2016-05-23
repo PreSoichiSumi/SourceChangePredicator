@@ -46,8 +46,7 @@ public class RepositoryAnalyzer {
 
     // Reverseで最古から最新へ
     private RevWalk getInitializedRevWalk(Repository repo,
-                                          RevSort revSort) throws AmbiguousObjectException,
-            IncorrectObjectTypeException, IOException, MissingObjectException {
+                                          RevSort revSort) throws IOException{
         RevWalk rw = new RevWalk(repo);
         AnyObjectId headId;
 
