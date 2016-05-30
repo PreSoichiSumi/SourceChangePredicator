@@ -45,6 +45,9 @@ public class RepositoryAnalyzer {
             }
             commit=rw.next();
         }
+        for(Map.Entry<String,List<Map<String,Integer>>> e:genealogy.entrySet()){
+            File f=Util.singleGenealogy2Arff(e.getValue());
+        }
     }
 
     // Reverseで最古から最新へ
