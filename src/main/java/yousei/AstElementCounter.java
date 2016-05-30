@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class AstElementCounter extends ASTGenericVisitor {
-    public final Map<Class<? extends IASTNode>, Integer> elements = new HashMap<>();
+    public final Map<String, Integer> elements = new HashMap<>();
 
     public AstElementCounter() {
         super(true);
@@ -18,13 +18,13 @@ public class AstElementCounter extends ASTGenericVisitor {
 
     @Override
     protected int genericVisit(IASTNode node) {
-        elements.merge(node.getClass(), 1, (a, b) -> a + b);
+        elements.merge(node.getClass().getSimpleName(), 1, (a, b) -> a + b);
         return ASTVisitor.PROCESS_CONTINUE;
     }
 
     @Override
     public int visit(ASTAmbiguousNode node) {
-        elements.merge(node.getClass(), 1, (a, b) -> a + b);
+        elements.merge(node.getClass().getSimpleName(), 1, (a, b) -> a + b);
         for (IASTNode child : node.getNodes()) {
             child.accept(this);
         }

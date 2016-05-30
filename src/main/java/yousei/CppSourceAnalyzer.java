@@ -56,11 +56,12 @@ public class CppSourceAnalyzer {
 		IParserLogService log = new DefaultLogService();
 
 		IASTTranslationUnit translationUnit = language.getASTTranslationUnit(reader, scanInfo, fileCreator, index, options, log);
-		CppSourceVisitor cppSourceVisitor=new CppSourceVisitor();
-		translationUnit.accept(cppSourceVisitor);
+		AstElementCounter aec=new AstElementCounter();
+		translationUnit.accept(aec);
+		//CppSourceVisitor cppSourceVisitor=new CppSourceVisitor();
+		//translationUnit.accept(cppSourceVisitor);
 		//cppSourceVisitor.counter.forEach((k,v)-> System.out.printf("%s , %d%n",k, v));
-
-		return new HashMap<String,Integer>(cppSourceVisitor.counter);
+		return new HashMap<>(aec.elements);
 	}
 	public void setFilePath(String filePath) {
 		this.filePath = filePath;
