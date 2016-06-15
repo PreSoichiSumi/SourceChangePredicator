@@ -1,6 +1,7 @@
 package yousei;
 
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.jgit.api.DeleteBranchCommand;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.diff.DiffEntry;
@@ -202,6 +203,7 @@ public class Util {
 
     /**
      * mapで表された状態ベクトルをListに変換する
+     *
      * @param vector
      * @return
      */
@@ -227,6 +229,10 @@ public class Util {
             bw.write("@attribute " + e.getKey() + " numeric");
             bw.newLine();
         }
+        for (Map.Entry<String, Integer> e : nc.dictionary.entrySet()) {
+            bw.write("@attribute " + e.getKey() + "2 numeric");
+            bw.newLine();
+        }
 
         //bw.write("@attribute UNKNOWN numeric");
         //bw.newLine();
@@ -234,31 +240,43 @@ public class Util {
 
         bw.write("@data");
         bw.newLine();
-        for (int i = 0; i < genealogy.size(); i++) {//系譜の長さ分ループ
-            List<Integer> list = convertVector2List(genealogy.get(i));
-            for (int j = 0; j < list.size(); j++) {
-                bw.write(list.get(j).toString());
-
-                if (j != list.size() - 1)
-                    bw.write(",");
-            }
+        if (genealogy.size() < 2) {
+            bw.close();
+            return tmpFile;
+        }
+        List<Integer> pre;
+        List<Integer> now = convertVector2List(genealogy.get(0));
+        for (int i = 1; i < genealogy.size(); i++) {//系譜の長さ分ループ
+            pre = now;
+            now=convertVector2List(genealogy.get(i));
+            writeVector(bw,pre);
+            bw.write(",");
+            writeVector(bw,now);
             bw.newLine();
         }
 
         bw.close();
         return tmpFile;
     }
+    public static void writeVector(BufferedWriter bw, List<Integer> vector)throws IOException{
+        for(int i=0;i<vector.size();i++){
+            bw.write(vector.get(i).toString());
+            if(i!=vector.size()-1)
+                bw.write(",");
+        }
+    }
 
     public static void predict(File data) throws Exception {
         BufferedReader br = new BufferedReader(new FileReader(data));
         Instances instances = new Instances(br);
-        int num=instances.numAttributes();
+        int num = instances.numAttributes()/2;
         br.close();
-        for(int i=0;i<num;i++) {
+        for (int i = 0; i < num; i++) {
             br = new BufferedReader(new FileReader(data));
             instances = new Instances(br);
-            instances.setClassIndex(i);
-            instances = useFilter(instances,i);
+            instances=Util.removeAttrWithoutI(i,instances);
+            instances.setClassIndex(num);
+            instances = useFilter(instances, i);
 
             LinearRegression lr = new LinearRegression();
             String[] options = {};
@@ -269,7 +287,27 @@ public class Util {
         }
     }
 
-    public static Instances useFilter(Instances data,int predictNum) throws Exception {
+    public static Instances removeAttrWithoutI(int i,Instances instances){
+        int num=instances.numAttributes()/2;
+        int counter=0;
+        boolean skipped=false;
+        while(counter!=num){
+            if(counter!=i) {
+                if(!skipped){
+                    instances.deleteAttributeAt(num);
+                }else{
+                    instances.deleteAttributeAt(num+1);
+                }
+            }else {
+                skipped=true;
+            }
+            counter++;
+
+        }
+        return instances;
+    }
+
+    public static Instances useFilter(Instances data, int predictNum) throws Exception {
         AttributeSelection filter = new AttributeSelection();
         CfsSubsetEval eval = new CfsSubsetEval();
         BestFirst search = new BestFirst();
@@ -278,20 +316,21 @@ public class Util {
         filter.setEvaluator(eval);
         filter.setInputFormat(data);
         Instances newData = Filter.useFilter(data, filter);
-        if (newData.classIndex() == -1)
-            newData.setClassIndex(predictNum);
+        newData.setClassIndex(newData.numAttributes()-1);
+        //if (newData.classIndex() == -1)
+        //    newData.setClassIndex(predictNum);
         return newData;
     }
-    public static void enumNotFoundNodes(Set<String> set){
+
+    public static void enumNotFoundNodes(Set<String> set) {
         System.out.println("\nNotFoundNodes:");
-        NodeClasses nc=new NodeClasses();
-        for (String s:set){
-            if(!nc.dictionary.containsKey(s)){
+        NodeClasses nc = new NodeClasses();
+        for (String s : set) {
+            if (!nc.dictionary.containsKey(s)) {
                 System.out.println(s);
             }
         }
     }
-
 
 
 }

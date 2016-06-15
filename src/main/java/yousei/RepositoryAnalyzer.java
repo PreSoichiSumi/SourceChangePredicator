@@ -53,6 +53,8 @@ public class RepositoryAnalyzer {
             for(Map<String,Integer> string:e.getValue()){
                 names.addAll(string.keySet());
             }
+            if(e.getValue().size()<2)
+                continue;
             File f=Util.singleGenealogy2Arff(e.getValue());
             Util.predict(f);
             f.delete();
