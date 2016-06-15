@@ -207,7 +207,7 @@ public class Util {
      */
     public static List<Integer> convertVector2List(Map<String, Integer> vector) {
         NodeClasses nc = new NodeClasses();
-        List<Integer> list = new ArrayList<>(Collections.nCopies(nc.dictionary.size()+1, 0));
+        List<Integer> list = new ArrayList<>(Collections.nCopies(nc.dictionary.size(), 0));
         for (Map.Entry<String, Integer> e : vector.entrySet()) {
             Integer i = nc.dictionary.get(e.getKey());
             i = i == null ? nc.dictionary.size() : i;
@@ -244,7 +244,6 @@ public class Util {
             }
             bw.newLine();
         }
-
 
         bw.close();
         return tmpFile;
@@ -287,7 +286,7 @@ public class Util {
         System.out.println("\nNotFoundNodes:");
         NodeClasses nc=new NodeClasses();
         for (String s:set){
-            if(nc.dictionary.get(s)==null){
+            if(!nc.dictionary.containsKey(s)){
                 System.out.println(s);
             }
         }
