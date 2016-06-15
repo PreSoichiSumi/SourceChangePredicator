@@ -205,7 +205,7 @@ public class Util {
      * @param vector
      * @return
      */
-    public static List<Integer> convertVector2List(Map<String, Integer> vector) {
+    public static List<Integer> convertVector2List(Map<String, Integer> vector) throws Exception{
         NodeClasses nc = new NodeClasses();
         List<Integer> list = new ArrayList<>(Collections.nCopies(nc.dictionary.size()+1, 0));
         for (Map.Entry<String, Integer> e : vector.entrySet()) {
@@ -216,7 +216,7 @@ public class Util {
         return list;
     }
 
-    public static File singleGenealogy2Arff(List<Map<String, Integer>> genealogy) throws IOException {
+    public static File singleGenealogy2Arff(List<Map<String, Integer>> genealogy) throws Exception {
         NodeClasses nc = new NodeClasses();
         File tmpFile = File.createTempFile("genealogy", ".arff", workingDir);
         BufferedWriter bw = new BufferedWriter(new FileWriter(tmpFile));
@@ -283,7 +283,7 @@ public class Util {
             newData.setClassIndex(predictNum);
         return newData;
     }
-    public static void enumNotFoundNodes(Set<String> set){
+    public static void enumNotFoundNodes(Set<String> set)throws Exception{
         System.out.println("\nNotFoundNodes:");
         NodeClasses nc=new NodeClasses();
         for (String s:set){
