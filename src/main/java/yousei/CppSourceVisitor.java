@@ -110,6 +110,7 @@ import org.eclipse.cdt.core.dom.ast.gnu.IGNUASTUnaryExpression;
 import org.eclipse.cdt.core.dom.ast.gnu.c.ICASTKnRFunctionDeclarator;
 import org.eclipse.cdt.core.dom.ast.gnu.c.IGCCASTArrayRangeDesignator;
 import org.eclipse.cdt.core.dom.ast.gnu.c.IGCCASTSimpleDeclSpecifier;
+import org.eclipse.cdt.internal.core.dom.parser.ASTAmbiguousNode;
 
 //全てのノードに対して処理を記述しておいて
 //想定外のが存在すればException

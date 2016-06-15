@@ -13,8 +13,10 @@ import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by s-sumi on 2016/05/09.
@@ -45,9 +47,18 @@ public class RepositoryAnalyzer {
             }
             commit=rw.next();
         }
+
+        Set<String> names=new HashSet<>();
         for(Map.Entry<String,List<Map<String,Integer>>> e:genealogy.entrySet()){
+            for(Map<String,Integer> string:e.getValue()){
+                names.addAll(string.keySet());
+            }
             File f=Util.singleGenealogy2Arff(e.getValue());
+            Util.predict(f);
+            f.delete();
         }
+        names.forEach(System.out::println);
+        Util.enumNotFoundNodes(names);
     }
 
     // Reverseで最古から最新へ

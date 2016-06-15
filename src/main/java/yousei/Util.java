@@ -11,11 +11,17 @@ import org.eclipse.jgit.revwalk.RevCommit;
 import org.eclipse.jgit.revwalk.RevTree;
 import org.eclipse.jgit.treewalk.AbstractTreeIterator;
 import org.eclipse.jgit.treewalk.TreeWalk;
-import org.eclipse.jgit.treewalk.filter.PathFilter;
 import org.eclipse.jgit.treewalk.filter.PathSuffixFilter;
+import weka.attributeSelection.BestFirst;
+import weka.attributeSelection.CfsSubsetEval;
+import weka.classifiers.functions.LinearRegression;
+import weka.core.Instances;
+import weka.filters.Filter;
+import weka.filters.supervised.attribute.AttributeSelection;
 
 import java.io.*;
 import java.util.*;
+
 
 /**
  * Created by s-sumi on 2016/05/23.
@@ -112,8 +118,10 @@ public class Util {
                 bw.write(source);
                 bw.close();
 
+
                 csa.setFilePath(tmpFile.getAbsolutePath());
                 Map<String, Integer> res = csa.analyzeFile();
+                tmpFile.delete();
 
                 if (Objects.equals(entry.getOldPath(), entry.getNewPath())) {
                     List<Map<String, Integer>> tmp = genealogy.get(entry.getOldPath());
@@ -146,8 +154,10 @@ public class Util {
                 bw.write(source);
                 bw.close();
 
+
                 csa.setFilePath(tmpFile.getAbsolutePath());
                 Map<String, Integer> res = csa.analyzeFile();
+                tmpFile.delete();
 
                 List<Map<String, Integer>> tmp = new ArrayList<>();
 
@@ -190,36 +200,46 @@ public class Util {
         return csa.analyzeFile();
     }
 
+    /**
+     * mapで表された状態ベクトルをListに変換する
+     * @param vector
+     * @return
+     */
     public static List<Integer> convertVector2List(Map<String, Integer> vector) {
         NodeClasses nc = new NodeClasses();
-        List<Integer> list = new ArrayList<>(Collections.nCopies(nc.definitions.size()+1, 0));
+        List<Integer> list = new ArrayList<>(Collections.nCopies(nc.dictionary.size()+1, 0));
         for (Map.Entry<String, Integer> e : vector.entrySet()) {
-            Integer i = nc.definitions.get(e.getKey());
-            i = i == null ? nc.definitions.size() : i;
-            list.set(i,e.getValue());
+            Integer i = nc.dictionary.get(e.getKey());
+            i = i == null ? nc.dictionary.size() : i;
+            list.set(i, e.getValue());
         }
         return list;
     }
-    public static File singleGenealogy2Arff(List<Map<String,Integer>> genealogy)throws IOException {
-        NodeClasses nc=new NodeClasses();
+
+    public static File singleGenealogy2Arff(List<Map<String, Integer>> genealogy) throws IOException {
+        NodeClasses nc = new NodeClasses();
         File tmpFile = File.createTempFile("genealogy", ".arff", workingDir);
         BufferedWriter bw = new BufferedWriter(new FileWriter(tmpFile));
-        bw.write("@relation StateVector");bw.newLine();
+        bw.write("@relation StateVector");
         bw.newLine();
-        for(Map.Entry<String,Integer> e:nc.definitions.entrySet()){
-            bw.write("@attribute "+e.getKey()+ " numeric");
+        bw.newLine();
+        for (Map.Entry<String, Integer> e : nc.dictionary.entrySet()) {
+            bw.write("@attribute " + e.getKey() + " numeric");
             bw.newLine();
         }
 
-        bw.write("@attribute UNKNOWN numeric");
-        bw.newLine();bw.newLine();
+        //bw.write("@attribute UNKNOWN numeric");
+        //bw.newLine();
+        bw.newLine();
 
-        for(int i=0;i<genealogy.size();i++){//系譜の長さ分ループ
-            List<Integer> list=convertVector2List(genealogy.get(i));
-            for(int j=0;j<list.size();j++){
-                bw.write(list.get(j));
+        bw.write("@data");
+        bw.newLine();
+        for (int i = 0; i < genealogy.size(); i++) {//系譜の長さ分ループ
+            List<Integer> list = convertVector2List(genealogy.get(i));
+            for (int j = 0; j < list.size(); j++) {
+                bw.write(list.get(j).toString());
 
-                if(j!=list.size()-1)
+                if (j != list.size() - 1)
                     bw.write(",");
             }
             bw.newLine();
@@ -228,6 +248,49 @@ public class Util {
 
         bw.close();
         return tmpFile;
+    }
+
+    public static void predict(File data) throws Exception {
+        BufferedReader br = new BufferedReader(new FileReader(data));
+        Instances instances = new Instances(br);
+        int num=instances.numAttributes();
+        br.close();
+        for(int i=0;i<num;i++) {
+            br = new BufferedReader(new FileReader(data));
+            instances = new Instances(br);
+            instances.setClassIndex(i);
+            instances = useFilter(instances,i);
+
+            LinearRegression lr = new LinearRegression();
+            String[] options = {};
+            lr.setOptions(options);
+            lr.buildClassifier(instances);
+            System.out.println(lr.toString() + "\n");
+            br.close();
+        }
+    }
+
+    public static Instances useFilter(Instances data,int predictNum) throws Exception {
+        AttributeSelection filter = new AttributeSelection();
+        CfsSubsetEval eval = new CfsSubsetEval();
+        BestFirst search = new BestFirst();
+        String[] options = {"-D", "1", "-N", "5"};
+        search.setOptions(options);
+        filter.setEvaluator(eval);
+        filter.setInputFormat(data);
+        Instances newData = Filter.useFilter(data, filter);
+        if (newData.classIndex() == -1)
+            newData.setClassIndex(predictNum);
+        return newData;
+    }
+    public static void enumNotFoundNodes(Set<String> set){
+        System.out.println("\nNotFoundNodes:");
+        NodeClasses nc=new NodeClasses();
+        for (String s:set){
+            if(nc.dictionary.get(s)==null){
+                System.out.println(s);
+            }
+        }
     }
 
 
