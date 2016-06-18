@@ -48,8 +48,8 @@ public class AstElementCounterTest {
         translationUnit.accept(counter);
         Map<String, Integer> expected = elementsByYouseiVisitor();
         assertEquals(counter.elements.size(), expected.size());
-        for (Map.Entry<Class<? extends IASTNode>, Integer> i : counter.elements.entrySet()) {
-            String name = i.getKey().getSimpleName();
+        for (Map.Entry<String, Integer> i : counter.elements.entrySet()) {
+            String name = i.getKey();
             assertTrue(expected.containsKey(name));
             assertEquals(expected.get(name), i.getValue());
         }
