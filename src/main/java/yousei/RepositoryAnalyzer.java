@@ -47,8 +47,10 @@ public class RepositoryAnalyzer {
             }
             commit=rw.next();
         }
-
-        Set<String> names=new HashSet<>();
+        File f=Util.allGenealogy2Arff(genealogy);
+        Util.predict(f);
+        f.delete();
+/*        Set<String> names=new HashSet<>();
         for(Map.Entry<String,List<Map<String,Integer>>> e:genealogy.entrySet()){
             for(Map<String,Integer> string:e.getValue()){
                 names.addAll(string.keySet());
@@ -60,7 +62,7 @@ public class RepositoryAnalyzer {
             f.delete();
         }
         names.forEach(System.out::println);
-        Util.enumNotFoundNodes(names);
+        Util.enumNotFoundNodes(names);*/
     }
 
     // Reverseで最古から最新へ
