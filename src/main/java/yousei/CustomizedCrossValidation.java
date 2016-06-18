@@ -14,6 +14,7 @@ import weka.filters.Filter;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 
 /**
@@ -83,7 +84,7 @@ public class CustomizedCrossValidation {
         for (int i = 0; i < test.numInstances(); i++) {
 
             double res = classifier.classifyInstance(test.instance(i));
-            if (Math.round(res) == Math.round(test.instance(i).value(test.classIndex()))) {
+            if (Objects.equals(Math.round(res),Math.round(test.instance(i).value(test.classIndex())))) {
                 num_correct++;
             } else {
                 num_incorrect++;

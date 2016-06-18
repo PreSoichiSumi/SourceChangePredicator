@@ -35,6 +35,7 @@ import java.util.*;
 public class Util {
     private static File workingDir = new File("WorkingDir");
     public static int smallchange = 0;
+    private static final int SMALLTHRESHOLD=5;
 
     public static Map<String, Integer> addMap(Map<String, Integer> map1, Map<String, Integer> map2) {
         Map<String, Integer> res = new HashMap<>(map1);
@@ -272,7 +273,7 @@ public class Util {
                 bw.write(",");
         }
     }
-
+    //Logging処理が埋め込まれてて読みにくい
     public static void predict(File data) throws Exception {
         BufferedReader br = new BufferedReader(new FileReader(data));
         Instances instances = new Instances(br);
@@ -327,7 +328,6 @@ public class Util {
         }
         return res;
     }
-    public static List<Integer>
 /*
     public static void vectoredPrediction(File data, BufferedWriter resBw) throws Exception {
         BufferedReader br = new BufferedReader(new FileReader(data));
@@ -355,6 +355,12 @@ public class Util {
         //resBw.close();
     }*/
 
+    /**
+     * ２つ目の状態ベクトルの
+     * @param i
+     * @param instances
+     * @return
+     */
     public static Instances removeAttrWithoutI(int i, Instances instances) {
         int num = instances.numAttributes() / 2;
         int counter = 0;
@@ -402,7 +408,7 @@ public class Util {
             for (int i = 1; i < e.getValue().size(); i++) {//系譜の長さ分ループ
                 pre = now;
                 now = convertVector2List(e.getValue().get(i));
-                if (diffIsBig(pre, now, 5))
+                if (diffIsBig(pre, now, SMALLTHRESHOLD))
                     continue;
                 smallchange++;
                 writeVector(bw, pre);
