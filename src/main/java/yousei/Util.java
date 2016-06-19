@@ -1,7 +1,6 @@
 package yousei;
 
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.jgit.api.DeleteBranchCommand;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.diff.DiffEntry;
@@ -15,13 +14,9 @@ import org.eclipse.jgit.treewalk.TreeWalk;
 import org.eclipse.jgit.treewalk.filter.PathSuffixFilter;
 import weka.attributeSelection.BestFirst;
 import weka.attributeSelection.CfsSubsetEval;
-import weka.classifiers.Classifier;
-import weka.classifiers.CostMatrix;
-import weka.classifiers.Evaluation;
 import weka.classifiers.functions.LinearRegression;
 import weka.core.Attribute;
 import weka.core.Instances;
-import weka.core.Range;
 import weka.filters.Filter;
 import weka.filters.supervised.attribute.AttributeSelection;
 
@@ -293,7 +288,7 @@ public class Util {
             String attrName = attr.name();
             instances = Util.removeAttrWithoutI(i, instances);
             instances.setClassIndex(num);
-            instances = useFilter(instances, i);
+            instances = useFilter(instances);
 
             LinearRegression lr = new LinearRegression();
             String[] options = {};
@@ -422,7 +417,7 @@ public class Util {
         return tmpFile;
     }
 
-    public static Instances useFilter(Instances data, int predictNum) throws Exception {
+    public static Instances useFilter(Instances data) throws Exception {
         AttributeSelection filter = new AttributeSelection();
         CfsSubsetEval eval = new CfsSubsetEval();
         BestFirst search = new BestFirst();
