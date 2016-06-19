@@ -19,6 +19,7 @@ import weka.core.Attribute;
 import weka.core.Instances;
 import weka.filters.Filter;
 import weka.filters.supervised.attribute.AttributeSelection;
+import weka.filters.unsupervised.attribute.Remove;
 
 import java.io.*;
 import java.util.*;
@@ -356,24 +357,16 @@ public class Util {
      * @param instances
      * @return
      */
-    public static Instances removeAttrWithoutI(int i, Instances instances) {
+    public static Instances removeAttrWithoutI(int i, Instances instances)throws Exception {
         int num = instances.numAttributes() / 2;
         int counter = 0;
-        boolean skipped = false;
-        while (counter != num) {
-            if (counter != i) {
-                if (!skipped) {
-                    instances.deleteAttributeAt(num);
-                } else {
-                    instances.deleteAttributeAt(num + 1);
-                }
-            } else {
-                skipped = true;
-            }
-            counter++;
 
-        }
-        return instances;
+        Remove remove=new Remove();
+        remove.setAttributeIndices("1-"+Integer.toString(num)+","+Integer.toString(num+i+1));
+        remove.setInvertSelection(true);
+        remove.setInputFormat(instances);
+
+        return Filter.useFilter(instances,remove);
     }
 
     public static File allGenealogy2Arff(Map<String, List<Map<String, Integer>>> genealogy) throws IOException {

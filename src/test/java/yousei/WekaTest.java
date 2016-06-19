@@ -20,8 +20,10 @@ public class WekaTest {
     private final String testDataPath = "testData/test-genealogy.arff";
     private final File testFile = new File(testDataPath);
 
+    //変化前の状態ベクトルと変化後の状態ベクトルの
+    // attributeが一致するかを検証
     @Test
-    public void removeAttributeTest() throws IOException {
+    public void removeAttributeTest() throws Exception {
 
         BufferedReader br = new BufferedReader(new FileReader(testFile));
         int lastIndex = new Instances(br).numAttributes() / 2 - 1;
@@ -30,8 +32,26 @@ public class WekaTest {
         assertAttributeName(lastIndex);
     }
 
+    //removeAttrWithoutI後に属性数がN*2からN+1まで減っているか
+    @Test
+    public void attributeNumberTest() throws Exception {
+        BufferedReader br = new BufferedReader(new FileReader(new File(testDataPath)));
+        Instances rawInstances = new Instances(br);
+        int numnum = rawInstances.numAttributes() / 2;
+        br.close();
+        for (int i = 0; i < numnum; i++) {
+            br = new BufferedReader(new FileReader(new File(testDataPath)));
+            Instances instances = new Instances(br);
+            int num = instances.numAttributes() / 2;
+            instances = Util.removeAttrWithoutI(i, instances);
+
+            assertEquals(instances.numAttributes(), num + 1);
+            br.close();
+        }
+    }
+
     //自作メソッドでassertしても有効なのは検証済み
-    public void assertAttributeName(int i) throws IOException {
+    public void assertAttributeName(int i) throws Exception {
         BufferedReader br = new BufferedReader(new FileReader(testFile));
         Instances instances = new Instances(br);
         String attrName = instances.attribute(i).name();
@@ -40,11 +60,12 @@ public class WekaTest {
         assertEquals(instances.attribute(num).name(), attrName + "2");
     }
 
+    //remove,filterをした学習データが目的の目的変数を保持しているか
     @Test
     public void attributeFilterTest() throws Exception {
         BufferedReader br = new BufferedReader(new FileReader(new File(testDataPath)));
         Instances rawInstances = new Instances(br);
-        int numnum=rawInstances.numAttributes()/2;
+        int numnum = rawInstances.numAttributes() / 2;
         br.close();
         for (int i = 0; i < numnum; i++) {
             br = new BufferedReader(new FileReader(new File(testDataPath)));
@@ -54,13 +75,12 @@ public class WekaTest {
             instances.setClassIndex(num);
             instances = Util.useFilter(instances);
             assertEquals(rawInstances.attribute(i).name() + "2", instances.attribute(instances.numAttributes() - 1).name());
-            assertEquals(instances.numAttributes(), num + 1);//fail
-            assertEquals(instances.classAttribute().name(),rawInstances.attribute(i).name()+"2");
+            assertEquals(instances.classAttribute().name(), rawInstances.attribute(i).name() + "2");
             br.close();
         }
     }
 
-    //prediction label test
+    //各予測器の目的変数は適切に設定されているか
     @Test
     public void predictionLabelTest() throws Exception {
         BufferedReader br = new BufferedReader(new FileReader(testFile));
@@ -109,7 +129,7 @@ public class WekaTest {
             lr.setOptions(options);
             lr.buildClassifier(instances);
             assertTrue(lr.toString().contains(instances.classAttribute().name()));
-            if (lr.numParameters() != 0 && !Objects.equals(instances.numAttributes() - 1, lr.numParameters()))
+            if (lr.numParameters() != 0)
                 assertEquals(instances.numAttributes() - 1, lr.numParameters());
             br.close();
         }
