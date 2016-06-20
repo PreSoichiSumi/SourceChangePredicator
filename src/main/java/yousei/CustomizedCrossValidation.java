@@ -20,20 +20,9 @@ import java.util.*;
  */
 public class CustomizedCrossValidation {
 
-    private int runs;
-    private int folds;
-
     int num_classified = 0;
     int num_correct = 0;
-    int num_correct_neo=0;
     int num_incorrect = 0;
-
-    private double sumPrecision = 0;
-    private double sumRecall = 0;
-
-    private File csvFile;
-    private FileWriter csvFileWriter;
-    private BufferedWriter bw;
 
     /**
      * 予測器を交差検証する
@@ -147,8 +136,5 @@ public class CustomizedCrossValidation {
             }
             num_classified++;
         }
-
     }
-
-
 }
