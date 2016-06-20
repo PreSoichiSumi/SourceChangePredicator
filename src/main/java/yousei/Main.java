@@ -5,6 +5,7 @@ package yousei;
  */
 public class Main {
 	public static final String reposPath="testdata/thrift";
+	//public static final String reposPath="F:\\dataset\\genp\\gzip";
 	public static void main(String[] args)throws Exception{
 		RepositoryAnalyzer ra=new RepositoryAnalyzer(reposPath);
 		ra.analyzeRepository();
