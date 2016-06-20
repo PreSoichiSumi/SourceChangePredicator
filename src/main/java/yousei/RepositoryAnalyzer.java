@@ -49,6 +49,7 @@ public class RepositoryAnalyzer {
         }
         File f=Util.allGenealogy2Arff(genealogy);
         Util.predict(f);
+        //Util.vectoredPrediction(f);
         f.delete();
 /*        Set<String> names=new HashSet<>();
         for(Map.Entry<String,List<Map<String,Integer>>> e:genealogy.entrySet()){

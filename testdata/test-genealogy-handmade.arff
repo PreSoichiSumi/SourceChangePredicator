@@ -1,0 +1,14 @@
+@relation StateVector
+
+@attribute A numeric
+@attribute B numeric
+@attribute C numeric
+@attribute A2 numeric
+@attribute B2 numeric
+@attribute C2 numeric
+
+
+@data
+0,0,0,1,0,0
+1,0,0,2,1,0
+0,0,0,0,1,0

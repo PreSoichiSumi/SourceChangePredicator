@@ -274,7 +274,7 @@ public class Util {
         BufferedReader br = new BufferedReader(new FileReader(data));
         Instances instances = new Instances(br);
         int num = instances.numAttributes() / 2;
-        List<Integer> changedNum=Util.changedDataCounter(instances);
+        int[] changedNum=Util.changedDataCounter(instances);
         br.close();
 
         File f=new File("results/resCV.csv");
@@ -289,10 +289,10 @@ public class Util {
             String attrName = attr.name();
             instances = Util.removeAttrWithoutI(i, instances);
             instances.setClassIndex(num);
-            instances = useFilter(instances);
+            instances=Util.useFilter(instances);
 
             LinearRegression lr = new LinearRegression();
-            String[] options = {};
+            String[] options = {"-S","0"};
             lr.setOptions(options);
             lr.buildClassifier(instances);
 
@@ -303,7 +303,7 @@ public class Util {
             resBw.write(Integer.toString(ccv.num_correct));resBw.write(",");
             resBw.write(Integer.toString(ccv.num_incorrect));resBw.write(",");
             resBw.write(String.valueOf((double)ccv.num_correct/(double)ccv.num_classified));resBw.write(",");
-            resBw.write(Integer.toString(changedNum.get(i)));
+            resBw.write(Integer.toString(changedNum[i]));
 
             resBw.newLine();
             System.out.println("end");
@@ -311,45 +311,43 @@ public class Util {
         }
         resBw.close();
     }
-    public static List<Integer> changedDataCounter(Instances data){
+    public static void vectoredPrediction(File data)throws Exception{
+        File f=new File("results/resCV-vectored.csv");
+        BufferedWriter resBw=new BufferedWriter(new FileWriter(f));
+        resBw.write("prediction result summary\n");
+
+        LinearRegression lr = new LinearRegression();
+        String[] options = {"-S","0"};
+        lr.setOptions(options);
+
+        CustomizedCrossValidation ccv=new CustomizedCrossValidation();
+        ccv.vectoredPrediction(lr,data,10,new Random(1));
+
+        resBw.write(Integer.toString(ccv.num_classified));resBw.write(",");
+        resBw.write(Integer.toString(ccv.num_correct));resBw.write(",");
+        resBw.write(Integer.toString(ccv.num_incorrect));resBw.write(",");
+        resBw.write(String.valueOf((double)ccv.num_correct/(double)ccv.num_classified));resBw.write(",");
+        resBw.close();
+    }
+
+    /**
+     * 変化した要素が1以上のデータ
+     * @param data
+     * @return
+     */
+    public static int[] changedDataCounter(Instances data){
         int num=data.numAttributes()/2;
-        List<Integer> res=new ArrayList<>(Collections.nCopies(num,0));
+        int[] res=new int[num];
+        Arrays.fill(res,0);
         for(int i=0;i<num;i++){
             for (int j = 0; j < data.numInstances(); j++) {
-                if (data.instance(j).value(i) != data.instance(j).value(i + num)) {
-                    res.set(i, res.get(i) + 1);
-                    break;
+                if (Math.round(data.instance(j).value(i)) != Math.round(data.instance(j).value(i + num))) {
+                    res[i]++;
                 }
             }
         }
         return res;
     }
-/*
-    public static void vectoredPrediction(File data, BufferedWriter resBw) throws Exception {
-        BufferedReader br = new BufferedReader(new FileReader(data));
-        Instances instances = new Instances(br);
-        int num = instances.numAttributes() / 2;
-        br.close();
-        List<Classifier> classifiers=new ArrayList<>();
-        List<Instances> filteredDatas=new ArrayList<>();
-        for (int i = 0; i < num; i++) {
-            br = new BufferedReader(new FileReader(data));
-            instances = new Instances(br);
-            Attribute attr = instances.attribute(i);
-            instances = Util.removeAttrWithoutI(i, instances);
-            instances.setClassIndex(num);
-            instances = useFilter(instances, i);
-
-            LinearRegression lr = new LinearRegression();
-            String[] options = {};
-            lr.setOptions(options);
-            lr.buildClassifier(instances);
-            classifiers.add(lr);
-            filteredDatas.add(instances.);
-            br.close();
-        }
-        //resBw.close();
-    }*/
 
     /**
      * ２つ目の状態ベクトルの
@@ -411,6 +409,14 @@ public class Util {
     }
 
     public static Instances useFilter(Instances data) throws Exception {
+
+        Instances newData = Filter.useFilter(data, Util.getAttrSelectFilter(data));
+        newData.setClassIndex(newData.numAttributes() - 1);
+        //if (newData.classIndex() == -1)
+        //    newData.setClassIndex(predictNum);
+        return newData;
+    }
+    public static Filter getAttrSelectFilter(Instances data)throws Exception{
         AttributeSelection filter = new AttributeSelection();
         CfsSubsetEval eval = new CfsSubsetEval();
         BestFirst search = new BestFirst();
@@ -418,12 +424,9 @@ public class Util {
         search.setOptions(options);
         filter.setEvaluator(eval);
         filter.setInputFormat(data);
-        Instances newData = Filter.useFilter(data, filter);
-        newData.setClassIndex(newData.numAttributes() - 1);
-        //if (newData.classIndex() == -1)
-        //    newData.setClassIndex(predictNum);
-        return newData;
+        return filter;
     }
+
 
     public static void enumNotFoundNodes(Set<String> set) {
         System.out.println("\nNotFoundNodes:");

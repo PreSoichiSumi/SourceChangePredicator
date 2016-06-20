@@ -1,8 +1,11 @@
 package yousei;
 
-import org.eclipse.jgit.diff.DiffEntry;
 import org.junit.Test;
+import weka.core.Instances;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.util.HashMap;
 import java.util.Map;
 import static org.junit.Assert.*;
@@ -29,6 +32,17 @@ public class UtilTest {
         assertEquals(res.get("c"),Integer.valueOf(16));
         assertEquals(res.get("d"),Integer.valueOf(11));
         assertEquals(res.get("e"),null);
+    }
+    @Test
+    public void changedDataCounterTest()throws Exception{
+        File f=new File("testdata/test-genealogy-handmade.arff");
+        BufferedReader br=new BufferedReader(new FileReader(f));
+        Instances instances = new Instances(br);
+        int[] changedNum=Util.changedDataCounter(instances);
+        assertEquals(changedNum.length,3);
+        assertEquals(2, changedNum[0]);//actual,expected
+        assertEquals(2, changedNum[1]);
+        assertEquals(0, changedNum[2]);
     }
 
 }

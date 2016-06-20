@@ -5,6 +5,7 @@ import weka.attributeSelection.CfsSubsetEval;
 import weka.classifiers.Classifier;
 import weka.classifiers.Evaluation;
 import weka.classifiers.functions.LinearRegression;
+import weka.core.Attribute;
 import weka.core.Instance;
 import weka.core.Instances;
 import weka.core.Range;
@@ -12,10 +13,7 @@ import weka.core.converters.ConverterUtils;
 import weka.filters.Filter;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Random;
+import java.util.*;
 
 /**
  * Created by s-sumi on 2016/06/17.
@@ -89,37 +87,68 @@ public class CustomizedCrossValidation {
             } else {
                 num_incorrect++;
             }
-
             num_classified++;
         }
     }
-/*
-    public void vectoredPrediction(Classifier classifier, Instances data, int numFolds, Random random) throws Exception {
-        int num=data.numAttributes()/2;
+    //まずfiltereddataを作ってその後fold
+    public void vectoredPrediction(Classifier classifier, File data, int numFolds, Random random) throws Exception {
+        BufferedReader br = new BufferedReader(new FileReader(data));
+        Instances instances = new Instances(br);
+        int num = instances.numAttributes() / 2;
+        br.close();
+
+        List<Instances> filteredData=new ArrayList<>();
+        for(int i=0;i<num;i++){
+            br = new BufferedReader(new FileReader(data));
+            instances = new Instances(br);
+            instances = Util.removeAttrWithoutI(i, instances);
+            instances.setClassIndex(num);
+            instances=Util.useFilter(instances);
+            filteredData.add(instances);
+        }
+
+
         for (int i = 0; i < numFolds; i++) {
             List<Classifier> classifiers=new ArrayList<>();
             List<Instances> testDatas=new ArrayList<>();
             for(int j=0;j<num;j++){
-                Instances train = data.trainCV(numFolds, i, random);
-                train=Util.removeAttrWithoutI(j,train);
-                train.setClassIndex(num);
-                train=Util.useFilter(train,j);
+                Instances train = filteredData.get(j).trainCV(numFolds, i, random);
 
-                LinearRegression lr=new LinearRegression();
                 Classifier copied=Classifier.makeCopy(classifier);
                 copied.buildClassifier(train);
 
-                Instances test =data.testCV(numFolds,i);
+                Instances test =filteredData.get(j).testCV(numFolds,i);
                 test.setClassIndex(train.classIndex());
 
+                classifiers.add(copied);
+                testDatas.add(test);
             }
-            Classifier copiedClassifier = Classifier.makeCopy(classifier);
-            copiedClassifier.buildClassifier(train);
-            Instances test = data.testCV(numFolds, i);
-            test.setClassIndex(data.classIndex());
-            evaluateModel(copiedClassifier, test, sb);
+            vectoredEvaluateModel(classifiers,testDatas,testDatas.get(0).numInstances(),num);
         }
-    }*/
+    }
+
+    public void vectoredEvaluateModel(List<Classifier> classifiers,List<Instances> testDatas,int numInstances,int numAttribute)throws Exception{
+        if(testDatas.get(0).classIndex()<0)
+            throw new Exception("please set classindex to testData");
+
+        for(int i=0;i<numInstances;i++){
+            long res;
+            boolean correct=true;
+            for(int j=0;j<numAttribute;j++){
+                res=Math.round(classifiers.get(j).classifyInstance(testDatas.get(j).instance(i))); //intは超えない
+                if(!Objects.equals(res,Math.round(testDatas.get(j).instance(i).value(testDatas.get(j).classIndex())))){
+                    correct=false;
+                }
+            }
+            if(correct){
+                num_correct++;
+            }else {
+                num_incorrect++;
+            }
+            num_classified++;
+        }
+
+    }
 
 
 }
