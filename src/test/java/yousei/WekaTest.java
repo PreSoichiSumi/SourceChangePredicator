@@ -5,6 +5,9 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 import weka.classifiers.functions.LinearRegression;
+import weka.classifiers.meta.AttributeSelectedClassifier;
+import weka.classifiers.meta.Dagging;
+import weka.classifiers.meta.FilteredClassifier;
 import weka.core.Attribute;
 import weka.core.Instances;
 
@@ -73,7 +76,6 @@ public class WekaTest {
             int num = instances.numAttributes() / 2;
             instances = Util.removeAttrWithoutI(i, instances);
             instances.setClassIndex(num);
-            instances = Util.useFilter(instances);
             assertEquals(rawInstances.attribute(i).name() + "2", instances.attribute(instances.numAttributes() - 1).name());
             assertEquals(instances.classAttribute().name(), rawInstances.attribute(i).name() + "2");
             br.close();
@@ -95,16 +97,16 @@ public class WekaTest {
             String attrName = attr.name();
             instances = Util.removeAttrWithoutI(i, instances);
             instances.setClassIndex(num);
-            instances = Util.useFilter(instances);
 
             LinearRegression lr = new LinearRegression();
             String[] options = {};
             lr.setOptions(options);
             lr.buildClassifier(instances);
-
+            assertTrue(lr.toString().contains(attrName));
             br.close();
         }
     }
+
 
     //filtered data test
     @Test
@@ -119,18 +121,13 @@ public class WekaTest {
             int num = instances.numAttributes() / 2;
             instances = Util.removeAttrWithoutI(i, instances);
             instances.setClassIndex(num);
-            instances = Util.useFilter(instances);
-            instances.setClassIndex(instances.numAttributes() - 1);
-
-            assertNotEquals(Long.valueOf(num), Long.valueOf(instances.numAttributes()));
 
             LinearRegression lr = new LinearRegression();
             String[] options = {};
             lr.setOptions(options);
             lr.buildClassifier(instances);
             assertTrue(lr.toString().contains(instances.classAttribute().name()));
-            if (lr.numParameters() != 0)
-                assertEquals(instances.numAttributes() - 1, lr.numParameters());
+            assertNotEquals(Long.valueOf(num), Long.valueOf(lr.numParameters()));
             br.close();
         }
     }
