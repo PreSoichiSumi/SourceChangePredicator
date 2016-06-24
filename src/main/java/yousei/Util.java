@@ -160,6 +160,8 @@ public class Util {
         resBw.close();
     }
 
+
+
     public static void vectoredPrediction(File arffData, String resultPath) throws Exception {
         File f = new File("results/res-"+resultPath+"-vectored.csv");
         BufferedWriter resBw = new BufferedWriter(new FileWriter(f));
