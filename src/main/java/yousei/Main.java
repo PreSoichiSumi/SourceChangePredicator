@@ -9,18 +9,18 @@ public class Main {
 	public static final String[] reposPaths={
 	//		"F:\\dataset\\genp\\cpython-hg",
 			"F:\\dataset\\genp\\fbc\\fbc",
-			"F:\\dataset\\genp\\gzip",
-			"F:\\dataset\\genp\\lighthttpd\\lighttpd1.4",
-			"F:\\dataset\\genp\\lighthttpd\\lighttpd2",
-			"F:\\dataset\\genp\\php\\php-src"
+			"F:\\dataset\\genp\\gzip"
+	//		"F:\\dataset\\genp\\lighthttpd\\lighttpd1.4",
+	//		"F:\\dataset\\genp\\lighthttpd\\lighttpd2",
+	//		"F:\\dataset\\genp\\php\\php-src"
 	};
 	public static final String[] resPath={
 	//		"cpython",
 			"fbc",
-			"gzip",
-			"lighttpd1.4",
-			"lighttpd2",
-			"php"
+			"gzip"
+	//		"lighttpd1.4",
+	//		"lighttpd2",
+	//		"php"
 	};
 
 	public static void main(String[] args)throws Exception{

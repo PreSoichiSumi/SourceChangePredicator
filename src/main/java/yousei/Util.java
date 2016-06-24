@@ -6,6 +6,7 @@ import weka.attributeSelection.BestFirst;
 import weka.attributeSelection.CfsSubsetEval;
 import weka.classifiers.functions.LinearRegression;
 import weka.core.Attribute;
+import weka.core.Instance;
 import weka.core.Instances;
 import weka.filters.Filter;
 import weka.filters.supervised.attribute.AttributeSelection;
@@ -160,7 +161,7 @@ public class Util {
     }
 
     public static void vectoredPrediction(File arffData, String resultPath) throws Exception {
-        File f = new File("results/res-"+resultPath+".csv");
+        File f = new File("results/res-"+resultPath+"-vectored.csv");
         BufferedWriter resBw = new BufferedWriter(new FileWriter(f));
         resBw.write("prediction result summary\n");
 
@@ -178,7 +179,16 @@ public class Util {
         resBw.write(Integer.toString(ccv.num_incorrect));
         resBw.write(",");
         resBw.write(String.valueOf((double) ccv.num_correct / (double) ccv.num_classified));
-        resBw.write(",");
+        resBw.write("\n\n");
+
+        resBw.write("num,classified,correct,incorrect");
+        for(int i=0;i<ccv.num_classifiedArray.length; i++){
+            resBw.write(Integer.toString(i)+
+                        Integer.toString(ccv.num_classifiedArray[i])+
+                        Integer.toString(ccv.num_correctArray[i])+
+                        Integer.toString(ccv.num_classifiedArray[i]-ccv.num_correctArray[i]));
+            resBw.newLine();
+        }
         resBw.close();
     }
 
@@ -200,6 +210,14 @@ public class Util {
             }
         }
         return res;
+    }
+    public static int getDistanceOfChange(Instance data){
+        int num=data.numAttributes()/2;
+        int dist=0;
+        for(int i=0;i<num;i++){
+            dist+=Math.abs(Math.round(data.value(i))-Math.round(data.value(i+num)));
+        }
+        return dist;
     }
 
     /**

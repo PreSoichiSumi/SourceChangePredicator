@@ -23,6 +23,14 @@ public class CustomizedCrossValidation {
     int num_classified = 0;
     int num_correct = 0;
     int num_incorrect = 0;
+    int[] num_classifiedArray=new int[6];
+    int[] num_correctArray=new int[6];
+
+    public CustomizedCrossValidation() {
+        super();
+        Arrays.fill(num_classifiedArray,0);
+        Arrays.fill(num_correctArray,0);
+    }
 
     /**
      * 予測器を交差検証する
@@ -71,12 +79,15 @@ public class CustomizedCrossValidation {
         for (int i = 0; i < test.numInstances(); i++) {
 
             double res = classifier.classifyInstance(test.instance(i));
+            int dist=Util.getDistanceOfChange(test.instance(i));
             if (Objects.equals(Math.round(res),Math.round(test.instance(i).value(test.classIndex())))) {
+                num_correctArray[dist]++;
                 num_correct++;
             } else {
                 num_incorrect++;
             }
             num_classified++;
+            num_classifiedArray[dist]++;
         }
     }
     //まずfiltereddataを作ってその後fold
