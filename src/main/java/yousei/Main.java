@@ -4,13 +4,37 @@ package yousei;
  * @author s-sumi
  */
 public class Main {
-	public static final String reposPath="testdata/thrift";
-	//public static final String reposPath="F:\\dataset\\genp\\gzip";
+	//public static final String reposPath="testdata/thrift";
+	public static final String reposPath="F:\\dataset\\genp\\fbc\\fbc";//ぬるぽ出たらパスが違うことを疑って
+	public static final String[] reposPaths={
+	//		"F:\\dataset\\genp\\cpython-hg",
+			"F:\\dataset\\genp\\fbc\\fbc",
+			"F:\\dataset\\genp\\gzip",
+			"F:\\dataset\\genp\\lighthttpd\\lighttpd1.4",
+			"F:\\dataset\\genp\\lighthttpd\\lighttpd2",
+			"F:\\dataset\\genp\\php\\php-src"
+	};
+	public static final String[] resPath={
+	//		"cpython",
+			"fbc",
+			"gzip",
+			"lighttpd1.4",
+			"lighttpd2",
+			"php"
+	};
+
 	public static void main(String[] args)throws Exception{
-		RepositoryAnalyzer ra=new RepositoryAnalyzer(reposPath);
-		ra.analyzeRepository();
+		ExperimentExecuter ee=new ExperimentExecuter();
+		ee.setReposPaths(reposPaths);
+		ee.setResPaths(resPath);
+		ee.execute();
 		System.out.println("fin");
 	}
+
+	/**
+	 * RepositoryAnalyzer ra=new RepositoryAnalyzer(reposPath);
+	 * ra.analyzeRepository();
+	 */
 
 	/*
 		String filePath="testdata/hello.c";

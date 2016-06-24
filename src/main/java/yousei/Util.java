@@ -1,17 +1,7 @@
 package yousei;
 
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.jgit.api.Git;
-import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.diff.DiffEntry;
-import org.eclipse.jgit.lib.ObjectId;
-import org.eclipse.jgit.lib.ObjectLoader;
-import org.eclipse.jgit.lib.Repository;
-import org.eclipse.jgit.revwalk.RevCommit;
-import org.eclipse.jgit.revwalk.RevTree;
-import org.eclipse.jgit.treewalk.AbstractTreeIterator;
-import org.eclipse.jgit.treewalk.TreeWalk;
-import org.eclipse.jgit.treewalk.filter.PathSuffixFilter;
 import weka.attributeSelection.BestFirst;
 import weka.attributeSelection.CfsSubsetEval;
 import weka.classifiers.functions.LinearRegression;
@@ -32,7 +22,7 @@ import java.util.*;
 public class Util {
     private static File workingDir = new File("WorkingDir");
     public static int smallchange = 0;
-    private static final int SMALLTHRESHOLD=5;
+    private static final int SMALLTHRESHOLD = 5;
 
     public static Map<String, Integer> addMap(Map<String, Integer> map1, Map<String, Integer> map2) {
         Map<String, Integer> res = new HashMap<>(map1);
@@ -120,40 +110,46 @@ public class Util {
                 bw.write(",");
         }
     }
+
     //Logging処理が埋め込まれてて読みにくい
-    public static void predict(File data) throws Exception {
-        BufferedReader br = new BufferedReader(new FileReader(data));
+    public static void predict(File arffData, String resultPath) throws Exception {
+        BufferedReader br = new BufferedReader(new FileReader(arffData));
         Instances instances = new Instances(br);
         int num = instances.numAttributes() / 2;
-        int[] changedNum=Util.changedDataCounter(instances);
+        int[] changedNum = Util.changedDataCounter(instances);
         br.close();
 
-        File f=new File("results/resCV.csv");
-        BufferedWriter resBw=new BufferedWriter(new FileWriter(f));
+        File f = new File("results/res-"+resultPath+".csv");
+        BufferedWriter resBw = new BufferedWriter(new FileWriter(f));
         resBw.write("prediction result summary\n");
         resBw.write("node name,num_classified,num_correct,num_incorrect,precision,num_changed\n");
 
         for (int i = 0; i < num; i++) {
-            br = new BufferedReader(new FileReader(data));
+            br = new BufferedReader(new FileReader(arffData));
             instances = new Instances(br);
             Attribute attr = instances.attribute(i);
             String attrName = attr.name();
             instances = Util.removeAttrWithoutI(i, instances);
             instances.setClassIndex(num);
-            instances=Util.useFilter(instances);
+            instances = Util.useFilter(instances);
 
             LinearRegression lr = new LinearRegression();
-            String[] options = {"-S","0"};
+            String[] options = {"-S", "0"};
             lr.setOptions(options);
             lr.buildClassifier(instances);
 
             CustomizedCrossValidation ccv = new CustomizedCrossValidation();
             ccv.evaluate(lr, instances, 10, new Random(1));
-            resBw.write(attrName);resBw.write(",");
-            resBw.write(Integer.toString(ccv.num_classified));resBw.write(",");
-            resBw.write(Integer.toString(ccv.num_correct));resBw.write(",");
-            resBw.write(Integer.toString(ccv.num_incorrect));resBw.write(",");
-            resBw.write(String.valueOf((double)ccv.num_correct/(double)ccv.num_classified));resBw.write(",");
+            resBw.write(attrName);
+            resBw.write(",");
+            resBw.write(Integer.toString(ccv.num_classified));
+            resBw.write(",");
+            resBw.write(Integer.toString(ccv.num_correct));
+            resBw.write(",");
+            resBw.write(Integer.toString(ccv.num_incorrect));
+            resBw.write(",");
+            resBw.write(String.valueOf((double) ccv.num_correct / (double) ccv.num_classified));
+            resBw.write(",");
             resBw.write(Integer.toString(changedNum[i]));
 
             resBw.newLine();
@@ -162,35 +158,41 @@ public class Util {
         }
         resBw.close();
     }
-    public static void vectoredPrediction(File data)throws Exception{
-        File f=new File("results/resCV-vectored.csv");
-        BufferedWriter resBw=new BufferedWriter(new FileWriter(f));
+
+    public static void vectoredPrediction(File arffData, String resultPath) throws Exception {
+        File f = new File("results/res-"+resultPath+".csv");
+        BufferedWriter resBw = new BufferedWriter(new FileWriter(f));
         resBw.write("prediction result summary\n");
 
         LinearRegression lr = new LinearRegression();
-        String[] options = {"-S","0"};
+        String[] options = {"-S", "0"};
         lr.setOptions(options);
 
-        CustomizedCrossValidation ccv=new CustomizedCrossValidation();
-        ccv.vectoredPrediction(lr,data,10,new Random(1));
+        CustomizedCrossValidation ccv = new CustomizedCrossValidation();
+        ccv.vectoredPrediction(lr, arffData, 10, new Random(1));
 
-        resBw.write(Integer.toString(ccv.num_classified));resBw.write(",");
-        resBw.write(Integer.toString(ccv.num_correct));resBw.write(",");
-        resBw.write(Integer.toString(ccv.num_incorrect));resBw.write(",");
-        resBw.write(String.valueOf((double)ccv.num_correct/(double)ccv.num_classified));resBw.write(",");
+        resBw.write(Integer.toString(ccv.num_classified));
+        resBw.write(",");
+        resBw.write(Integer.toString(ccv.num_correct));
+        resBw.write(",");
+        resBw.write(Integer.toString(ccv.num_incorrect));
+        resBw.write(",");
+        resBw.write(String.valueOf((double) ccv.num_correct / (double) ccv.num_classified));
+        resBw.write(",");
         resBw.close();
     }
 
     /**
      * 変化した要素が1以上のデータ
+     *
      * @param data
      * @return
      */
-    public static int[] changedDataCounter(Instances data){
-        int num=data.numAttributes()/2;
-        int[] res=new int[num];
-        Arrays.fill(res,0);
-        for(int i=0;i<num;i++){
+    public static int[] changedDataCounter(Instances data) {
+        int num = data.numAttributes() / 2;
+        int[] res = new int[num];
+        Arrays.fill(res, 0);
+        for (int i = 0; i < num; i++) {
             for (int j = 0; j < data.numInstances(); j++) {
                 if (Math.round(data.instance(j).value(i)) != Math.round(data.instance(j).value(i + num))) {
                     res[i]++;
@@ -202,20 +204,21 @@ public class Util {
 
     /**
      * ２つ目の状態ベクトルの
+     *
      * @param i
      * @param instances
      * @return
      */
-    public static Instances removeAttrWithoutI(int i, Instances instances)throws Exception {
+    public static Instances removeAttrWithoutI(int i, Instances instances) throws Exception {
         int num = instances.numAttributes() / 2;
         int counter = 0;
 
-        Remove remove=new Remove();
-        remove.setAttributeIndices("1-"+Integer.toString(num)+","+Integer.toString(num+i+1));
+        Remove remove = new Remove();
+        remove.setAttributeIndices("1-" + Integer.toString(num) + "," + Integer.toString(num + i + 1));
         remove.setInvertSelection(true);
         remove.setInputFormat(instances);
 
-        return Filter.useFilter(instances,remove);
+        return Filter.useFilter(instances, remove);
     }
 
     public static File allGenealogy2Arff(Map<String, List<Map<String, Integer>>> genealogy) throws IOException {
@@ -267,7 +270,8 @@ public class Util {
         //    newData.setClassIndex(predictNum);
         return newData;
     }
-    public static Filter getAttrSelectFilter(Instances data)throws Exception{
+
+    public static Filter getAttrSelectFilter(Instances data) throws Exception {
         AttributeSelection filter = new AttributeSelection();
         CfsSubsetEval eval = new CfsSubsetEval();
         BestFirst search = new BestFirst();

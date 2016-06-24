@@ -1,8 +1,6 @@
 package yousei;
 
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jgit.api.Git;
-import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.diff.DiffEntry;
 import org.eclipse.jgit.lib.*;
 import org.eclipse.jgit.revwalk.RevCommit;
@@ -39,7 +37,7 @@ public class RepositoryAnalyzer {
         this.ca.setRepo(this.repository);
     }
 
-    public void analyzeRepository() throws Exception {
+    public void analyzeRepository(String resultPath) throws Exception {
 
         RevWalk rw = getInitializedRevWalk(repository, RevSort.REVERSE);//最古
         RevCommit commit = rw.next();
@@ -53,8 +51,8 @@ public class RepositoryAnalyzer {
         }
         addDeleted2Genealogy();
         File f = Util.allGenealogy2Arff(genealogy);
-        Util.predict(f);
-        //Util.vectoredPrediction(f);
+        Util.predict(f, resultPath);
+        Util.vectoredPrediction(f,resultPath);
         f.delete();
 /*        Set<String> names=new HashSet<>();
         for(Map.Entry<String,List<Map<String,Integer>>> e:genealogy.entrySet()){
@@ -148,7 +146,7 @@ public class RepositoryAnalyzer {
         //誠に遺憾ながらcdtはStringを元にASTを構築してくれないので，
         //一旦StringからFileを作成して解析する．終わったら削除
         for (DiffEntry entry : diff) {
-            if (entry.getChangeType() == DiffEntry.ChangeType.DELETE) {         //deleteまでの系譜を保存しておきたい
+            if (entry.getChangeType() == DiffEntry.ChangeType.DELETE) {
                 //if(genealogy.remove(entry.getOldPath())==null)
                 //    throw new Exception();//add忘れがあるということ
                 List<Map<String,Integer>> tmp=genealogy.get(entry.getOldPath());
@@ -187,10 +185,14 @@ public class RepositoryAnalyzer {
 
                 if (Objects.equals(entry.getOldPath(), entry.getNewPath())) {
                     List<Map<String, Integer>> tmp = genealogy.get(entry.getOldPath());
+                    if(tmp==null)
+                        tmp=new ArrayList<>();
                     tmp.add(res);
                     genealogy.put(entry.getOldPath(), tmp);
                 } else {
                     List<Map<String, Integer>> tmp = genealogy.get(entry.getOldPath());
+                    if(tmp==null)
+                        tmp=new ArrayList<>();
                     tmp.add(res);
                     genealogy.remove(entry.getOldPath());
                     genealogy.put(entry.getNewPath(), tmp);
