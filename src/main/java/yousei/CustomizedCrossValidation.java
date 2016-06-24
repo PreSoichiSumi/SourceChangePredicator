@@ -79,15 +79,12 @@ public class CustomizedCrossValidation {
         for (int i = 0; i < test.numInstances(); i++) {
 
             double res = classifier.classifyInstance(test.instance(i));
-            int dist=Util.getDistanceOfChange(test.instance(i));
             if (Objects.equals(Math.round(res),Math.round(test.instance(i).value(test.classIndex())))) {
-                num_correctArray[dist]++;
                 num_correct++;
             } else {
                 num_incorrect++;
             }
             num_classified++;
-            num_classifiedArray[dist]++;
         }
     }
     //まずfiltereddataを作ってその後fold
@@ -108,10 +105,10 @@ public class CustomizedCrossValidation {
         }
 
 
-        for (int i = 0; i < numFolds; i++) {
+        for (int i = 0; i < numFolds; i++) { //交差検証
             List<Classifier> classifiers=new ArrayList<>();
             List<Instances> testDatas=new ArrayList<>();
-            for(int j=0;j<num;j++){
+            for(int j=0;j<num;j++){         //各ノードに対する予測器を構築
                 Instances train = filteredData.get(j).trainCV(numFolds, i, random);
 
                 Classifier copied=Classifier.makeCopy(classifier);
@@ -123,7 +120,7 @@ public class CustomizedCrossValidation {
                 classifiers.add(copied);
                 testDatas.add(test);
             }
-            vectoredEvaluateModel(classifiers,testDatas,testDatas.get(0).numInstances(),num);
+            vectoredEvaluateModel(classifiers,testDatas,testDatas.get(0).numInstances(),num);//精度確認．正解数などを記録
         }
     }
 

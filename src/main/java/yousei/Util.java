@@ -211,14 +211,14 @@ public class Util {
         }
         return res;
     }
-    public static int getDistanceOfChange(Instance data){
-        int num=data.numAttributes()/2;
+    /*public static int getDistanceOfChange(List<Instances> testData,int ){
+        int num=data.get(0).numAttributes()/2;
         int dist=0;
         for(int i=0;i<num;i++){
             dist+=Math.abs(Math.round(data.value(i))-Math.round(data.value(i+num)));
         }
         return dist;
-    }
+    }*/
 
     /**
      * ２つ目の状態ベクトルの
