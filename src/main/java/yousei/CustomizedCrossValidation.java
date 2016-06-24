@@ -1,16 +1,7 @@
 package yousei;
 
-import weka.attributeSelection.BestFirst;
-import weka.attributeSelection.CfsSubsetEval;
 import weka.classifiers.Classifier;
-import weka.classifiers.Evaluation;
-import weka.classifiers.functions.LinearRegression;
-import weka.core.Attribute;
-import weka.core.Instance;
 import weka.core.Instances;
-import weka.core.Range;
-import weka.core.converters.ConverterUtils;
-import weka.filters.Filter;
 
 import java.io.*;
 import java.util.*;
@@ -23,8 +14,11 @@ public class CustomizedCrossValidation {
     int num_classified = 0;
     int num_correct = 0;
     int num_incorrect = 0;
-    int[] num_classifiedArray=new int[6];
-    int[] num_correctArray=new int[6];
+    int num_classifiedArray[]=new int[6];
+    int num_correctArray[]=new int[6];
+    boolean randomized=true;
+    int dist[];
+
 
     public CustomizedCrossValidation() {
         super();
@@ -38,14 +32,19 @@ public class CustomizedCrossValidation {
      * @param classifier 予測器
      * @param filteredData       学習データと検証データ
      * @param numFolds   データを何分割するか
-     * @param random     シード new Random(int seed)を与える
+     * @param random     シード new Random(int seed)を与える.nullならシャッフルしない
      * @throws Exception
      */
     public String evaluate(Classifier classifier, Instances filteredData, int numFolds, Random random) throws Exception {
         // Do the folds
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < numFolds; i++) {
-            Instances train = filteredData.trainCV(numFolds, i, random);
+            Instances train;
+            if(randomized) {
+                train = filteredData.trainCV(numFolds, i, random);
+            }else{
+                train=filteredData.trainCV(numFolds,i);
+            }
             Classifier copiedClassifier = Classifier.makeCopy(classifier);
             copiedClassifier.buildClassifier(train);
             Instances test = filteredData.testCV(numFolds, i);
@@ -92,7 +91,10 @@ public class CustomizedCrossValidation {
         BufferedReader br = new BufferedReader(new FileReader(data));
         Instances instances = new Instances(br);
         int num = instances.numAttributes() / 2;
+        int numAllInstance=instances.numInstances();
         br.close();
+
+        this.dist=Util.getDistanceOfChanges(instances);
 
         List<Instances> filteredData=new ArrayList<>();
         for(int i=0;i<num;i++){
@@ -109,7 +111,12 @@ public class CustomizedCrossValidation {
             List<Classifier> classifiers=new ArrayList<>();
             List<Instances> testDatas=new ArrayList<>();
             for(int j=0;j<num;j++){         //各ノードに対する予測器を構築
-                Instances train = filteredData.get(j).trainCV(numFolds, i, random);
+                Instances train;
+                if(randomized){
+                    train=filteredData.get(j).trainCV(numFolds, i, random);
+                }else{
+                    train=filteredData.get(j).trainCV(numFolds,i);
+                }
 
                 Classifier copied=Classifier.makeCopy(classifier);
                 copied.buildClassifier(train);
@@ -120,11 +127,12 @@ public class CustomizedCrossValidation {
                 classifiers.add(copied);
                 testDatas.add(test);
             }
-            vectoredEvaluateModel(classifiers,testDatas,testDatas.get(0).numInstances(),num);//精度確認．正解数などを記録
+            vectoredEvaluateModel(classifiers,testDatas,testDatas.get(0).numInstances(),num,numFolds,i,numAllInstance);//精度確認．正解数などを記録
         }
     }
 
-    public void vectoredEvaluateModel(List<Classifier> classifiers,List<Instances> testDatas,int numInstances,int numAttribute)throws Exception{
+    public void vectoredEvaluateModel(List<Classifier> classifiers,List<Instances> testDatas,int numInstances,int numAttribute
+                                    ,int numFolds,int numFold,int numAllInstance)throws Exception{
         if(testDatas.get(0).classIndex()<0)
             throw new Exception("please set classindex to testData");
 
@@ -143,6 +151,12 @@ public class CustomizedCrossValidation {
                 num_incorrect++;
             }
             num_classified++;
+            if(!randomized){
+                num_classifiedArray[dist[Util.getInstanceNum(numFolds,numFold,i, numAllInstance)]]++;
+                if(correct){
+                    num_correctArray[dist[Util.getInstanceNum(numFolds,numFold,i, numAllInstance)]]++;
+                }
+            }
         }
     }
 }

@@ -172,7 +172,9 @@ public class Util {
         lr.setOptions(options);
 
         CustomizedCrossValidation ccv = new CustomizedCrossValidation();
+        ccv.randomized=false;
         ccv.vectoredPrediction(lr, arffData, 10, new Random(1));
+
 
         resBw.write(Integer.toString(ccv.num_classified));
         resBw.write(",");
@@ -182,14 +184,15 @@ public class Util {
         resBw.write(",");
         resBw.write(String.valueOf((double) ccv.num_correct / (double) ccv.num_classified));
         resBw.write("\n\n");
-
-        resBw.write("num,classified,correct,incorrect");
-        for(int i=0;i<ccv.num_classifiedArray.length; i++){
-            resBw.write(Integer.toString(i)+
+        if(!ccv.randomized){
+            resBw.write("num,classified,correct,incorrect");
+            for(int i=0;i<ccv.num_classifiedArray.length; i++){
+                resBw.write(Integer.toString(i)+
                         Integer.toString(ccv.num_classifiedArray[i])+
                         Integer.toString(ccv.num_correctArray[i])+
                         Integer.toString(ccv.num_classifiedArray[i]-ccv.num_correctArray[i]));
-            resBw.newLine();
+                resBw.newLine();
+            }
         }
         resBw.close();
     }
@@ -213,14 +216,20 @@ public class Util {
         }
         return res;
     }
-    /*public static int getDistanceOfChange(List<Instances> testData,int ){
-        int num=data.get(0).numAttributes()/2;
-        int dist=0;
-        for(int i=0;i<num;i++){
-            dist+=Math.abs(Math.round(data.value(i))-Math.round(data.value(i+num)));
+
+    public static int[] getDistanceOfChanges(Instances data){
+        int num=data.numAttributes()/2;
+        int res[]=new int[data.numInstances()];
+        for(int i=0;i<data.numInstances();i++){
+            int dist=0;
+            for(int j=0;j<num;j++){
+                dist+=Math.abs(Math.round(data.instance(i).value(j))-Math.round(data.instance(i).value(j+num)));
+            }
+            res[i]=dist;
+
         }
-        return dist;
-    }*/
+        return res;
+    }
 
     /**
      * ２つ目の状態ベクトルの
@@ -339,5 +348,27 @@ public class Util {
         }
     }
 
+    public static int getInstanceNum(int numFolds, int numFold,int index,int numInstances){
+        int numInstForFold, first, offset;
+
+        if (numFolds < 2) {
+            throw new IllegalArgumentException("Number of folds must be at least 2!");
+        }
+        if (numFolds > numInstances) {
+            throw new IllegalArgumentException(
+                    "Can't have more folds than instances!");
+        }
+        numInstForFold = numInstances / numFolds;
+        if (numFold < numInstances % numFolds) {
+            numInstForFold++;
+            offset = numFold;
+        } else {
+            offset = numInstances % numFolds;
+        }
+
+        first = numFold * (numInstances / numFolds) + offset;
+        //copyInstances(first, test, numInstForFold); //シャッフルされてなければ，testの範囲はfirst-numInstForFold
+        return first+index;
+    }
 
 }
