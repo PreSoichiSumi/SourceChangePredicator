@@ -4,6 +4,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jgit.diff.DiffEntry;
 import weka.attributeSelection.BestFirst;
 import weka.attributeSelection.CfsSubsetEval;
+import weka.classifiers.Classifier;
 import weka.classifiers.functions.LinearRegression;
 import weka.core.Attribute;
 import weka.core.Instance;
@@ -123,7 +124,7 @@ public class Util {
         File f = new File("results/res-"+resultPath+".csv");
         BufferedWriter resBw = new BufferedWriter(new FileWriter(f));
         resBw.write("prediction result summary\n");
-        resBw.write("node name,num_classified,num_correct,num_incorrect,precision,num_changed\n");
+        resBw.write("node name,num_classified,num_correct,num_incorrect,precision,num_changed,Attribute used in classifier\n");
 
         for (int i = 0; i < num; i++) {
             br = new BufferedReader(new FileReader(arffData));
@@ -138,6 +139,7 @@ public class Util {
             String[] options = {"-S", "0"};
             lr.setOptions(options);
             lr.buildClassifier(instances);
+            String debug=lr.toString();
 
             CustomizedCrossValidation ccv = new CustomizedCrossValidation();
             ccv.evaluate(lr, instances, 10, new Random(1));
@@ -152,6 +154,9 @@ public class Util {
             resBw.write(String.valueOf((double) ccv.num_correct / (double) ccv.num_classified));
             resBw.write(",");
             resBw.write(Integer.toString(changedNum[i]));
+            resBw.write(",");
+            resBw.write(debug);
+
 
             resBw.newLine();
             System.out.println("end");
@@ -185,11 +190,11 @@ public class Util {
         resBw.write(String.valueOf((double) ccv.num_correct / (double) ccv.num_classified));
         resBw.write("\n\n");
         if(!ccv.randomized){
-            resBw.write("num,classified,correct,incorrect");
+            resBw.write("num,classified,correct,incorrect");resBw.newLine();
             for(int i=0;i<ccv.num_classifiedArray.length; i++){
-                resBw.write(Integer.toString(i)+
-                        Integer.toString(ccv.num_classifiedArray[i])+
-                        Integer.toString(ccv.num_correctArray[i])+
+                resBw.write(Integer.toString(i)+","+
+                        Integer.toString(ccv.num_classifiedArray[i])+","+
+                        Integer.toString(ccv.num_correctArray[i])+","+
                         Integer.toString(ccv.num_classifiedArray[i]-ccv.num_correctArray[i]));
                 resBw.newLine();
             }
