@@ -192,15 +192,8 @@ public class Util {
 
                 CustomizedCrossValidation ccv = new CustomizedCrossValidation();
 
-                if(cls.getClass().getSimpleName().contains("SVM") && !Util.isPredictable(instances)){
-                    ccv.num_classified=instances.numInstances();
-                    ccv.num_correct=ccv.num_classified;
-                    ccv.num_incorrect=ccv.num_classified-ccv.num_correct;
-                }else {
-                    cls.buildClassifier(instances);
-                    ccv.evaluate(cls, instances, 10, new Random(1));
-                }
 
+                ccv.evaluate(cls, instances, 10, new Random(1));
 
                 resBw.write(attrName);
                 resBw.write(",");

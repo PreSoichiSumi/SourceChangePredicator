@@ -48,10 +48,17 @@ public class CustomizedCrossValidation {
                 train=filteredData.trainCV(numFolds,i);
             }
             Classifier copiedClassifier = AbstractClassifier.makeCopy(classifier);
-            copiedClassifier.buildClassifier(train);
-            Instances test = filteredData.testCV(numFolds, i);
-            test.setClassIndex(filteredData.classIndex());
-            evaluateModel(copiedClassifier, test, sb);
+            if(copiedClassifier.getClass().getSimpleName().contains("SVM") && !Util.isPredictable(train)){
+                num_classified=train.numInstances();
+                num_correct=num_classified;
+                num_incorrect=num_classified-num_correct;
+            }else {
+                copiedClassifier.buildClassifier(train);
+                Instances test = filteredData.testCV(numFolds, i);
+                test.setClassIndex(filteredData.classIndex());
+                evaluateModel(copiedClassifier, test, sb);
+            }
+
         }
         sb.append("classified: ");
         sb.append(num_classified);
@@ -72,13 +79,12 @@ public class CustomizedCrossValidation {
 
         return sb.toString();
     }
-
+    //与えられるclassifierは既にビルドされているものとする
     public void evaluateModel(Classifier classifier, Instances test, StringBuilder sb) throws Exception {
         if (test.classIndex() < 0)
             throw new Exception("please set ClassIndex to test data");
 
         for (int i = 0; i < test.numInstances(); i++) {
-
             double res = classifier.classifyInstance(test.instance(i));
             if (Objects.equals(Math.round(res),Math.round(test.instance(i).value(test.classIndex())))) {
                 num_correct++;
@@ -121,13 +127,19 @@ public class CustomizedCrossValidation {
                 }
 
                 Classifier copied=AbstractClassifier.makeCopy(classifier);
-                copied.buildClassifier(train);
+                if(copied.getClass().getSimpleName().contains("SVM") && !Util.isPredictable(train)){
+                    classifiers.add(null);
+                    testDatas.add(null);
 
-                Instances test =filteredData.get(j).testCV(numFolds,i);
-                test.setClassIndex(train.classIndex());
+                }else {
+                    copied.buildClassifier(train);
+                    Instances test = filteredData.get(j).testCV(numFolds, i);
+                    test.setClassIndex(train.classIndex());
+                    classifiers.add(copied);
+                    testDatas.add(test);
+                }
 
-                classifiers.add(copied);
-                testDatas.add(test);
+
             }
             vectoredEvaluateModel(classifiers,testDatas,testDatas.get(0).numInstances(),num,numFolds,i,numAllInstance);//精度確認．正解数などを記録
         }
@@ -142,6 +154,8 @@ public class CustomizedCrossValidation {
             long res;
             boolean correct=true;
             for(int j=0;j<numAttribute;j++){
+                if(classifiers.get(j)==null)//svmかつclassvalueの変化が無かったときにnullになる．そのときは必ず正解するので飛ばす
+                    continue;
                 res=Math.round(classifiers.get(j).classifyInstance(testDatas.get(j).instance(i))); //intは超えない
                 if(!Objects.equals(res,Math.round(testDatas.get(j).instance(i).value(testDatas.get(j).classIndex())))){
                     correct=false;
