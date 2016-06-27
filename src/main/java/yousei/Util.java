@@ -121,7 +121,7 @@ public class Util {
         int[] changedNum = Util.changedDataCounter(instances);
         br.close();
 
-        File f = new File("results/res-"+resultPath+".csv");
+        File f = new File("results/res-" + resultPath + ".csv");
         BufferedWriter resBw = new BufferedWriter(new FileWriter(f));
         resBw.write("prediction result summary\n");
         resBw.write("node name,num_classified,num_correct,num_incorrect,precision,num_changed,Attribute used in classifier\n");
@@ -139,7 +139,7 @@ public class Util {
             String[] options = {"-S", "0"};
             lr.setOptions(options);
             lr.buildClassifier(instances);
-            String debug=lr.toString().replace("\n","").replace("Linear Regression Model","");
+            String debug = lr.toString().replace("\n", "").replace("Linear Regression Model", "");
 
             CustomizedCrossValidation ccv = new CustomizedCrossValidation();
             ccv.evaluate(lr, instances, 10, new Random(1));
@@ -165,10 +165,60 @@ public class Util {
         resBw.close();
     }
 
+    public static void predictWithSomeClassifiers(File arffData, String resultPath, List<Classifier> classifiers) throws Exception {
+        BufferedReader br = new BufferedReader(new FileReader(arffData));
+        Instances instances = new Instances(br);
+        int num = instances.numAttributes() / 2;
+        int[] changedNum = Util.changedDataCounter(instances);
+        br.close();
+
+
+        for (Classifier cls : classifiers) {
+            System.out.println(cls.getClass().getSimpleName());
+            File f = new File("results/res-" + cls.getClass().getSimpleName() + "-" + resultPath + ".csv");
+            BufferedWriter resBw = new BufferedWriter(new FileWriter(f));
+            resBw.write("prediction result summary\n");
+            resBw.write("node name,num_classified,num_correct,num_incorrect,precision,num_changed,Attribute used in classifier\n");
+
+            for (int i = 0; i < num; i++) {
+                br = new BufferedReader(new FileReader(arffData));
+                instances = new Instances(br);
+                Attribute attr = instances.attribute(i);
+                String attrName = attr.name();
+                instances = Util.removeAttrWithoutI(i, instances);
+                instances.setClassIndex(num);
+                //if(!cls.getClass().getSimpleName().equals("SMOreg"))
+                instances = Util.useFilter(instances);
+
+                cls.buildClassifier(instances);
+
+                CustomizedCrossValidation ccv = new CustomizedCrossValidation();
+                ccv.evaluate(cls, instances, 10, new Random(1));
+                resBw.write(attrName);
+                resBw.write(",");
+                resBw.write(Integer.toString(ccv.num_classified));
+                resBw.write(",");
+                resBw.write(Integer.toString(ccv.num_correct));
+                resBw.write(",");
+                resBw.write(Integer.toString(ccv.num_incorrect));
+                resBw.write(",");
+                resBw.write(String.valueOf((double) ccv.num_correct / (double) ccv.num_classified));
+                resBw.write(",");
+                resBw.write(Integer.toString(changedNum[i]));
+
+
+                resBw.newLine();
+                System.out.println("end");
+                br.close();
+            }
+            resBw.close();
+        }
+
+    }
 
 
     public static void vectoredPrediction(File arffData, String resultPath) throws Exception {
-        File f = new File("results/res-"+resultPath+"-vectored.csv");
+        File f = new File("results/res-" + resultPath + "-vectored.csv");
         BufferedWriter resBw = new BufferedWriter(new FileWriter(f));
         resBw.write("prediction result summary\n");
 
@@ -177,7 +227,7 @@ public class Util {
         lr.setOptions(options);
 
         CustomizedCrossValidation ccv = new CustomizedCrossValidation();
-        ccv.randomized=false;
+        ccv.randomized = false;
         ccv.vectoredPrediction(lr, arffData, 10, new Random(1));
 
 
@@ -189,17 +239,53 @@ public class Util {
         resBw.write(",");
         resBw.write(String.valueOf((double) ccv.num_correct / (double) ccv.num_classified));
         resBw.write("\n\n");
-        if(!ccv.randomized){
-            resBw.write("num,classified,correct,incorrect");resBw.newLine();
-            for(int i=0;i<ccv.num_classifiedArray.length; i++){
-                resBw.write(Integer.toString(i)+","+
-                        Integer.toString(ccv.num_classifiedArray[i])+","+
-                        Integer.toString(ccv.num_correctArray[i])+","+
-                        Integer.toString(ccv.num_classifiedArray[i]-ccv.num_correctArray[i]));
+        if (!ccv.randomized) {
+            resBw.write("num,classified,correct,incorrect");
+            resBw.newLine();
+            for (int i = 0; i < ccv.num_classifiedArray.length; i++) {
+                resBw.write(Integer.toString(i) + "," +
+                        Integer.toString(ccv.num_classifiedArray[i]) + "," +
+                        Integer.toString(ccv.num_correctArray[i]) + "," +
+                        Integer.toString(ccv.num_classifiedArray[i] - ccv.num_correctArray[i]));
                 resBw.newLine();
             }
         }
         resBw.close();
+    }
+
+    public static void vectoredPredictionWithSomeClassifiers(File arffData, String resultPath, List<Classifier> classifiers) throws Exception {
+        for (Classifier cls : classifiers) {
+
+            File f = new File("results/res-" + cls.getClass().getSimpleName() + "-" + resultPath + "-vectored.csv");
+            BufferedWriter resBw = new BufferedWriter(new FileWriter(f));
+            resBw.write("prediction result summary\n");
+
+            CustomizedCrossValidation ccv = new CustomizedCrossValidation();
+            ccv.randomized = false;
+            ccv.vectoredPrediction(cls, arffData, 10, new Random(1));
+
+
+            resBw.write(Integer.toString(ccv.num_classified));
+            resBw.write(",");
+            resBw.write(Integer.toString(ccv.num_correct));
+            resBw.write(",");
+            resBw.write(Integer.toString(ccv.num_incorrect));
+            resBw.write(",");
+            resBw.write(String.valueOf((double) ccv.num_correct / (double) ccv.num_classified));
+            resBw.write("\n\n");
+            if (!ccv.randomized) {
+                resBw.write("num,classified,correct,incorrect");
+                resBw.newLine();
+                for (int i = 0; i < ccv.num_classifiedArray.length; i++) {
+                    resBw.write(Integer.toString(i) + "," +
+                            Integer.toString(ccv.num_classifiedArray[i]) + "," +
+                            Integer.toString(ccv.num_correctArray[i]) + "," +
+                            Integer.toString(ccv.num_classifiedArray[i] - ccv.num_correctArray[i]));
+                    resBw.newLine();
+                }
+            }
+            resBw.close();
+        }
     }
 
     /**
@@ -222,15 +308,15 @@ public class Util {
         return res;
     }
 
-    public static int[] getDistanceOfChanges(Instances data){
-        int num=data.numAttributes()/2;
-        int res[]=new int[data.numInstances()];
-        for(int i=0;i<data.numInstances();i++){
-            int dist=0;
-            for(int j=0;j<num;j++){
-                dist+=Math.abs(Math.round(data.instance(i).value(j))-Math.round(data.instance(i).value(j+num)));
+    public static int[] getDistanceOfChanges(Instances data) {
+        int num = data.numAttributes() / 2;
+        int res[] = new int[data.numInstances()];
+        for (int i = 0; i < data.numInstances(); i++) {
+            int dist = 0;
+            for (int j = 0; j < num; j++) {
+                dist += Math.abs(Math.round(data.instance(i).value(j)) - Math.round(data.instance(i).value(j + num)));
             }
-            res[i]=dist;
+            res[i] = dist;
 
         }
         return res;
@@ -353,7 +439,7 @@ public class Util {
         }
     }
 
-    public static int getInstanceNum(int numFolds, int numFold,int index,int numInstances){
+    public static int getInstanceNum(int numFolds, int numFold, int index, int numInstances) {
         int numInstForFold, first, offset;
 
         if (numFolds < 2) {
@@ -373,7 +459,7 @@ public class Util {
 
         first = numFold * (numInstances / numFolds) + offset;
         //copyInstances(first, test, numInstForFold); //シャッフルされてなければ，testの範囲はfirst-numInstForFold
-        return first+index;
+        return first + index;
     }
 
 }

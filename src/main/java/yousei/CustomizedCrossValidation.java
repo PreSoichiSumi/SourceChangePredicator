@@ -1,6 +1,8 @@
 package yousei;
 
+import weka.classifiers.AbstractClassifier;
 import weka.classifiers.Classifier;
+import weka.classifiers.Evaluation;
 import weka.core.Instances;
 
 import java.io.*;
@@ -45,7 +47,7 @@ public class CustomizedCrossValidation {
             }else{
                 train=filteredData.trainCV(numFolds,i);
             }
-            Classifier copiedClassifier = Classifier.makeCopy(classifier);
+            Classifier copiedClassifier = AbstractClassifier.makeCopy(classifier);
             copiedClassifier.buildClassifier(train);
             Instances test = filteredData.testCV(numFolds, i);
             test.setClassIndex(filteredData.classIndex());
@@ -118,7 +120,7 @@ public class CustomizedCrossValidation {
                     train=filteredData.get(j).trainCV(numFolds,i);
                 }
 
-                Classifier copied=Classifier.makeCopy(classifier);
+                Classifier copied=AbstractClassifier.makeCopy(classifier);
                 copied.buildClassifier(train);
 
                 Instances test =filteredData.get(j).testCV(numFolds,i);

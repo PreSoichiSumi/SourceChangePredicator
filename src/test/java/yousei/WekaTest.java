@@ -6,7 +6,6 @@ import static org.junit.Assert.*;
 
 import weka.classifiers.functions.LinearRegression;
 import weka.classifiers.meta.AttributeSelectedClassifier;
-import weka.classifiers.meta.Dagging;
 import weka.classifiers.meta.FilteredClassifier;
 import weka.core.Attribute;
 import weka.core.Instances;

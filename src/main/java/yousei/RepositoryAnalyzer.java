@@ -11,6 +11,12 @@ import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
 import org.eclipse.jgit.treewalk.AbstractTreeIterator;
 import org.eclipse.jgit.treewalk.TreeWalk;
 import org.eclipse.jgit.treewalk.filter.PathSuffixFilter;
+import weka.classifiers.Classifier;
+import weka.classifiers.functions.LinearRegression;
+import weka.classifiers.functions.MultilayerPerceptron;
+import weka.classifiers.functions.SMOreg;
+import weka.classifiers.trees.M5P;
+import weka.classifiers.trees.RandomForest;
 
 import java.io.*;
 import java.util.*;
@@ -25,8 +31,19 @@ public class RepositoryAnalyzer {
     private Repository repository;
     private Map<String, List<Map<String, Integer>>> genealogy=new HashMap<>();
     private List<List<Map<String, Integer>>> deletedGenealogies = new ArrayList<>();
+    private List<Classifier> classifiers=new ArrayList<>();
 
-    public RepositoryAnalyzer(String reposPath) throws IOException {
+    private final String[] classifierNames={
+            //"LinearRegression",
+            //"RandomForest",
+            //"M5P",
+            //"MultilayerPerceptron",
+            "SVMReg"
+    };
+
+    public int bugfixCounter=0;
+
+    public RepositoryAnalyzer(String reposPath) throws Exception {
         FileRepositoryBuilder builder = new FileRepositoryBuilder();
         this.repository = builder
                 .setGitDir(new File(reposPath + "/" + Constants.DOT_GIT))
@@ -35,6 +52,7 @@ public class RepositoryAnalyzer {
                 .build();
         this.ca = new ChangeAnalyzer();
         this.ca.setRepo(this.repository);
+        initClassifiers();
     }
 
     public void analyzeRepository(String resultPath) throws Exception {
@@ -51,10 +69,14 @@ public class RepositoryAnalyzer {
         }
         addDeleted2Genealogy();
         File f = Util.allGenealogy2Arff(genealogy);
-        Util.predict(f, resultPath);
-        Util.vectoredPrediction(f,resultPath);
+        //Util.predict(f, resultPath);
+        //Util.vectoredPrediction(f,resultPath);
+        Util.predictWithSomeClassifiers(f,resultPath,classifiers);
+        Util.vectoredPredictionWithSomeClassifiers(f,resultPath,classifiers);
+
         f.delete();
-/*        Set<String> names=new HashSet<>();
+
+/*      Set<String> names=new HashSet<>();
         for(Map.Entry<String,List<Map<String,Integer>>> e:genealogy.entrySet()){
             for(Map<String,Integer> string:e.getValue()){
                 names.addAll(string.keySet());
@@ -67,6 +89,7 @@ public class RepositoryAnalyzer {
         }
         names.forEach(System.out::println);
         Util.enumNotFoundNodes(names);*/
+
     }
 
     // Reverseで最古から最新へ
@@ -246,6 +269,35 @@ public class RepositoryAnalyzer {
             List<Map<String, Integer>> tmp=deletedGenealogies.get(i);
             if(genealogy.put(prefix+Integer.toString(i),tmp)!=null)
                 throw new Exception("something is already here");
+        }
+    }
+
+    private void initClassifiers()throws Exception{
+        for(String s:this.classifierNames){
+            if(Objects.equals(s,"LinearRegression")){
+                LinearRegression lr = new LinearRegression();
+                String[] options = {"-S", "0"};
+                lr.setOptions(options);
+                classifiers.add(lr);
+            }else if(Objects.equals(s,"SVMReg")){
+                SMOreg svmreg=new SMOreg();
+                String[] options={"-C","1.0","-N","0"};//-K,-Iが他にある．指定されなければデフォルト
+                svmreg.setOptions(options);
+                classifiers.add(svmreg);
+            }else if(Objects.equals(s,"RandomForest")){
+                RandomForest rf=new RandomForest();
+                String[] options={};
+                rf.setOptions(options);
+                classifiers.add(rf);
+            }else if(Objects.equals(s,"MultilayerPerceptron")){
+                MultilayerPerceptron mlp=new MultilayerPerceptron();
+                classifiers.add(mlp);
+            }else if(Objects.equals(s,"M5P")){
+                M5P m5p=new M5P();
+                classifiers.add(m5p);
+            }else{
+                throw new Exception("undefined classifier is specified");
+            }
         }
     }
 }
