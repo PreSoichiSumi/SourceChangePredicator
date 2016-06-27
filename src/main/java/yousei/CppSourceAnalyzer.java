@@ -22,9 +22,9 @@ import org.eclipse.core.runtime.CoreException;
  * @author s-sumi
  */
 public class CppSourceAnalyzer {
-	public String filePath;	//基本これのみ必要
-	public String classPath;
-	public String outputPath;
+	private String filePath;	//基本これのみ必要
+	private String classPath;
+	private String outputPath;
 
 	public CppSourceAnalyzer(String filePath, String classPath,
 			String outputPath) {
@@ -56,7 +56,7 @@ public class CppSourceAnalyzer {
 		IParserLogService log = new DefaultLogService();
 
 		IASTTranslationUnit translationUnit = language.getASTTranslationUnit(reader, scanInfo, fileCreator, index, options, log);
-		AstElementCounter aec=new AstElementCounter();
+		AstElementCounter aec=new AstElementCounter(true);
 		translationUnit.accept(aec);
 		//CppSourceVisitor cppSourceVisitor=new CppSourceVisitor();
 		//translationUnit.accept(cppSourceVisitor);
