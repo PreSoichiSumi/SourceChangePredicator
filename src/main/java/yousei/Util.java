@@ -491,5 +491,9 @@ public class Util {
         return flag;
     }
 
+    public static boolean isBugfix(String commitMessage){
+        return commitMessage.toLowerCase().contains("bug") || commitMessage.toLowerCase().contains("fix");
+    }
+
 
 }
