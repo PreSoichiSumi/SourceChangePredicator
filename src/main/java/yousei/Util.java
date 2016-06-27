@@ -139,7 +139,7 @@ public class Util {
             String[] options = {"-S", "0"};
             lr.setOptions(options);
             lr.buildClassifier(instances);
-            String debug=lr.toString();
+            String debug=lr.toString().replace("\n","").replace("Linear Regression Model","");
 
             CustomizedCrossValidation ccv = new CustomizedCrossValidation();
             ccv.evaluate(lr, instances, 10, new Random(1));
