@@ -12,11 +12,13 @@ import org.eclipse.jgit.treewalk.AbstractTreeIterator;
 import org.eclipse.jgit.treewalk.TreeWalk;
 import org.eclipse.jgit.treewalk.filter.PathSuffixFilter;
 import weka.classifiers.Classifier;
+import weka.classifiers.functions.LibSVM;
 import weka.classifiers.functions.LinearRegression;
 import weka.classifiers.functions.MultilayerPerceptron;
 import weka.classifiers.functions.SMOreg;
 import weka.classifiers.trees.M5P;
 import weka.classifiers.trees.RandomForest;
+import weka.core.SelectedTag;
 
 import java.io.*;
 import java.util.*;
@@ -34,11 +36,11 @@ public class RepositoryAnalyzer {
     private List<Classifier> classifiers=new ArrayList<>();
 
     private final String[] classifierNames={
-            //"LinearRegression",
-            //"RandomForest",
-            //"M5P",
-            //"MultilayerPerceptron",
-            "SVMReg"
+            "SVMReg",
+            "LinearRegression",
+            "RandomForest",
+            "M5P",
+            "MultilayerPerceptron"
     };
 
     public int bugfixCounter=0;
@@ -279,15 +281,19 @@ public class RepositoryAnalyzer {
                 String[] options = {"-S", "0"};
                 lr.setOptions(options);
                 classifiers.add(lr);
-            }else if(Objects.equals(s,"SVMReg")){
+            }else if(Objects.equals(s,"SVMReg")){/*
                 SMOreg svmreg=new SMOreg();
                 String[] options={"-C","1.0","-N","0"};//-K,-Iが他にある．指定されなければデフォルト
-                svmreg.setOptions(options);
-                classifiers.add(svmreg);
+                svmreg.setOptions(options);*/
+                LibSVM svm=new LibSVM();
+                //String options="-s 4";
+                //svm.setOptions(options.split(" "));
+                svm.setSVMType(new SelectedTag(LibSVM.SVMTYPE_EPSILON_SVR, LibSVM.TAGS_SVMTYPE)); // -S 3=epsilon-SVR
+                classifiers.add(svm);
             }else if(Objects.equals(s,"RandomForest")){
                 RandomForest rf=new RandomForest();
-                String[] options={};
-                rf.setOptions(options);
+               // String[] options={};
+               // rf.setOptions(options);
                 classifiers.add(rf);
             }else if(Objects.equals(s,"MultilayerPerceptron")){
                 MultilayerPerceptron mlp=new MultilayerPerceptron();

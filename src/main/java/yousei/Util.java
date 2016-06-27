@@ -190,10 +190,18 @@ public class Util {
                 //if(!cls.getClass().getSimpleName().equals("SMOreg"))
                 instances = Util.useFilter(instances);
 
-                cls.buildClassifier(instances);
-
                 CustomizedCrossValidation ccv = new CustomizedCrossValidation();
-                ccv.evaluate(cls, instances, 10, new Random(1));
+
+                if(cls.getClass().getSimpleName().contains("SVM") && !Util.isPredictable(instances)){
+                    ccv.num_classified=instances.numInstances();
+                    ccv.num_correct=ccv.num_classified;
+                    ccv.num_incorrect=ccv.num_classified-ccv.num_correct;
+                }else {
+                    cls.buildClassifier(instances);
+                    ccv.evaluate(cls, instances, 10, new Random(1));
+                }
+
+
                 resBw.write(attrName);
                 resBw.write(",");
                 resBw.write(Integer.toString(ccv.num_classified));
@@ -261,9 +269,18 @@ public class Util {
             resBw.write("prediction result summary\n");
 
             CustomizedCrossValidation ccv = new CustomizedCrossValidation();
-            ccv.randomized = false;
-            ccv.vectoredPrediction(cls, arffData, 10, new Random(1));
 
+            BufferedReader br = new BufferedReader(new FileReader(arffData));
+            Instances instances = new Instances(br);
+            if(cls.getClass().getSimpleName().contains("SVM") && !Util.isPredictable(instances)){
+                ccv.num_classified=instances.numInstances();
+                ccv.num_correct=ccv.num_classified;
+                ccv.num_incorrect=ccv.num_classified-ccv.num_correct;
+            }else {
+                cls.buildClassifier(instances);
+                ccv.randomized = false;
+                ccv.vectoredPrediction(cls, arffData, 10, new Random(1));
+            }
 
             resBw.write(Integer.toString(ccv.num_classified));
             resBw.write(",");
@@ -461,5 +478,18 @@ public class Util {
         //copyInstances(first, test, numInstForFold); //シャッフルされてなければ，testの範囲はfirst-numInstForFold
         return first + index;
     }
+
+    public static boolean isPredictable(Instances data){
+        boolean flag=false;
+        double tmp=data.instance(0).classValue();
+        for(int i=1;i<data.numInstances();i++){
+            if(tmp!=data.instance(i).classValue()) {
+                flag = true;
+                break;
+            }
+        }
+        return flag;
+    }
+
 
 }
