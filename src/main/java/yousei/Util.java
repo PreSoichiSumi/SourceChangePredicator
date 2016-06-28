@@ -192,8 +192,15 @@ public class Util {
 
                 CustomizedCrossValidation ccv = new CustomizedCrossValidation();
 
+                if(cls.getClass().getSimpleName().contains("SVM") && !Util.isPredictable(instances)){
+                    ccv.num_classified=instances.numInstances();
+                    ccv.num_correct=ccv.num_classified;
+                    ccv.num_incorrect=ccv.num_classified-ccv.num_correct;
+                }else {
+                    cls.buildClassifier(instances);
+                    ccv.evaluate(cls, instances, 10, new Random(1));
+                }
 
-                ccv.evaluate(cls, instances, 10, new Random(1));
 
                 resBw.write(attrName);
                 resBw.write(",");
@@ -262,18 +269,8 @@ public class Util {
             resBw.write("prediction result summary\n");
 
             CustomizedCrossValidation ccv = new CustomizedCrossValidation();
-
-            BufferedReader br = new BufferedReader(new FileReader(arffData));
-            Instances instances = new Instances(br);
-            if(cls.getClass().getSimpleName().contains("SVM") && !Util.isPredictable(instances)){
-                ccv.num_classified=instances.numInstances();
-                ccv.num_correct=ccv.num_classified;
-                ccv.num_incorrect=ccv.num_classified-ccv.num_correct;
-            }else {
-                cls.buildClassifier(instances);
-                ccv.randomized = false;
-                ccv.vectoredPrediction(cls, arffData, 10, new Random(1));
-            }
+            ccv.randomized = false;
+            ccv.vectoredPrediction(cls, arffData, 10, new Random(1));
 
             resBw.write(Integer.toString(ccv.num_classified));
             resBw.write(",");

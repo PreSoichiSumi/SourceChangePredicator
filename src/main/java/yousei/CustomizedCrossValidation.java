@@ -118,6 +118,9 @@ public class CustomizedCrossValidation {
         for (int i = 0; i < numFolds; i++) { //交差検証
             List<Classifier> classifiers=new ArrayList<>();
             List<Instances> testDatas=new ArrayList<>();
+
+            int numTestDataInstances=0;
+
             for(int j=0;j<num;j++){         //各ノードに対する予測器を構築
                 Instances train;
                 if(randomized){
@@ -130,7 +133,6 @@ public class CustomizedCrossValidation {
                 if(copied.getClass().getSimpleName().contains("SVM") && !Util.isPredictable(train)){
                     classifiers.add(null);
                     testDatas.add(null);
-
                 }else {
                     copied.buildClassifier(train);
                     Instances test = filteredData.get(j).testCV(numFolds, i);
@@ -139,16 +141,16 @@ public class CustomizedCrossValidation {
                     testDatas.add(test);
                 }
 
+                if(numTestDataInstances==0)
+                    numTestDataInstances=filteredData.get(0).testCV(numFolds,i).numInstances();
 
             }
-            vectoredEvaluateModel(classifiers,testDatas,testDatas.get(0).numInstances(),num,numFolds,i,numAllInstance);//精度確認．正解数などを記録
+            vectoredEvaluateModel(classifiers,testDatas,numTestDataInstances,num,numFolds,i,numAllInstance);//精度確認．正解数などを記録
         }
     }
 
     public void vectoredEvaluateModel(List<Classifier> classifiers,List<Instances> testDatas,int numInstances,int numAttribute
                                     ,int numFolds,int numFold,int numAllInstance)throws Exception{
-        if(testDatas.get(0).classIndex()<0)
-            throw new Exception("please set classindex to testData");
 
         for(int i=0;i<numInstances;i++){
             long res;
