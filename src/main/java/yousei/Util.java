@@ -121,7 +121,7 @@ public class Util {
         br.close();
 
         String outputPath=updown ?
-                "results/res-" + resultPath + "-up1.csv" : "results/res-" + resultPath + ".csv";
+                "results/res-" + resultPath + "-updown.csv" : "results/res-" + resultPath + "-normal.csv";
 
         File f = new File(outputPath);
         BufferedWriter resBw = new BufferedWriter(new FileWriter(f));
@@ -166,7 +166,7 @@ public class Util {
         }
         resBw.close();
     }
-
+    //TODO updownに対応して出力ファイル名をかえる
     public static void predictWithSomeClassifiers(File arffData, String resultPath, List<Classifier> classifiers,boolean updown) throws Exception {
         BufferedReader br = new BufferedReader(new FileReader(arffData));
         Instances instances = new Instances(br);
@@ -228,7 +228,10 @@ public class Util {
 
 
     public static void vectoredPrediction(File arffData, String resultPath,boolean updown) throws Exception {
-        File f = new File("results/res-" + resultPath + "-vectored.csv");
+        String outputPath=updown ?
+                "results/res-" + resultPath + "-updown-vectored.csv" : "results/res-" + resultPath + "-normal-vectored.csv";
+
+        File f = new File(outputPath);
         BufferedWriter resBw = new BufferedWriter(new FileWriter(f));
         resBw.write("prediction result summary\n");
 
@@ -263,6 +266,7 @@ public class Util {
         resBw.close();
     }
 
+    //TODO updownに対応して出力ファイル名をかえる
     public static void vectoredPredictionWithSomeClassifiers(File arffData, String resultPath, List<Classifier> classifiers,boolean updown) throws Exception {
         for (Classifier cls : classifiers) {
 
