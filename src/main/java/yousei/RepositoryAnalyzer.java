@@ -29,13 +29,13 @@ import static yousei.Util.getSourceVector;
  * Created by s-sumi on 2016/05/09.
  */
 public class RepositoryAnalyzer {
-    private ChangeAnalyzer ca;
-    private Repository repository;
-    private Map<String, List<Map<String, Integer>>> genealogy=new HashMap<>();
-    private List<List<Map<String, Integer>>> deletedGenealogies = new ArrayList<>();
-    private List<Classifier> classifiers=new ArrayList<>();
+    public ChangeAnalyzer ca;
+    public Repository repository;
+    public Map<String, List<Map<String, Integer>>> genealogy=new HashMap<>();
+    public List<List<Map<String, Integer>>> deletedGenealogies = new ArrayList<>();
+    public List<Classifier> classifiers=new ArrayList<>();
 
-    private final String[] classifierNames={
+    public final String[] classifierNames={
             "SVMReg",
             "LinearRegression",
             "RandomForest",
@@ -97,7 +97,7 @@ public class RepositoryAnalyzer {
     }
 
     // Reverseで最古から最新へ
-    private RevWalk getInitializedRevWalk(Repository repo,
+    public RevWalk getInitializedRevWalk(Repository repo,
                                           RevSort revSort) throws IOException {
         RevWalk rw = new RevWalk(repo);
         AnyObjectId headId;

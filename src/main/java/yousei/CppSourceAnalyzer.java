@@ -56,7 +56,7 @@ public class CppSourceAnalyzer {
 		IParserLogService log = new DefaultLogService();
 
 		IASTTranslationUnit translationUnit = language.getASTTranslationUnit(reader, scanInfo, fileCreator, index, options, log);
-		AstElementCounter aec=new AstElementCounter(true);
+		AstElementCounter aec=new AstElementCounter(false);
 		translationUnit.accept(aec);
 		//CppSourceVisitor cppSourceVisitor=new CppSourceVisitor();
 		//translationUnit.accept(cppSourceVisitor);
