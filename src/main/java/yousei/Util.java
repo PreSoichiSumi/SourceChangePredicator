@@ -7,7 +7,6 @@ import weka.attributeSelection.CfsSubsetEval;
 import weka.classifiers.Classifier;
 import weka.classifiers.functions.LinearRegression;
 import weka.core.Attribute;
-import weka.core.Instance;
 import weka.core.Instances;
 import weka.filters.Filter;
 import weka.filters.supervised.attribute.AttributeSelection;
@@ -114,14 +113,17 @@ public class Util {
     }
 
     //Logging処理が埋め込まれてて読みにくい
-    public static void predict(File arffData, String resultPath) throws Exception {
+    public static void predict(File arffData, String resultPath,boolean updown) throws Exception {
         BufferedReader br = new BufferedReader(new FileReader(arffData));
         Instances instances = new Instances(br);
         int num = instances.numAttributes() / 2;
         int[] changedNum = Util.changedDataCounter(instances);
         br.close();
 
-        File f = new File("results/res-" + resultPath + ".csv");
+        String outputPath=updown ?
+                "results/res-" + resultPath + "-up1.csv" : "results/res-" + resultPath + ".csv";
+
+        File f = new File(outputPath);
         BufferedWriter resBw = new BufferedWriter(new FileWriter(f));
         resBw.write("prediction result summary\n");
         resBw.write("node name,num_classified,num_correct,num_incorrect,precision,num_changed,Attribute used in classifier\n");
@@ -142,7 +144,7 @@ public class Util {
             String debug = lr.toString().replace("\n", "").replace("Linear Regression Model", "");
 
             CustomizedCrossValidation ccv = new CustomizedCrossValidation();
-            ccv.evaluate(lr, instances, 10, new Random(1));
+            ccv.evaluate(lr, instances, 10, new Random(1),updown);
             resBw.write(attrName);
             resBw.write(",");
             resBw.write(Integer.toString(ccv.num_classified));
@@ -165,7 +167,7 @@ public class Util {
         resBw.close();
     }
 
-    public static void predictWithSomeClassifiers(File arffData, String resultPath, List<Classifier> classifiers) throws Exception {
+    public static void predictWithSomeClassifiers(File arffData, String resultPath, List<Classifier> classifiers,boolean updown) throws Exception {
         BufferedReader br = new BufferedReader(new FileReader(arffData));
         Instances instances = new Instances(br);
         int num = instances.numAttributes() / 2;
@@ -198,7 +200,7 @@ public class Util {
                     ccv.num_incorrect=ccv.num_classified-ccv.num_correct;
                 }else {
                     cls.buildClassifier(instances);
-                    ccv.evaluate(cls, instances, 10, new Random(1));
+                    ccv.evaluate(cls, instances, 10, new Random(1),updown);
                 }
 
 
@@ -225,7 +227,7 @@ public class Util {
     }
 
 
-    public static void vectoredPrediction(File arffData, String resultPath) throws Exception {
+    public static void vectoredPrediction(File arffData, String resultPath,boolean updown) throws Exception {
         File f = new File("results/res-" + resultPath + "-vectored.csv");
         BufferedWriter resBw = new BufferedWriter(new FileWriter(f));
         resBw.write("prediction result summary\n");
@@ -236,7 +238,7 @@ public class Util {
 
         CustomizedCrossValidation ccv = new CustomizedCrossValidation();
         ccv.randomized = false;
-        ccv.vectoredPrediction(lr, arffData, 10, new Random(1));
+        ccv.vectoredPrediction(lr, arffData, 10, new Random(1),updown);
 
 
         resBw.write(Integer.toString(ccv.num_classified));
@@ -261,7 +263,7 @@ public class Util {
         resBw.close();
     }
 
-    public static void vectoredPredictionWithSomeClassifiers(File arffData, String resultPath, List<Classifier> classifiers) throws Exception {
+    public static void vectoredPredictionWithSomeClassifiers(File arffData, String resultPath, List<Classifier> classifiers,boolean updown) throws Exception {
         for (Classifier cls : classifiers) {
 
             File f = new File("results/res-" + cls.getClass().getSimpleName() + "-" + resultPath + "-vectored.csv");
@@ -270,7 +272,7 @@ public class Util {
 
             CustomizedCrossValidation ccv = new CustomizedCrossValidation();
             ccv.randomized = false;
-            ccv.vectoredPrediction(cls, arffData, 10, new Random(1));
+            ccv.vectoredPrediction(cls, arffData, 10, new Random(1),updown);
 
             resBw.write(Integer.toString(ccv.num_classified));
             resBw.write(",");
@@ -483,6 +485,15 @@ public class Util {
 
     public static boolean isBugfix(String commitMessage){
         return commitMessage.toLowerCase().contains("bug") || commitMessage.toLowerCase().contains("fix");
+    }
+
+    public static boolean judgeResult(double predict,double actual, boolean updown){
+        List<Long> list = new ArrayList<>();
+        list.add(Math.round(Math.ceil(predict)));//切り捨て，切り上げしてLongへ
+        list.add(Math.round(Math.floor(predict)));
+        return updown ?
+                list.contains(Math.round(actual)) :
+                Objects.equals(Math.round(predict), Math.round(actual));
     }
 
 

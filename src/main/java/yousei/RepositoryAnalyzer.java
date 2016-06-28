@@ -71,10 +71,10 @@ public class RepositoryAnalyzer {
         }
         addDeleted2Genealogy();
         File f = Util.allGenealogy2Arff(genealogy);
-        //Util.predict(f, resultPath);
-        //Util.vectoredPrediction(f,resultPath);
-        Util.predictWithSomeClassifiers(f,resultPath,classifiers);
-        Util.vectoredPredictionWithSomeClassifiers(f,resultPath,classifiers);
+        Util.predict(f, resultPath,false);
+        Util.vectoredPrediction(f,resultPath,false);
+        //Util.predictWithSomeClassifiers(f,resultPath,classifiers,false);
+        //Util.vectoredPredictionWithSomeClassifiers(f,resultPath,classifiers,false);
 
         f.delete();
 
