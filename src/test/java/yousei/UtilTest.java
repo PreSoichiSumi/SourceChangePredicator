@@ -8,6 +8,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
+
 import static org.junit.Assert.*;
 
 /**
@@ -43,6 +45,31 @@ public class UtilTest {
         assertEquals(2, changedNum[0]);//actual,expected
         assertEquals(2, changedNum[1]);
         assertEquals(0, changedNum[2]);
+    }
+    //judgeResultはupdownがtrueなら切り上げ，切り下げした場合にpredictがactualと等しくなるか出力する
+    @Test
+    public void judgeResultTest(){
+        assertFalse(Util.judgeResult(1.0,2.0,true));
+        assertFalse(Util.judgeResult(3.0,2.0,true));
+        assertTrue(Util.judgeResult(1.5,2.0,true));
+        assertTrue(Util.judgeResult(2.5,2.0,true));
+
+        assertTrue(Util.judgeResult(1.5,2.0,false));
+        assertTrue(Util.judgeResult(2.4,2.0,false));
+        assertFalse(Util.judgeResult(0.0,2.0,false));
+        assertFalse(Util.judgeResult(1.4,2.0,false));
+        assertFalse(Util.judgeResult(2.6,2.0,false));
+    }
+
+    //判定も間違っていないっぽい
+    @Test
+    public void stdlibTest(){
+        assertTrue(1.1==1.1);
+        assertTrue(Objects.equals(Double.valueOf(1.2345),Double.valueOf(1.2345)));
+        assertFalse(Double.valueOf(1.234)==Double.valueOf(1.234));
+        assertEquals(Math.round(2.4),Math.round(1.8));
+        assertEquals(Math.round(1.6),Math.round(2.0));
+
     }
 
 }
