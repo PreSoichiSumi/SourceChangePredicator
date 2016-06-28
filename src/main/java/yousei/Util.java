@@ -37,7 +37,11 @@ public class Util {
     }
 
     public static Map<String, Integer> getSourceVector(String source) throws IOException, CoreException {
-        File tmpFile = File.createTempFile("tmp", ".cpp", workingDir);
+        return getSourceVector(source,".cpp");
+    }
+
+    public static Map<String, Integer> getSourceVector(String source,String suffix) throws IOException, CoreException {
+        File tmpFile = File.createTempFile("tmp", suffix, workingDir);
         BufferedWriter bw = new BufferedWriter(new FileWriter(tmpFile));
         bw.write(source);
         bw.close();

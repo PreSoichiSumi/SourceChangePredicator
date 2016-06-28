@@ -69,7 +69,6 @@ public class UtilTest {
         assertFalse(Double.valueOf(1.234)==Double.valueOf(1.234));
         assertEquals(Math.round(2.4),Math.round(1.8));
         assertEquals(Math.round(1.6),Math.round(2.0));
-
     }
 
     @Test
