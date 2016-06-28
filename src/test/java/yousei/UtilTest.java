@@ -72,4 +72,10 @@ public class UtilTest {
 
     }
 
+    @Test
+    public void isBugfixTest(){
+        assertTrue(Util.isBugfix("hogehogeBugfix"));
+        assertFalse(Util.isBugfix("ixfugb"));
+    }
+
 }
