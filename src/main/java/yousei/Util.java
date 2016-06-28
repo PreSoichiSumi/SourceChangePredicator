@@ -43,7 +43,9 @@ public class Util {
         bw.close();
         CppSourceAnalyzer csa = new CppSourceAnalyzer("", "", "");
         csa.setFilePath(tmpFile.getAbsolutePath());
-        return csa.analyzeFile();
+        Map<String,Integer> res=csa.analyzeFile();
+        tmpFile.delete();
+        return res;
     }
 
     /**
