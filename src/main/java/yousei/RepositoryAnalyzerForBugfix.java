@@ -42,7 +42,7 @@ public class RepositoryAnalyzerForBugfix extends RepositoryAnalyzer {
             }
             commit = rw.next();
         }
-        File f = Util.allGenealogy2Arff(genealogy);
+        File f = Util.allGenealogy2Arff(preVector,postVector);
         Util.predict(f, resultPath, false);
         Util.predict(f, resultPath, true);
         Util.vectoredPrediction(f, resultPath, false);
@@ -59,8 +59,6 @@ public class RepositoryAnalyzerForBugfix extends RepositoryAnalyzer {
         CppSourceAnalyzer csa = new CppSourceAnalyzer("", "", "");
 
         RevCommit oldRev = newRev.getParent(0);
-
-        //-----------------まずはCPPについて--------------------------------//
 
         AbstractTreeIterator oldTreeIterator = ChangeAnalyzer.prepareTreeParser(repository,
                 oldRev.getId().getName());
@@ -101,7 +99,6 @@ public class RepositoryAnalyzerForBugfix extends RepositoryAnalyzer {
 
                 preVector.add(Util.getSourceVector(oldSource,suffix));
                 postVector.add(Util.getSourceVector(newSource,suffix));
-
 
             }
         }

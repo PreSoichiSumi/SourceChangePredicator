@@ -401,6 +401,44 @@ public class Util {
         return tmpFile;
     }
 
+    public static File allGenealogy2Arff(List<Map<String,Integer>> preVector,List<Map<String,Integer>> postVector)throws Exception{
+        NodeClasses nc = new NodeClasses();
+        File tmpFile = File.createTempFile("genealogy", ".arff", workingDir);
+        BufferedWriter bw = new BufferedWriter(new FileWriter(tmpFile));
+        bw.write("@relation StateVector");
+        bw.newLine();
+        bw.newLine();
+        for (Map.Entry<String, Integer> e : nc.dictionary.entrySet()) {
+            bw.write("@attribute " + e.getKey() + " numeric");
+            bw.newLine();
+        }
+        for (Map.Entry<String, Integer> e : nc.dictionary.entrySet()) {
+            bw.write("@attribute " + e.getKey() + "2 numeric");
+            bw.newLine();
+        }
+        bw.newLine();
+
+        bw.write("@data");
+        bw.newLine();
+        for (int i=0;i<preVector.size();i++) {
+            List<Integer> pre=convertVector2List(preVector.get(i));
+            List<Integer> post=convertVector2List(preVector.get(i));
+
+            if(diffIsBig(pre,post,SMALLTHRESHOLD))
+                continue;
+
+            smallchange++;
+
+            writeVector(bw,pre);
+            bw.write(",");
+            writeVector(bw,post);
+            bw.newLine();
+        }
+
+        bw.close();
+        return tmpFile;
+    }
+
     public static Instances useFilter(Instances data) throws Exception {
 
         Instances newData = Filter.useFilter(data, Util.getAttrSelectFilter(data));
