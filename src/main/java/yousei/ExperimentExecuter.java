@@ -15,8 +15,10 @@ public class ExperimentExecuter {
 
         for (int i = 0; i < reposPaths.length; i++) {
             System.out.println("processing "+resPaths[i]+" ...");
-            RepositoryAnalyzer ra = new RepositoryAnalyzer(reposPaths[i]);
-            ra.analyzeRepository(resPaths[i]);
+            //RepositoryAnalyzer ra = new RepositoryAnalyzer(reposPaths[i]);
+            //ra.analyzeRepository(resPaths[i]);
+            RepositoryAnalyzerForBugfix rafb=new RepositoryAnalyzerForBugfix(reposPaths[i]);
+            rafb.analyzeRepository(resPaths[i]);
             System.out.println("done");
             System.out.println();
         }

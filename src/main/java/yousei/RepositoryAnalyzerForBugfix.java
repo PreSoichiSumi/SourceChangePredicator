@@ -55,9 +55,6 @@ public class RepositoryAnalyzerForBugfix extends RepositoryAnalyzer {
     //newRevは1つ以上の親コミットを持つこと
     @Override
     public void updateForGivenSuffix(RevCommit newRev, String suffix) throws Exception {
-        File workingDir = new File("WorkingDir");
-        CppSourceAnalyzer csa = new CppSourceAnalyzer("", "", "");
-
         RevCommit oldRev = newRev.getParent(0);
 
         AbstractTreeIterator oldTreeIterator = ChangeAnalyzer.prepareTreeParser(repository,
