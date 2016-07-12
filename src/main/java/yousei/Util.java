@@ -52,6 +52,18 @@ public class Util {
         return res;
     }
 
+    public static List<Integer> getSourceVector4Java(String source,String suffix) throws IOException, CoreException {
+        File tmpFile = File.createTempFile("tmp", suffix, workingDir);
+        BufferedWriter bw = new BufferedWriter(new FileWriter(tmpFile));
+        bw.write(source);
+        bw.close();
+        JavaSourceAnalyzer jsa = new JavaSourceAnalyzer("", "", "");
+        jsa.setFilePath(tmpFile.getAbsolutePath());
+        List<Integer> res=jsa.analyzeFile();
+        tmpFile.delete();
+        return res;
+    }
+
     /**
      * mapで表された状態ベクトルをListに変換する
      *
@@ -432,6 +444,41 @@ public class Util {
             writeVector(bw,pre);
             bw.write(",");
             writeVector(bw,post);
+            bw.newLine();
+        }
+
+        bw.close();
+        return tmpFile;
+    }
+
+    public static File allGenealogy2Arff4Java(List<List<Integer>> preVector,List<List<Integer>> postVector)throws Exception{
+        NodeClasses4Java nc = new NodeClasses4Java();
+        File tmpFile = File.createTempFile("genealogy", ".arff", workingDir);
+        BufferedWriter bw = new BufferedWriter(new FileWriter(tmpFile));
+        bw.write("@relation StateVector");
+        bw.newLine();
+        bw.newLine();
+        for (Map.Entry<String, Integer> e : nc.dictionary.entrySet()) {
+            bw.write("@attribute " + e.getKey() + " numeric");
+            bw.newLine();
+        }
+        for (Map.Entry<String, Integer> e : nc.dictionary.entrySet()) {
+            bw.write("@attribute " + e.getKey() + "2 numeric");
+            bw.newLine();
+        }
+        bw.newLine();
+
+        bw.write("@data");
+        bw.newLine();
+        for (int i=0;i<preVector.size();i++) {
+            if(diffIsBig(preVector.get(i),postVector.get(i),SMALLTHRESHOLD))
+                continue;
+
+            smallchange++;
+
+            writeVector(bw,preVector.get(i));
+            bw.write(",");
+            writeVector(bw,postVector.get(i));
             bw.newLine();
         }
 
