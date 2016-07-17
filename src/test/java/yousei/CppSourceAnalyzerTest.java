@@ -1,8 +1,7 @@
 package yousei;
 
 import org.junit.Test;
-
-import static org.junit.Assert.*;
+import yousei.util.CppSourceAnalyzer;
 
 public class CppSourceAnalyzerTest {
 

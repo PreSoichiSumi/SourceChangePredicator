@@ -1,10 +1,5 @@
-package yousei;
+package yousei.experiment;
 
-import difflib.Chunk;
-import difflib.Delta;
-import difflib.DiffUtils;
-import org.apache.commons.lang3.tuple.MutablePair;
-import org.apache.commons.lang3.tuple.Pair;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
@@ -21,6 +16,7 @@ import org.eclipse.jgit.revwalk.RevWalk;
 import org.eclipse.jgit.treewalk.AbstractTreeIterator;
 import org.eclipse.jgit.treewalk.CanonicalTreeParser;
 import org.eclipse.jgit.treewalk.filter.PathSuffixFilter;
+import yousei.util.CppSourceAnalyzer;
 
 import java.io.*;
 import java.util.*;

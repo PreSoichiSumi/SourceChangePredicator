@@ -2,6 +2,7 @@ package yousei;
 
 import org.junit.Test;
 import weka.core.Instances;
+import yousei.util.Util;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -28,7 +29,7 @@ public class UtilTest {
         map2.put("b",5);
         map2.put("c",11);
 
-        Map<String,Integer> res=Util.addMap(map1,map2);
+        Map<String,Integer> res= Util.addMap(map1,map2);
         assertEquals(res.get("a"),Integer.valueOf(2));
         assertEquals(res.get("b"),Integer.valueOf(5));
         assertEquals(res.get("c"),Integer.valueOf(16));

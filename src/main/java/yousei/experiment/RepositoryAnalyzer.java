@@ -1,4 +1,4 @@
-package yousei;
+package yousei.experiment;
 
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.diff.DiffEntry;
@@ -15,15 +15,16 @@ import weka.classifiers.Classifier;
 import weka.classifiers.functions.LibSVM;
 import weka.classifiers.functions.LinearRegression;
 import weka.classifiers.functions.MultilayerPerceptron;
-import weka.classifiers.functions.SMOreg;
 import weka.classifiers.trees.M5P;
 import weka.classifiers.trees.RandomForest;
 import weka.core.SelectedTag;
+import yousei.util.CppSourceAnalyzer;
+import yousei.util.Util;
 
 import java.io.*;
 import java.util.*;
 
-import static yousei.Util.getSourceVector;
+import static yousei.util.Util.getSourceVector;
 
 /**
  * Created by s-sumi on 2016/05/09.

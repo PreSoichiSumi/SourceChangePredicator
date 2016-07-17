@@ -1,4 +1,4 @@
-package yousei;
+package yousei.util;
 
 import org.eclipse.cdt.core.dom.ast.ASTGenericVisitor;
 import org.eclipse.cdt.core.dom.ast.ASTVisitor;

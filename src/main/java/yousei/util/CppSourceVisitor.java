@@ -1,4 +1,4 @@
-package yousei;
+package yousei.util;
 
 import java.util.HashMap;
 import java.util.Map;

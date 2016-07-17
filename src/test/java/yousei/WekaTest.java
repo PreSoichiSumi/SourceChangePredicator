@@ -5,15 +5,11 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 import weka.classifiers.functions.LinearRegression;
-import weka.classifiers.meta.AttributeSelectedClassifier;
-import weka.classifiers.meta.FilteredClassifier;
 import weka.core.Attribute;
 import weka.core.Instances;
+import yousei.util.Util;
 
 import java.io.*;
-import java.util.List;
-import java.util.Objects;
-import java.util.Random;
 
 /**
  * Created by s-sumi on 2016/06/18.

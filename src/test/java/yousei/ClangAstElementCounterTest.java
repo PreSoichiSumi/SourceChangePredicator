@@ -1,10 +1,9 @@
 package yousei;
 
 import org.junit.Test;
+import yousei.util.ClangAstElementCounter;
 
 import java.util.Map;
-
-import static org.junit.Assert.*;
 
 public class ClangAstElementCounterTest {
 

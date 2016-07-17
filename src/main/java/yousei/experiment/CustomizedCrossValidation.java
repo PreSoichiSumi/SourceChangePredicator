@@ -1,9 +1,9 @@
-package yousei;
+package yousei.experiment;
 
 import weka.classifiers.AbstractClassifier;
 import weka.classifiers.Classifier;
-import weka.classifiers.Evaluation;
 import weka.core.Instances;
+import yousei.util.Util;
 
 import java.io.*;
 import java.util.*;
@@ -13,13 +13,13 @@ import java.util.*;
  */
 public class CustomizedCrossValidation {
 
-    int num_classified = 0;
-    int num_correct = 0;
-    int num_incorrect = 0;
-    int num_classifiedArray[] = new int[6];
-    int num_correctArray[] = new int[6];
-    boolean randomized = true;
-    int dist[];
+    public int num_classified = 0;
+    public int num_correct = 0;
+    public int num_incorrect = 0;
+    public int num_classifiedArray[] = new int[6];
+    public int num_correctArray[] = new int[6];
+    public boolean randomized = true;
+    public int dist[];
 
 
     public CustomizedCrossValidation() {

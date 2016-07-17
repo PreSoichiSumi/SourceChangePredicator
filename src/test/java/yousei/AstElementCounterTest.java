@@ -1,6 +1,5 @@
 package yousei;
 
-import org.eclipse.cdt.core.dom.ast.IASTNode;
 import org.eclipse.cdt.core.dom.ast.IASTTranslationUnit;
 import org.eclipse.cdt.core.dom.ast.gnu.c.GCCLanguage;
 import org.eclipse.cdt.core.index.IIndex;
@@ -8,8 +7,9 @@ import org.eclipse.cdt.core.model.ILanguage;
 import org.eclipse.cdt.core.parser.*;
 import org.eclipse.core.runtime.CoreException;
 import org.junit.Test;
+import yousei.util.AstElementCounter;
+import yousei.util.CppSourceVisitor;
 
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Map;

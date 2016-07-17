@@ -1,4 +1,4 @@
-package yousei;
+package yousei.experiment;
 
 
 import org.eclipse.jgit.api.Git;
@@ -10,11 +10,10 @@ import org.eclipse.jgit.revwalk.RevSort;
 import org.eclipse.jgit.revwalk.RevWalk;
 import org.eclipse.jgit.treewalk.AbstractTreeIterator;
 import org.eclipse.jgit.treewalk.filter.PathSuffixFilter;
+import yousei.util.Util;
 
-import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;

@@ -1,4 +1,4 @@
-package yousei;
+package yousei.util;
 
 import org.eclipse.cdt.internal.core.dom.parser.c.*;
 

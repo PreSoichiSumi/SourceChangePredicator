@@ -1,4 +1,4 @@
-package yousei;
+package yousei.experiment;
 
 /**
  * 与えられたリポジトリへのパスの集合に対して実験を行い，
@@ -19,6 +19,8 @@ public class ExperimentExecuter {
             //ra.analyzeRepository(resPaths[i]);
             RepositoryAnalyzerForBugfix rafb=new RepositoryAnalyzerForBugfix(reposPaths[i]);
             rafb.analyzeRepository(resPaths[i]);
+            //RepositoryAnalyzer4Java ra4j=new RepositoryAnalyzer4Java(reposPaths[i]);
+            //ra4j.analyzeRepository(resPaths[i]);
             System.out.println("done");
             System.out.println();
         }

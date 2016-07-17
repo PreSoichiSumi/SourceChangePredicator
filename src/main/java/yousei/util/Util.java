@@ -1,4 +1,4 @@
-package yousei;
+package yousei.util;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jgit.diff.DiffEntry;
@@ -11,6 +11,7 @@ import weka.core.Instances;
 import weka.filters.Filter;
 import weka.filters.supervised.attribute.AttributeSelection;
 import weka.filters.unsupervised.attribute.Remove;
+import yousei.experiment.CustomizedCrossValidation;
 
 import java.io.*;
 import java.util.*;

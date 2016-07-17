@@ -1,4 +1,4 @@
-package yousei;
+package yousei.util;
 
 import java.io.IOException;
 import java.nio.file.Files;

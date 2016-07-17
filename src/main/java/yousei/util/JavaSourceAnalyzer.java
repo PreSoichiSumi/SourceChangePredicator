@@ -1,10 +1,5 @@
-package yousei;
+package yousei.util;
 
-import org.eclipse.cdt.core.dom.ast.IASTTranslationUnit;
-import org.eclipse.cdt.core.dom.ast.gnu.c.GCCLanguage;
-import org.eclipse.cdt.core.index.IIndex;
-import org.eclipse.cdt.core.model.ILanguage;
-import org.eclipse.cdt.core.parser.*;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jdt.core.dom.AST;
 import org.eclipse.jdt.core.dom.ASTParser;
@@ -13,9 +8,7 @@ import org.eclipse.jdt.core.dom.CompilationUnit;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by s-sumi on 2016/07/12.
