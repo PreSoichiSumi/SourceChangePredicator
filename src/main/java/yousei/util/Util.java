@@ -185,7 +185,7 @@ public class Util {
         }
         resBw.close();
     }
-    //TODO updownに対応して出力ファイル名をかえる
+
     public static void predictWithSomeClassifiers(File arffData, String resultPath, List<Classifier> classifiers,boolean updown) throws Exception {
         BufferedReader br = new BufferedReader(new FileReader(arffData));
         Instances instances = new Instances(br);
