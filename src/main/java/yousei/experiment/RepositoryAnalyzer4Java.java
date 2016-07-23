@@ -11,7 +11,6 @@ import org.eclipse.jgit.treewalk.AbstractTreeIterator;
 import org.eclipse.jgit.treewalk.filter.PathSuffixFilter;
 import yousei.util.Util;
 
-
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.util.ArrayList;
@@ -48,6 +47,11 @@ public class RepositoryAnalyzer4Java extends RepositoryAnalyzerForBugfix {
         //Util.predictWithSomeClassifiers(f,resultPath,classifiers,false);
         //Util.vectoredPredictionWithSomeClassifiers(f,resultPath,classifiers,false);
         f.delete();
+    }
+
+    @Override
+    public void updateGenealogy(RevCommit newRev) throws Exception {
+        updateForGivenSuffix(newRev, ".java");
     }
 
     @Override

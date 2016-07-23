@@ -25,10 +25,17 @@ public class Main {
 	//		"php"
 	};
 
+	public static final String[] reposPaths4J = {
+			"exprepos/commons-math"
+	};
+	public static final String[] resPath4J = {
+			"commons-math"
+	};
+
 	public static void main(String[] args)throws Exception{
 		ExperimentExecuter ee=new ExperimentExecuter();
-		ee.setReposPaths(reposPaths);
-		ee.setResPaths(resPath);
+		ee.setReposPaths(reposPaths4J);
+		ee.setResPaths(resPath4J);
 		ee.execute();
 		System.out.println("fin");
 	}

@@ -22,9 +22,9 @@ import java.util.*;
  * Created by s-sumi on 2016/05/23.
  */
 public class Util {
-    private static File workingDir = new File("WorkingDir");
-    public static int smallchange = 0;
     private static final int SMALLTHRESHOLD = 5;
+    public static int smallchange = 0;
+    private static File workingDir = new File("WorkingDir");
 
     public static Map<String, Integer> addMap(Map<String, Integer> map1, Map<String, Integer> map2) {
         Map<String, Integer> res = new HashMap<>(map1);
@@ -459,11 +459,11 @@ public class Util {
         bw.write("@relation StateVector");
         bw.newLine();
         bw.newLine();
-        for (Map.Entry<String, Integer> e : nc.dictionary.entrySet()) {
+        for (Map.Entry<String, Integer> e : nc.dictionary4j.entrySet()) {
             bw.write("@attribute " + e.getKey() + " numeric");
             bw.newLine();
         }
-        for (Map.Entry<String, Integer> e : nc.dictionary.entrySet()) {
+        for (Map.Entry<String, Integer> e : nc.dictionary4j.entrySet()) {
             bw.write("@attribute " + e.getKey() + "2 numeric");
             bw.newLine();
         }
@@ -507,7 +507,7 @@ public class Util {
         return filter;
     }
 
-
+    @Deprecated
     public static void enumNotFoundNodes(Set<String> set) {
         System.out.println("\nNotFoundNodes:");
         NodeClasses nc = new NodeClasses();
