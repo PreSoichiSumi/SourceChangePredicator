@@ -10,6 +10,7 @@ import org.eclipse.jgit.revwalk.RevSort;
 import org.eclipse.jgit.revwalk.RevWalk;
 import org.eclipse.jgit.treewalk.AbstractTreeIterator;
 import org.eclipse.jgit.treewalk.filter.PathSuffixFilter;
+import yousei.GeneralUtil;
 import yousei.util.Util;
 
 import java.io.ByteArrayOutputStream;
@@ -36,7 +37,7 @@ public class RepositoryAnalyzerForBugfix extends RepositoryAnalyzer {
         RevWalk rw = getInitializedRevWalk(this.repository, RevSort.REVERSE);//最古
         RevCommit commit = rw.next();
         while (commit != null) {
-            if (commit.getParentCount() >= 1 && Util.isBugfix(commit.getFullMessage())) {
+            if (commit.getParentCount() >= 1 && GeneralUtil.isBugfix(commit.getFullMessage())) {
                 updateGenealogy(commit);
             }
             commit = rw.next();
@@ -93,8 +94,8 @@ public class RepositoryAnalyzerForBugfix extends RepositoryAnalyzer {
                 if (Objects.equals(oldSource, "") || Objects.equals(newSource, "")) //ソースの修正なら解析対象とする
                     continue;
 
-                preVector.add(Util.getSourceVector(oldSource,suffix));
-                postVector.add(Util.getSourceVector(newSource,suffix));
+                preVector.add(GeneralUtil.getSourceVector(oldSource, suffix));
+                postVector.add(GeneralUtil.getSourceVector(newSource, suffix));
 
             }
         }

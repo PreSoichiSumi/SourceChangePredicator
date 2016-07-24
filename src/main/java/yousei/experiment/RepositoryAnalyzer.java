@@ -2,7 +2,10 @@ package yousei.experiment;
 
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.diff.DiffEntry;
-import org.eclipse.jgit.lib.*;
+import org.eclipse.jgit.lib.Constants;
+import org.eclipse.jgit.lib.ObjectId;
+import org.eclipse.jgit.lib.ObjectLoader;
+import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.revwalk.RevCommit;
 import org.eclipse.jgit.revwalk.RevSort;
 import org.eclipse.jgit.revwalk.RevTree;
@@ -18,24 +21,20 @@ import weka.classifiers.functions.MultilayerPerceptron;
 import weka.classifiers.trees.M5P;
 import weka.classifiers.trees.RandomForest;
 import weka.core.SelectedTag;
+import yousei.GeneralUtil;
 import yousei.util.CppSourceAnalyzer;
 import yousei.util.Util;
 
-import java.io.*;
+import java.io.BufferedWriter;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileWriter;
 import java.util.*;
-
-import static yousei.util.Util.getSourceVector;
 
 /**
  * Created by s-sumi on 2016/05/09.
  */
 public class RepositoryAnalyzer {
-    public ChangeAnalyzer ca;
-    public Repository repository;
-    public Map<String, List<Map<String, Integer>>> genealogy=new HashMap<>();
-    public List<List<Map<String, Integer>>> deletedGenealogies = new ArrayList<>();
-    public List<Classifier> classifiers=new ArrayList<>();
-
     public final String[] classifierNames={
             "SVMReg",
             "LinearRegression",
@@ -43,7 +42,11 @@ public class RepositoryAnalyzer {
             "M5P",
             "MultilayerPerceptron"
     };
-
+    public ChangeAnalyzer ca;
+    public Repository repository;
+    public Map<String, List<Map<String, Integer>>> genealogy = new HashMap<>();
+    public List<List<Map<String, Integer>>> deletedGenealogies = new ArrayList<>();
+    public List<Classifier> classifiers = new ArrayList<>();
     public int bugfixCounter=0;
 
     public RepositoryAnalyzer(String reposPath) throws Exception {
@@ -60,7 +63,7 @@ public class RepositoryAnalyzer {
 
     public void analyzeRepository(String resultPath) throws Exception {
 
-        RevWalk rw = getInitializedRevWalk(repository, RevSort.REVERSE);//最古
+        RevWalk rw = GeneralUtil.getInitializedRevWalk(repository, RevSort.REVERSE);//最古
         RevCommit commit = rw.next();
         initGenealogy(commit);
         commit = rw.next();
@@ -97,18 +100,7 @@ public class RepositoryAnalyzer {
 
     }
 
-    // Reverseで最古から最新へ
-    public RevWalk getInitializedRevWalk(Repository repo,
-                                          RevSort revSort) throws IOException {
-        RevWalk rw = new RevWalk(repo);
-        AnyObjectId headId;
 
-        headId = repo.resolve(Constants.HEAD);
-        RevCommit root = rw.parseCommit(headId);
-        rw.sort(revSort);
-        rw.markStart(root); // この時点ではHeadをさしている．nextで最初のコミットが得られる．
-        return rw;
-    }
 
 
     public void initGenealogy(RevCommit firstCommit) throws Exception {
@@ -130,7 +122,7 @@ public class RepositoryAnalyzer {
             objectLoader.copyTo(baos);
 
             List<Map<String, Integer>> fileGenealogy = new ArrayList<>();
-            fileGenealogy.add(getSourceVector(baos.toString()));
+            fileGenealogy.add(GeneralUtil.getSourceVector(baos.toString()));
 
             genealogy.put(treeWalk.getPathString(), fileGenealogy);  //mergeでもどっちでもいい
         }

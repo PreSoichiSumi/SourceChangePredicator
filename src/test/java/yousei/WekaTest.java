@@ -1,15 +1,15 @@
 package yousei;
 
 import org.junit.Test;
-
-import static org.junit.Assert.*;
-
 import weka.classifiers.functions.LinearRegression;
 import weka.core.Attribute;
 import weka.core.Instances;
-import yousei.util.Util;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+
+import static org.junit.Assert.*;
 
 /**
  * Created by s-sumi on 2016/06/18.
@@ -41,7 +41,7 @@ public class WekaTest {
             br = new BufferedReader(new FileReader(new File(testDataPath)));
             Instances instances = new Instances(br);
             int num = instances.numAttributes() / 2;
-            instances = Util.removeAttrWithoutI(i, instances);
+            instances = GeneralUtil.removeAttrWithoutI(i, instances);
 
             assertEquals(instances.numAttributes(), num + 1);
             br.close();
@@ -54,7 +54,7 @@ public class WekaTest {
         Instances instances = new Instances(br);
         String attrName = instances.attribute(i).name();
         int num = instances.numAttributes() / 2;
-        instances = Util.removeAttrWithoutI(i, instances);
+        instances = GeneralUtil.removeAttrWithoutI(i, instances);
         assertEquals(instances.attribute(num).name(), attrName + "2");
     }
 
@@ -69,7 +69,7 @@ public class WekaTest {
             br = new BufferedReader(new FileReader(new File(testDataPath)));
             Instances instances = new Instances(br);
             int num = instances.numAttributes() / 2;
-            instances = Util.removeAttrWithoutI(i, instances);
+            instances = GeneralUtil.removeAttrWithoutI(i, instances);
             instances.setClassIndex(num);
             assertEquals(rawInstances.attribute(i).name() + "2", instances.attribute(instances.numAttributes() - 1).name());
             assertEquals(instances.classAttribute().name(), rawInstances.attribute(i).name() + "2");
@@ -90,7 +90,7 @@ public class WekaTest {
             instances = new Instances(br);
             Attribute attr = instances.attribute(i);
             String attrName = attr.name();
-            instances = Util.removeAttrWithoutI(i, instances);
+            instances = GeneralUtil.removeAttrWithoutI(i, instances);
             instances.setClassIndex(num);
 
             LinearRegression lr = new LinearRegression();
@@ -114,7 +114,7 @@ public class WekaTest {
             br = new BufferedReader(new FileReader(testFile));
             Instances instances = new Instances(br);
             int num = instances.numAttributes() / 2;
-            instances = Util.removeAttrWithoutI(i, instances);
+            instances = GeneralUtil.removeAttrWithoutI(i, instances);
             instances.setClassIndex(num);
 
             LinearRegression lr = new LinearRegression();

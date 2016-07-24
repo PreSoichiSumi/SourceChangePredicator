@@ -3,10 +3,16 @@ package yousei.experiment;
 import weka.classifiers.AbstractClassifier;
 import weka.classifiers.Classifier;
 import weka.core.Instances;
+import yousei.GeneralUtil;
 import yousei.util.Util;
 
-import java.io.*;
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
 
 /**
  * Created by s-sumi on 2016/06/17.
@@ -48,7 +54,7 @@ public class CustomizedCrossValidation {
                 train = filteredData.trainCV(numFolds, i);
             }
             Classifier copiedClassifier = AbstractClassifier.makeCopy(classifier);
-            if (copiedClassifier.getClass().getSimpleName().contains("SVM") && !Util.isPredictable(train)) {
+            if (copiedClassifier.getClass().getSimpleName().contains("SVM") && !GeneralUtil.isPredictable(train)) {
                 num_classified = train.numInstances();
                 num_correct = num_classified;
                 num_incorrect = num_classified - num_correct;
@@ -86,7 +92,7 @@ public class CustomizedCrossValidation {
             throw new Exception("please set ClassIndex to test data");
 
         for (int i = 0; i < test.numInstances(); i++) {
-            if (Util.judgeResult(classifier.classifyInstance(test.instance(i)),
+            if (GeneralUtil.judgeResult(classifier.classifyInstance(test.instance(i)),
                                     test.instance(i).value(test.classIndex()),
                                     updown)) {
                 num_correct++;
@@ -111,9 +117,9 @@ public class CustomizedCrossValidation {
         for (int i = 0; i < num; i++) {
             br = new BufferedReader(new FileReader(data));
             instances = new Instances(br);
-            instances = Util.removeAttrWithoutI(i, instances);
+            instances = GeneralUtil.removeAttrWithoutI(i, instances);
             instances.setClassIndex(num);
-            instances = Util.useFilter(instances);
+            instances = GeneralUtil.useFilter(instances);
             filteredData.add(instances);
         }
 
@@ -133,7 +139,7 @@ public class CustomizedCrossValidation {
                 }
 
                 Classifier copied = AbstractClassifier.makeCopy(classifier);
-                if (copied.getClass().getSimpleName().contains("SVM") && !Util.isPredictable(train)) {
+                if (copied.getClass().getSimpleName().contains("SVM") && !GeneralUtil.isPredictable(train)) {
                     classifiers.add(null);
                     testDatas.add(null);
                 } else {
@@ -162,7 +168,7 @@ public class CustomizedCrossValidation {
                 if (classifiers.get(j) == null)//svmかつclassvalueの変化が無かったときにnullになる．そのときは必ず正解するので飛ばす
                     continue;
 
-                if(!Util.judgeResult(
+                if (!GeneralUtil.judgeResult(
                         classifiers.get(j).classifyInstance(testDatas.get(j).instance(i)),
                         testDatas.get(j).instance(i).value(testDatas.get(j).classIndex()),
                         updown))

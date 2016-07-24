@@ -1,16 +1,11 @@
 package yousei.util;
 
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jgit.diff.DiffEntry;
-import weka.attributeSelection.BestFirst;
-import weka.attributeSelection.CfsSubsetEval;
 import weka.classifiers.Classifier;
 import weka.classifiers.functions.LinearRegression;
 import weka.core.Attribute;
 import weka.core.Instances;
-import weka.filters.Filter;
-import weka.filters.supervised.attribute.AttributeSelection;
-import weka.filters.unsupervised.attribute.Remove;
+import yousei.GeneralUtil;
 import yousei.experiment.CustomizedCrossValidation;
 
 import java.io.*;
@@ -22,9 +17,7 @@ import java.util.*;
  * Created by s-sumi on 2016/05/23.
  */
 public class Util {
-    private static final int SMALLTHRESHOLD = 5;
-    public static int smallchange = 0;
-    private static File workingDir = new File("WorkingDir");
+
 
     public static Map<String, Integer> addMap(Map<String, Integer> map1, Map<String, Integer> map2) {
         Map<String, Integer> res = new HashMap<>(map1);
@@ -34,34 +27,6 @@ public class Util {
         }*/
         map2.entrySet().stream()
                 .forEach(e -> res.merge(e.getKey(), e.getValue(), (a, b) -> a + b));
-        return res;
-    }
-
-    public static Map<String, Integer> getSourceVector(String source) throws IOException, CoreException {
-        return getSourceVector(source,".cpp");
-    }
-
-    public static Map<String, Integer> getSourceVector(String source,String suffix) throws IOException, CoreException {
-        File tmpFile = File.createTempFile("tmp", suffix, workingDir);
-        BufferedWriter bw = new BufferedWriter(new FileWriter(tmpFile));
-        bw.write(source);
-        bw.close();
-        CppSourceAnalyzer csa = new CppSourceAnalyzer("", "", "");
-        csa.setFilePath(tmpFile.getAbsolutePath());
-        Map<String,Integer> res=csa.analyzeFile();
-        tmpFile.delete();
-        return res;
-    }
-
-    public static List<Integer> getSourceVector4Java(String source,String suffix) throws IOException, CoreException {
-        File tmpFile = File.createTempFile("tmp", suffix, workingDir);
-        BufferedWriter bw = new BufferedWriter(new FileWriter(tmpFile));
-        bw.write(source);
-        bw.close();
-        JavaSourceAnalyzer jsa = new JavaSourceAnalyzer("", "", "");
-        jsa.setFilePath(tmpFile.getAbsolutePath());
-        List<Integer> res=jsa.analyzeFile();
-        tmpFile.delete();
         return res;
     }
 
@@ -84,7 +49,7 @@ public class Util {
 
     public static File singleGenealogy2Arff(List<Map<String, Integer>> genealogy) throws IOException {
         NodeClasses nc = new NodeClasses();
-        File tmpFile = File.createTempFile("genealogy", ".arff", workingDir);
+        File tmpFile = File.createTempFile("genealogy", ".arff", GeneralUtil.workingDir);
         BufferedWriter bw = new BufferedWriter(new FileWriter(tmpFile));
         bw.write("@relation StateVector");
         bw.newLine();
@@ -113,22 +78,14 @@ public class Util {
         for (int i = 1; i < genealogy.size(); i++) {//系譜の長さ分ループ
             pre = now;
             now = convertVector2List(genealogy.get(i));
-            writeVector(bw, pre);
+            GeneralUtil.writeVector(bw, pre);
             bw.write(",");
-            writeVector(bw, now);
+            GeneralUtil.writeVector(bw, now);
             bw.newLine();
         }
 
         bw.close();
         return tmpFile;
-    }
-
-    public static void writeVector(BufferedWriter bw, List<Integer> vector) throws IOException {
-        for (int i = 0; i < vector.size(); i++) {
-            bw.write(vector.get(i).toString());
-            if (i != vector.size() - 1)
-                bw.write(",");
-        }
     }
 
     //Logging処理が埋め込まれてて読みにくい
@@ -152,9 +109,9 @@ public class Util {
             instances = new Instances(br);
             Attribute attr = instances.attribute(i);
             String attrName = attr.name();
-            instances = Util.removeAttrWithoutI(i, instances);
+            instances = GeneralUtil.removeAttrWithoutI(i, instances);
             instances.setClassIndex(num);
-            instances = Util.useFilter(instances);
+            instances = GeneralUtil.useFilter(instances);
 
             LinearRegression lr = new LinearRegression();
             String[] options = {"-S", "0"};
@@ -206,14 +163,14 @@ public class Util {
                 instances = new Instances(br);
                 Attribute attr = instances.attribute(i);
                 String attrName = attr.name();
-                instances = Util.removeAttrWithoutI(i, instances);
+                instances = GeneralUtil.removeAttrWithoutI(i, instances);
                 instances.setClassIndex(num);
                 //if(!cls.getClass().getSimpleName().equals("SMOreg"))
-                instances = Util.useFilter(instances);
+                instances = GeneralUtil.useFilter(instances);
 
                 CustomizedCrossValidation ccv = new CustomizedCrossValidation();
 
-                if(cls.getClass().getSimpleName().contains("SVM") && !Util.isPredictable(instances)){
+                if (cls.getClass().getSimpleName().contains("SVM") && !GeneralUtil.isPredictable(instances)) {
                     ccv.num_classified=instances.numInstances();
                     ccv.num_correct=ccv.num_classified;
                     ccv.num_incorrect=ccv.num_classified-ccv.num_correct;
@@ -354,28 +311,9 @@ public class Util {
         return res;
     }
 
-    /**
-     * ２つ目の状態ベクトルの
-     *
-     * @param i
-     * @param instances
-     * @return
-     */
-    public static Instances removeAttrWithoutI(int i, Instances instances) throws Exception {
-        int num = instances.numAttributes() / 2;
-        int counter = 0;
-
-        Remove remove = new Remove();
-        remove.setAttributeIndices("1-" + Integer.toString(num) + "," + Integer.toString(num + i + 1));
-        remove.setInvertSelection(true);
-        remove.setInputFormat(instances);
-
-        return Filter.useFilter(instances, remove);
-    }
-
     public static File allGenealogy2Arff(Map<String, List<Map<String, Integer>>> genealogy) throws IOException {
         NodeClasses nc = new NodeClasses();
-        File tmpFile = File.createTempFile("genealogy", ".arff", workingDir);
+        File tmpFile = File.createTempFile("genealogy", ".arff", GeneralUtil.workingDir);
         BufferedWriter bw = new BufferedWriter(new FileWriter(tmpFile));
         bw.write("@relation StateVector");
         bw.newLine();
@@ -400,12 +338,12 @@ public class Util {
             for (int i = 1; i < e.getValue().size(); i++) {//系譜の長さ分ループ
                 pre = now;
                 now = convertVector2List(e.getValue().get(i));
-                if (diffIsBig(pre, now, SMALLTHRESHOLD))
+                if (GeneralUtil.diffIsBig(pre, now, GeneralUtil.SMALLTHRESHOLD))
                     continue;
-                smallchange++;
-                writeVector(bw, pre);
+                GeneralUtil.smallchange++;
+                GeneralUtil.writeVector(bw, pre);
                 bw.write(",");
-                writeVector(bw, now);
+                GeneralUtil.writeVector(bw, now);
                 bw.newLine();
             }
         }
@@ -416,7 +354,7 @@ public class Util {
 
     public static File allGenealogy2Arff(List<Map<String,Integer>> preVector,List<Map<String,Integer>> postVector)throws Exception{
         NodeClasses nc = new NodeClasses();
-        File tmpFile = File.createTempFile("genealogy", ".arff", workingDir);
+        File tmpFile = File.createTempFile("genealogy", ".arff", GeneralUtil.workingDir);
         BufferedWriter bw = new BufferedWriter(new FileWriter(tmpFile));
         bw.write("@relation StateVector");
         bw.newLine();
@@ -437,14 +375,14 @@ public class Util {
             List<Integer> pre=convertVector2List(preVector.get(i));
             List<Integer> post=convertVector2List(preVector.get(i));
 
-            if(diffIsBig(pre,post,SMALLTHRESHOLD))
+            if (GeneralUtil.diffIsBig(pre, post, GeneralUtil.SMALLTHRESHOLD))
                 continue;
 
-            smallchange++;
+            GeneralUtil.smallchange++;
 
-            writeVector(bw,pre);
+            GeneralUtil.writeVector(bw, pre);
             bw.write(",");
-            writeVector(bw,post);
+            GeneralUtil.writeVector(bw, post);
             bw.newLine();
         }
 
@@ -454,7 +392,7 @@ public class Util {
 
     public static File allGenealogy2Arff4Java(List<List<Integer>> preVector,List<List<Integer>> postVector)throws Exception{
         NodeClasses4Java nc = new NodeClasses4Java();
-        File tmpFile = File.createTempFile("genealogy", ".arff", workingDir);
+        File tmpFile = File.createTempFile("genealogy", ".arff", GeneralUtil.workingDir);
         BufferedWriter bw = new BufferedWriter(new FileWriter(tmpFile));
         bw.write("@relation StateVector");
         bw.newLine();
@@ -472,39 +410,19 @@ public class Util {
         bw.write("@data");
         bw.newLine();
         for (int i=0;i<preVector.size();i++) {
-            if(diffIsBig(preVector.get(i),postVector.get(i),SMALLTHRESHOLD))
+            if (GeneralUtil.diffIsBig(preVector.get(i), postVector.get(i), GeneralUtil.SMALLTHRESHOLD))
                 continue;
 
-            smallchange++;
+            GeneralUtil.smallchange++;
 
-            writeVector(bw,preVector.get(i));
+            GeneralUtil.writeVector(bw, preVector.get(i));
             bw.write(",");
-            writeVector(bw,postVector.get(i));
+            GeneralUtil.writeVector(bw, postVector.get(i));
             bw.newLine();
         }
 
         bw.close();
         return tmpFile;
-    }
-
-    public static Instances useFilter(Instances data) throws Exception {
-
-        Instances newData = Filter.useFilter(data, Util.getAttrSelectFilter(data));
-        newData.setClassIndex(newData.numAttributes() - 1);
-        //if (newData.classIndex() == -1)
-        //    newData.setClassIndex(predictNum);
-        return newData;
-    }
-
-    public static Filter getAttrSelectFilter(Instances data) throws Exception {
-        AttributeSelection filter = new AttributeSelection();
-        CfsSubsetEval eval = new CfsSubsetEval();
-        BestFirst search = new BestFirst();
-        String[] options = {"-D", "1", "-N", "5"};
-        search.setOptions(options);
-        filter.setEvaluator(eval);
-        filter.setInputFormat(data);
-        return filter;
     }
 
     @Deprecated
@@ -516,14 +434,6 @@ public class Util {
                 System.out.println(s);
             }
         }
-    }
-
-    public static boolean diffIsBig(List<Integer> a, List<Integer> b, int threshold) {
-        int counter = 0;
-        for (int i = 0; i < a.size(); i++) {
-            counter += Math.abs(a.get(i) - b.get(i));
-        }
-        return counter > threshold;
     }
 
     public static int compareDiffEntries(DiffEntry a, DiffEntry b) {
@@ -565,31 +475,6 @@ public class Util {
         first = numFold * (numInstances / numFolds) + offset;
         //copyInstances(first, test, numInstForFold); //シャッフルされてなければ，testの範囲はfirst-numInstForFold
         return first + index;
-    }
-
-    public static boolean isPredictable(Instances data){
-        boolean flag=false;
-        double tmp=data.instance(0).classValue();
-        for(int i=1;i<data.numInstances();i++){
-            if(tmp!=data.instance(i).classValue()) {
-                flag = true;
-                break;
-            }
-        }
-        return flag;
-    }
-
-    public static boolean isBugfix(String commitMessage){
-        return commitMessage.toLowerCase().contains("bug") || commitMessage.toLowerCase().contains("fix");
-    }
-
-    public static boolean judgeResult(double predict,double actual, boolean updown){
-        List<Long> list = new ArrayList<>();
-        list.add(Math.round(Math.ceil(predict)));//切り捨て，切り上げしてLongへ
-        list.add(Math.round(Math.floor(predict)));
-        return updown ?
-                list.contains(Math.round(actual)) :
-                Objects.equals(Math.round(predict), Math.round(actual));
     }
 
 

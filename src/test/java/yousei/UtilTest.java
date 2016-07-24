@@ -50,16 +50,16 @@ public class UtilTest {
     //judgeResultはupdownがtrueなら切り上げ，切り下げした場合にpredictがactualと等しくなるか出力する
     @Test
     public void judgeResultTest(){
-        assertFalse(Util.judgeResult(1.0,2.0,true));
-        assertFalse(Util.judgeResult(3.0,2.0,true));
-        assertTrue(Util.judgeResult(1.5,2.0,true));
-        assertTrue(Util.judgeResult(2.5,2.0,true));
+        assertFalse(GeneralUtil.judgeResult(1.0, 2.0, true));
+        assertFalse(GeneralUtil.judgeResult(3.0, 2.0, true));
+        assertTrue(GeneralUtil.judgeResult(1.5, 2.0, true));
+        assertTrue(GeneralUtil.judgeResult(2.5, 2.0, true));
 
-        assertTrue(Util.judgeResult(1.5,2.0,false));
-        assertTrue(Util.judgeResult(2.4,2.0,false));
-        assertFalse(Util.judgeResult(0.0,2.0,false));
-        assertFalse(Util.judgeResult(1.4,2.0,false));
-        assertFalse(Util.judgeResult(2.6,2.0,false));
+        assertTrue(GeneralUtil.judgeResult(1.5, 2.0, false));
+        assertTrue(GeneralUtil.judgeResult(2.4, 2.0, false));
+        assertFalse(GeneralUtil.judgeResult(0.0, 2.0, false));
+        assertFalse(GeneralUtil.judgeResult(1.4, 2.0, false));
+        assertFalse(GeneralUtil.judgeResult(2.6, 2.0, false));
     }
 
     //判定も間違っていないっぽい
@@ -74,8 +74,8 @@ public class UtilTest {
 
     @Test
     public void isBugfixTest(){
-        assertTrue(Util.isBugfix("hogehogeBugfix"));
-        assertFalse(Util.isBugfix("ixfugb"));
+        assertTrue(GeneralUtil.isBugfix("hogehogeBugfix"));
+        assertFalse(GeneralUtil.isBugfix("ixfugb"));
     }
 
 }

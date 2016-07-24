@@ -1,16 +1,19 @@
-package yousei.experiment;
+package yousei.propose;
 
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.diff.DiffEntry;
+import org.eclipse.jgit.lib.Constants;
 import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.ObjectLoader;
+import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.revwalk.RevCommit;
 import org.eclipse.jgit.revwalk.RevSort;
 import org.eclipse.jgit.revwalk.RevWalk;
+import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
 import org.eclipse.jgit.treewalk.AbstractTreeIterator;
 import org.eclipse.jgit.treewalk.filter.PathSuffixFilter;
 import yousei.GeneralUtil;
-import yousei.util.Util;
+import yousei.experiment.ChangeAnalyzer;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -19,50 +22,54 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * Created by s-sumi on 2016/07/12.
+ * Created by s-sumi on 16/07/23.
+ * 本当は
  */
-public class RepositoryAnalyzer4Java extends RepositoryAnalyzerForBugfix {
+public class StatementRecommender {
+    private String reposPath;
+    private String resPath;
+    private String bugRevisionId;
+    /**
+     * 短縮形でもフルでもよい
+     */
+    private Repository repository;
+    private List<List<Integer>> preVector = new ArrayList<>();
+    private List<List<Integer>> postVector = new ArrayList<>();
 
-    public List<List<Integer>> preVector4Java = new ArrayList<>();
-    public List<List<Integer>> postVector4Java = new ArrayList<>();
+    public StatementRecommender(String reposPath, String resPath, String bugRevisionId) throws Exception {
 
-    public RepositoryAnalyzer4Java(String reposPath) throws Exception {
-        super(reposPath);
+        if (reposPath == null || resPath == null || bugRevisionId == null)
+            throw new Exception("null argument found");
+
+        this.reposPath = reposPath;
+        this.resPath = resPath;
+        this.bugRevisionId = bugRevisionId;
+        FileRepositoryBuilder builder = new FileRepositoryBuilder();
+        this.repository = builder
+                .setGitDir(new File(reposPath + "/" + Constants.DOT_GIT))
+                .readEnvironment()
+                .findGitDir()
+                .build();
+        //change analyzerとcppsource analyzerがいるかも
     }
 
-    @Override
-    public void analyzeRepository(String resultPath) throws Exception {
-        RevWalk rw = getInitializedRevWalk(this.repository, RevSort.REVERSE);//最古
+
+    public void execute() throws Exception {
+        System.out.println("process " + reposPath);
+
+        RevWalk rw = GeneralUtil.getInitializedRevWalk(repository, RevSort.REVERSE);
         RevCommit commit = rw.next();
-        while (commit != null) {
-            if (commit.getParentCount() >= 1 /*&& Util.isBugfix(commit.getFullMessage())*/) {
-                updateGenealogy(commit);
-            }
+        commit = rw.next();
+        while (commit != null && commit.getName().startsWith(this.bugRevisionId)) {
+            if (commit.getParentCount() >= 1)
+                updateGenealogy(commit, ".java");
             commit = rw.next();
         }
-        File f = Util.allGenealogy2Arff4Java(preVector4Java,postVector4Java);
-        Util.predict(f, resultPath, false);
-        Util.predict(f, resultPath, true);
-        Util.vectoredPrediction(f, resultPath, false);
-        Util.vectoredPrediction(f, resultPath, true);
-        //Util.predictWithSomeClassifiers(f,resultPath,classifiers,false);
-        //Util.vectoredPredictionWithSomeClassifiers(f,resultPath,classifiers,false);
-        f.delete();
+
+
     }
 
-    @Override
-    public void updateGenealogy(RevCommit newRev) throws Exception {
-        updateForGivenSuffix(newRev, ".java");
-    }
-
-    @Override
-    public void initGenealogy(RevCommit firstCommit) throws Exception {
-        initForGivenSuffix(firstCommit,".java");
-    }
-
-    //newRevは1つ以上の親コミットを持つこと
-    @Override
-    public void updateForGivenSuffix(RevCommit newRev, String suffix) throws Exception {
+    public void updateGenealogy(RevCommit newRev, String suffix) throws Exception {
         RevCommit oldRev = newRev.getParent(0);
 
         AbstractTreeIterator oldTreeIterator = ChangeAnalyzer.prepareTreeParser(repository,
@@ -102,10 +109,11 @@ public class RepositoryAnalyzer4Java extends RepositoryAnalyzerForBugfix {
                 if (Objects.equals(oldSource, "") || Objects.equals(newSource, "")) //ソースの修正なら解析対象とする
                     continue;
 
-                preVector4Java.add(GeneralUtil.getSourceVector4Java(oldSource, suffix));
-                postVector4Java.add(GeneralUtil.getSourceVector4Java(newSource, suffix));
+                preVector.add(GeneralUtil.getSourceVector4Java(oldSource, ".java"));
+                postVector.add(GeneralUtil.getSourceVector4Java(newSource, ".java"));
 
             }
         }
+
     }
 }
