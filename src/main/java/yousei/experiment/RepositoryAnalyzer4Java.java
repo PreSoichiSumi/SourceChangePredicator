@@ -18,6 +18,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import static yousei.GeneralUtil.getInitializedRevWalk;
+
 /**
  * Created by s-sumi on 2016/07/12.
  */
