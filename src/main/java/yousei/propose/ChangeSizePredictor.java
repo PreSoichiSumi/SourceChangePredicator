@@ -20,11 +20,9 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * Using Repository and bug_revision_id, return next vector
- * Created by s-sumi on 16/07/23.
+ * Created by s-sumi on 16/07/25.
  */
-public class SourceVectorPredictor {    //similar to ChangeSizePredictor
-
+public class ChangeSizePredictor {
     private String bugRevisionId;
     private String bugSource;
     private Repository repository;
@@ -32,7 +30,7 @@ public class SourceVectorPredictor {    //similar to ChangeSizePredictor
     private List<List<Integer>> preVectors = new ArrayList<>();
     private List<List<Integer>> postVectors = new ArrayList<>();
 
-    public SourceVectorPredictor(String bugRevisionId, String bugSource, Repository repository) {
+    public ChangeSizePredictor(String bugRevisionId, String bugSource, Repository repository) {
         this.bugRevisionId = bugRevisionId;
         this.bugSource = bugSource;
         this.repository = repository;
@@ -53,11 +51,10 @@ public class SourceVectorPredictor {    //similar to ChangeSizePredictor
 
             commit = rw.next();
         }
-        File learningDataArff=Util.genealogy2Arff4VectorPrediction(this.preVectors,this.postVectors);
-        File bugSourceArff=Util.createSouceArff4VectorPrediction(this.bugSource);
+        File learningDataArff=Util.genealogy2Arff4SizePrediction(this.preVectors,this.postVectors);
+        File bugSourceArff=Util.createSouceArff4ChangeSizePrediction(this.bugSource);
         return Util.vectoredPrediction(learningDataArff,bugSourceArff);
     }
-
 
     public void updateGenealogy(RevCommit newRev, String suffix) throws Exception {
         RevCommit oldRev = newRev.getParent(0);
@@ -106,4 +103,6 @@ public class SourceVectorPredictor {    //similar to ChangeSizePredictor
         }
 
     }
+
+
 }

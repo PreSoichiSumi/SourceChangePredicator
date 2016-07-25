@@ -15,6 +15,7 @@ import yousei.util.NodeClasses4Java;
 import java.io.*;
 import java.util.*;
 
+import static yousei.GeneralUtil.diffIsBig;
 import static yousei.GeneralUtil.writeQuestions;
 import static yousei.GeneralUtil.diffIsBig;
 import static yousei.GeneralUtil.writeVector;
@@ -24,11 +25,11 @@ import static yousei.GeneralUtil.writeVector;
  * 提案手法用のUtil集
  */
 public class Util {
-    public static File genealogy2Arff4VectorPrediction(List<List<Integer>> preVector, List<List<Integer>> postVector) throws Exception {
+
     public static int smallchange=0;
 
     //create arff having only 1 instance, maybe being all postvector ? is ok
-    public static File createSouceArff(String source)throws Exception{
+    public static File createSouceArff4VectorPrediction(String source)throws Exception{
         NodeClasses4Java nc = new NodeClasses4Java();
         File tmpFile = File.createTempFile("bugSource", ".arff", GeneralUtil.workingDir);
         BufferedWriter bw = new BufferedWriter(new FileWriter(tmpFile));
@@ -57,7 +58,36 @@ public class Util {
         return tmpFile;
     }
 
-    public static File genealogy2Arff4VectorPred(List<List<Integer>> preVector, List<List<Integer>> postVector) throws Exception {
+    public static File createSouceArff4ChangeSizePrediction(String source)throws Exception{
+        NodeClasses4Java nc = new NodeClasses4Java();
+        File tmpFile = File.createTempFile("bugSource", ".arff", GeneralUtil.workingDir);
+        BufferedWriter bw = new BufferedWriter(new FileWriter(tmpFile));
+        bw.write("@relation StateVector");
+        bw.newLine();
+        bw.newLine();
+        for (Map.Entry<String, Integer> e : nc.dictionary4j.entrySet()) {
+            bw.write("@attribute " + e.getKey() + " numeric");
+            bw.newLine();
+        }
+
+        bw.write("@attribute size {big,small}");
+        bw.newLine();
+
+        bw.newLine();
+
+        bw.write("@data");
+        bw.newLine();
+
+        List<Integer> sourceVector=GeneralUtil.getSourceVector4Java(source,".java");//4java ttearundakara javasikanakunai
+
+        writeVector(bw, sourceVector);
+        bw.write(",");
+        writeQuestions(bw,sourceVector);
+        bw.newLine();
+        return tmpFile;
+    }
+
+    public static File genealogy2Arff4VectorPrediction(List<List<Integer>> preVector, List<List<Integer>> postVector) throws Exception {
         smallchange=0;
         NodeClasses4Java nc = new NodeClasses4Java();
         File tmpFile = File.createTempFile("genealogy4VectorPrediction", ".arff", GeneralUtil.workingDir);
@@ -93,11 +123,12 @@ public class Util {
         return tmpFile;
     }
 
+    public static boolean predictSizeObNextChange(File arffData, File bugArffData) throws Exception{
+
+    }
+
     public static List<Double> vectoredPrediction(File arffData, File bugArffData) throws Exception {
-        BufferedReader br = new BufferedReader(new FileReader(arffData));
-        Instances instances = new Instances(br);
-        int numAttribute = instances.numAttributes() / 2;//arff has 2 vector in an instance
-        br.close();
+        int numAttribute = getNumAttribute(arffData);
 
         List<Instances> filteredData = GeneralUtil.getFilteredData(arffData, numAttribute);
 
@@ -124,11 +155,17 @@ public class Util {
         return res;
     }
 
-    public static List<Instance> getAttrSelectedData(File bugArff,List<Instances> filteredData)throws Exception{
-        BufferedReader br1 = new BufferedReader(new FileReader(bugArff));
-        Instances instances = new Instances(br1);
+    public static int getNumAttribute(File arffData) throws IOException {
+        BufferedReader br = new BufferedReader(new FileReader(arffData));
+        Instances instances = new Instances(br);
         int numAttribute = instances.numAttributes() / 2;//arff has 2 vector in an instance
-        br1.close();
+        br.close();
+        return numAttribute;
+    }
+
+
+    public static List<Instance> getAttrSelectedData(File bugArff,List<Instances> filteredData)throws Exception{
+        int numAttribute = getNumAttribute(bugArff);
 
         List<Instances> tmp=new ArrayList<>();
 
@@ -174,6 +211,7 @@ public class Util {
         res.setClassIndex(res.numAttributes()-1);
         return res;
     }
+
     public static Integer getAttrNum(Attribute attribute,Instances testee)throws Exception{//testee has n attribute and 1 classvalue
         for(int i=0;i<testee.numAttributes()-1;i++)
             if(Objects.equals(testee.attribute(i).name(),attribute.name()))
@@ -181,6 +219,7 @@ public class Util {
 
         throw new Exception("an error occured");
     }
+
 
     /**
      * 全ての変更から変更の大きさ予測用の学習データを作成する
@@ -200,10 +239,9 @@ public class Util {
             bw.write("@attribute " + e.getKey() + " numeric");
             bw.newLine();
         }
-        for (Map.Entry<String, Integer> e : nc.dictionary4j.entrySet()) {
-            bw.write("@attribute size {big,small}");
-            bw.newLine();
-        }
+        bw.write("@attribute size {big,small}");
+        bw.newLine();
+
         bw.newLine();
 
         bw.write("@data");

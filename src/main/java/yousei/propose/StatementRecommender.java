@@ -27,6 +27,7 @@ import java.util.Objects;
  */
 public class StatementRecommender {
     private String reposPath;
+    private String bugSourceCode;
     private String resPath;
     private String bugRevisionId;
     /**
@@ -35,14 +36,16 @@ public class StatementRecommender {
     private Repository repository;
 
 
-    public StatementRecommender(String reposPath, String resPath, String bugRevisionId) throws Exception {
+    public StatementRecommender(String reposPath,String bugSourceCode, String resPath, String bugRevisionId) throws Exception {
 
         if (reposPath == null || resPath == null || bugRevisionId == null)
             throw new Exception("null argument found");
 
         this.reposPath = reposPath;
+        this.bugSourceCode=bugSourceCode;
         this.resPath = resPath;
         this.bugRevisionId = bugRevisionId;
+
         FileRepositoryBuilder builder = new FileRepositoryBuilder();
         this.repository = builder
                 .setGitDir(new File(reposPath + "/" + Constants.DOT_GIT))
@@ -56,6 +59,9 @@ public class StatementRecommender {
     public void execute() throws Exception {
         System.out.println("process " + reposPath);
 
+        System.out.println("predict the size of next change");
+
+        if()
 
 
 
