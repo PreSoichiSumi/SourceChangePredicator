@@ -33,8 +33,7 @@ public class StatementRecommender {
      * 短縮形でもフルでもよい
      */
     private Repository repository;
-    private List<List<Integer>> preVector = new ArrayList<>();
-    private List<List<Integer>> postVector = new ArrayList<>();
+
 
     public StatementRecommender(String reposPath, String resPath, String bugRevisionId) throws Exception {
 
@@ -57,63 +56,9 @@ public class StatementRecommender {
     public void execute() throws Exception {
         System.out.println("process " + reposPath);
 
-        RevWalk rw = GeneralUtil.getInitializedRevWalk(repository, RevSort.REVERSE);
-        RevCommit commit = rw.next();
-        commit = rw.next();
-        while (commit != null && commit.getName().startsWith(this.bugRevisionId)) {
-            if (commit.getParentCount() >= 1)
-                updateGenealogy(commit, ".java");
-            commit = rw.next();
-        }
+
 
 
     }
 
-    public void updateGenealogy(RevCommit newRev, String suffix) throws Exception {
-        RevCommit oldRev = newRev.getParent(0);
-
-        AbstractTreeIterator oldTreeIterator = ChangeAnalyzer.prepareTreeParser(repository,
-                oldRev.getId().getName());
-        AbstractTreeIterator newTreeIterator = ChangeAnalyzer.prepareTreeParser(repository,
-                newRev.getId().getName());
-        List<DiffEntry> diff = new Git(repository).diff().setOldTree(oldTreeIterator)
-                .setNewTree(newTreeIterator)
-                .setPathFilter(PathSuffixFilter.create(suffix))
-                .call();
-
-        for (DiffEntry entry : diff) {
-            if (entry.getChangeType() == DiffEntry.ChangeType.MODIFY) {
-                ObjectLoader olold;
-                ByteArrayOutputStream bosold = new ByteArrayOutputStream();
-                String oldSource;
-
-                if (!entry.getNewId().toObjectId().equals(ObjectId.zeroId())) { // OLDが存在するか
-                    olold = repository.open(entry.getNewId().toObjectId());
-                    olold.copyTo(bosold);
-                    oldSource = bosold.toString();
-                } else {
-                    continue;
-                }
-
-                ObjectLoader olnew;
-                ByteArrayOutputStream bosnew = new ByteArrayOutputStream();
-                String newSource;
-                if (!entry.getNewId().toObjectId().equals(ObjectId.zeroId())) { // NEWが存在するか
-                    olnew = repository.open(entry.getNewId().toObjectId());
-                    olnew.copyTo(bosnew);
-                    newSource = bosnew.toString();
-                } else {
-                    continue;
-                }
-
-                if (Objects.equals(oldSource, "") || Objects.equals(newSource, "")) //ソースの修正なら解析対象とする
-                    continue;
-
-                preVector.add(GeneralUtil.getSourceVector4Java(oldSource, ".java"));
-                postVector.add(GeneralUtil.getSourceVector4Java(newSource, ".java"));
-
-            }
-        }
-
-    }
 }

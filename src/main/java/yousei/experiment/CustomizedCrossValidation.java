@@ -113,15 +113,7 @@ public class CustomizedCrossValidation {
 
         this.dist = Util.getDistanceOfChanges(instances);
 
-        List<Instances> filteredData = new ArrayList<>();
-        for (int i = 0; i < num; i++) {
-            br = new BufferedReader(new FileReader(data));
-            instances = new Instances(br);
-            instances = GeneralUtil.removeAttrWithoutI(i, instances);
-            instances.setClassIndex(num);
-            instances = GeneralUtil.useFilter(instances);
-            filteredData.add(instances);
-        }
+        List<Instances> filteredData = GeneralUtil.getFilteredData(data,num);
 
 
         for (int i = 0; i < numFolds; i++) { //交差検証

@@ -16,10 +16,7 @@ import weka.filters.unsupervised.attribute.Remove;
 import yousei.util.CppSourceAnalyzer;
 import yousei.util.JavaSourceAnalyzer;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -78,6 +75,20 @@ public class GeneralUtil {
         for (int i = 0; i < vector.size(); i++) {
             bw.write(vector.get(i).toString());
             if (i != vector.size() - 1)
+                bw.write(",");
+        }
+    }
+
+    /**
+     * write '?' as many as vector elements
+     * @param bw
+     * @param vector
+     * @throws IOException
+     */
+    public static void writeQuestions(BufferedWriter bw,List<Integer> vector)throws IOException{
+        for(int i=0;i<vector.size();i++){
+            bw.write("?");
+            if(i!=vector.size() -1)
                 bw.write(",");
         }
     }
@@ -152,5 +163,26 @@ public class GeneralUtil {
         return updown ?
                 list.contains(Math.round(actual)) :
                 Objects.equals(Math.round(predict), Math.round(actual));
+    }
+
+    public static List<Instances> getFilteredData(File arffData, int numAttribute) throws Exception {
+        BufferedReader br;
+        Instances instances;
+
+        List<Instances> res=new ArrayList<>();
+
+        for (int i = 0; i < numAttribute; i++) {
+            br = new BufferedReader(new FileReader(arffData));
+            instances = new Instances(br);
+            instances = removeAttrWithoutI(i, instances);
+            instances.setClassIndex(numAttribute);
+            instances = useFilter(instances);
+            res.add(instances);
+        }
+
+        return res;
+    }
+    public static boolean isTargetRevision(String revisionId,RevCommit commit){
+        return commit.getName().startsWith(revisionId);
     }
 }
